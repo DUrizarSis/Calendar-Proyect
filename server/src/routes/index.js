@@ -4,6 +4,7 @@ const getEvents = require("../controllers/getEvents");
 const getEvent = require("../controllers/getEvent");
 const putEvent = require("../controllers/putEvent");
 const deleteEvent = require("../controllers/deleteEvent");
+const getUsers = require("../controllers/getUsers")
 
 const router = express.Router();
 
@@ -22,6 +23,9 @@ router.put("/put-events/:id", putEvent);
 
 //Delete event
 router.delete("/delete-events/:id", deleteEvent);
+
+router.get('/users', getUsers)
+
 
 
 module.exports = router;
