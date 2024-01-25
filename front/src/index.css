@@ -1,13 +1,37 @@
-body {
+/* Reset CSS */
+
+/* Box-sizing border-box por defecto para todos los elementos */
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Establecer la fuente predeterminada y tamaño de texto para evitar variaciones */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Eliminar la lista de estilos predeterminada para listas no ordenadas y ordenadas */
+ul, ol {
+  list-style: none;
+}
+
+/* Eliminar el espaciado predeterminado para elementos de lista */
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Eliminar la decoración de texto predeterminada para enlaces */
+a {
+  text-decoration: none;
+}
+
+/* Asegurarse de que las imágenes se comporten de manera predeterminada */
+img {
+  max-width: 100%;
+  height: auto;
 }

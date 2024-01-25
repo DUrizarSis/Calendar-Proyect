@@ -1,13 +1,20 @@
-import logo from './logo.svg';
+import { Calendar, dayjsLocalizer } from 'react-big-calendar';
+import "react-big-calendar/lib/css/react-big-calendar.css"
+import dayjs from 'dayjs';
 import './App.css';
 
 function App() {
+
+  const localizer = dayjsLocalizer(dayjs)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Prueba recarga de PR big calendar Diego :0 </p>
-      </header>
+        <h1>Calendar</h1>
+
+        <Calendar
+        localizer={localizer}
+        />
+
     </div>
   );
 }
