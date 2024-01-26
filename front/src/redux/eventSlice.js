@@ -62,27 +62,27 @@ const initialState = {
 const eventSlice = createSlice({
   name: 'events',
   initialState,
-  reducers,
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getEvents.fulfilled, (state, action) => {
       state.events = action.payload
-    }),
+    });
     builder.addCase(getEvent.fulfilled, (state, action) => {
         state.onEvent = action.payload
-    }),
+    });
     builder.addCase(addEvent.fulfilled, (state, action) => {
         state.events = [...state.events, action.payload];
-    }),
+    });
     builder.addCase(updateEvent.fulfilled, (state, action) => {
         const index = state.events.findIndex((event) => event.id === action.payload.id);
     
         if (index !== -1) {
             state.events[index] = action.payload;
         }
-    }),
+    });
     builder.addCase(deleteEvent.fulfilled, (state, action) => {
         state.events = state.events.filter(event => event.id != action.payload.id)
-    })
+    });
   },
 })
 
