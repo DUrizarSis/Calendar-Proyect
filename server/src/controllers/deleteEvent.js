@@ -5,11 +5,18 @@ module.exports = async(req, res) => {
     try {
         const { id } = req.params;
 
-        const event = await Event.deleteOne({_id: id})
+        const event = await Event.findById(id)
+        if(!event){
+            res.status(404).json({ message: "Event not found"})
+            return;
+        }
 
-        res.status(200).json(event)
+        await Event.deletedOne({ _id: id })
+        res.status(200).json({ message: "Event deleted successfully"})
+
     } catch (error) {
-        res.status(500).json({message: error})
+        console.error(error)
+        res.status(500).json({message: "Internal Server Error"})
     }
 
 }
