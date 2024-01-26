@@ -24,6 +24,7 @@ router.put("/put-events/:id", putEvent);
 //Delete event
 router.delete("/delete-events/:id", deleteEvent);
 
+//get users
 router.get('/users', getUsers)
 
 

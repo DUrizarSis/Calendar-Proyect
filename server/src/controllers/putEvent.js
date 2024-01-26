@@ -8,9 +8,10 @@ module.exports = async(req, res) => {
 
         const event = await Event.updateOne({ _id: id}, {$set: {title, start, end}})
         
-        res.status(200).json(event);
+        res.status(200).json({ message: "Event updated successfully"});
+        
     } catch (error) {
-        res.status(500).json({message: error})
+        res.status(500).json({message: "Internal server Error"})
     }
 
 }
