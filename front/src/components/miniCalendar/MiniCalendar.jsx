@@ -9,7 +9,7 @@ function MiniCalendar() {
 
   return (
     <div className={Styles.container}>
-      <h1>My Calendar</h1>
+      <h1>MiniCalendar</h1>
       <Calendar
       localizer={localizer}
       />
