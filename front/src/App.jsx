@@ -23,8 +23,8 @@ function App() {
     <div className="App">
 
         <MyCalendar/>
-        <MiniCalendar/>
-        <DayCalendar/>
+        {/* <MiniCalendar/>
+        <DayCalendar/> */}
 
     </div>
   );
