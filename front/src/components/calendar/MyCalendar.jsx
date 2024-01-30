@@ -18,8 +18,6 @@ function MyCalendar() {
   //UserEvents state
   const onEvent = eventState.onEvent;
 
-
-
   //Bring the events
   useEffect(()=> {
     dispatch(getEvents());
@@ -30,6 +28,7 @@ function MyCalendar() {
     dispatch(getEvent(selectedEvent._id));
   };
 
+  
   return (
     <div className={Styles.container}>
       <h1>My Calendar</h1>
@@ -37,6 +36,7 @@ function MyCalendar() {
       localizer={localizer}
       events = {events}
       onSelectEvent = {handleSelectEvent}
+      views={['month']}
       />
 
     </div>
