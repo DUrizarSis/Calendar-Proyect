@@ -37,6 +37,8 @@ function MyCalendar() {
       localizer={localizer}
       events = {events}
       onSelectEvent = {handleSelectEvent}
+      startAccessor={(event) => dayjs(event.start).toDate()}
+      endAccessor={(event) => dayjs(event.end).toDate()}
       />
 
     </div>

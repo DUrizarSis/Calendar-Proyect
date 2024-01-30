@@ -10,11 +10,11 @@ const eventSchema = mongoose.Schema({
         type: String,
     },
     start: {
-        type: String,
+        type: Date,
         require: true
     },
     end: {
-        type: String,
+        type: Date,
         require: true
     },
     user: {
