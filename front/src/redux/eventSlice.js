@@ -35,16 +35,18 @@ export const addEvent = createAsyncThunk(
 // Update Event
 export const updateEvent = createAsyncThunk(
     'events/updateOneEvent',
-    async (id, updateEvent) => {
-        const response = await axios.put(`${URL}put-events/${id}`, updateEvent)
-        return response.data
+    async ({ id, updateEvent }) => {
+      const response = await axios.put(`${URL}put-events/${id}`, updateEvent);
+      return response.data;
     }
-)
+);
+
+
 
 // Delete Event
 export const deleteEvent = createAsyncThunk(
     'events/deleteOneEvent',
-    async (id) => {
+    async ({id}) => {
         const response = await axios.delete(`${URL}delete-events/${id}`)
         return response.data
     }
