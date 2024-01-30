@@ -11,7 +11,6 @@ const DayCalendar = () => {
     //Events state
       const events = eventState.events;
 
-    console.log(events)
     return (
         <div className={Styles.container}>
             <h1>Day calendar</h1>
@@ -20,6 +19,8 @@ const DayCalendar = () => {
                 views={['day']}
                 defaultView={'day'}
                 events={events}
+                startAccessor={(event) => dayjs(event.start).toDate()}
+                endAccessor={(event) => dayjs(event.end).toDate()}
             />
         </div>
     )

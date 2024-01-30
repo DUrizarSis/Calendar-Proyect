@@ -11,7 +11,7 @@ function MiniCalendar() {
   const events = eventState.events;
   return (
     <div className={Styles.container}>
-      <h1>My Calendar</h1>
+      <h1>Mini Calendar</h1>
       <Calendar
       localizer={localizer}
       events={events}
