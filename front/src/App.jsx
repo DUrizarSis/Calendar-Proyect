@@ -1,6 +1,7 @@
 
 import MyCalendar from './components/calendar/MyCalendar';
 import MiniCalendar from './components/miniCalendar/MiniCalendar';
+import DayCalendar from './components/dayCalendar/DayCalendar';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -23,6 +24,7 @@ function App() {
 
         <MyCalendar/>
         <MiniCalendar/>
+        <DayCalendar/>
 
     </div>
   );
