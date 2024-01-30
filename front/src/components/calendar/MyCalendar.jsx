@@ -7,7 +7,10 @@ import { useEffect, useState } from "react";
 import { getEvent, getEvents } from "../../redux/eventSlice";
 import EventForm from "../eventForm/EventForm";
 
-function MyCalendar() {
+
+
+function MyCalendar({ initialDate}) {
+  
   const dispatch = useDispatch();
   const localizer = dayjsLocalizer(dayjs);
 
@@ -44,8 +47,9 @@ function MyCalendar() {
   };
 
   return (
-    <div className={Styles.container}>
-      <h1>My Calendar</h1>
+    
+    <div className="max-w-3xl mx-auto p-4 bg-white rounded shadow">
+    <h1 className="text-xl font-bold mb-4">My Calendar</h1>
       <Calendar
         localizer={localizer}
         events={events}
