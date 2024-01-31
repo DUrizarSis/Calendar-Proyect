@@ -28,7 +28,7 @@ export const addEvent = createAsyncThunk(
     'events/addOneEvent',
     async (newEvent) => {
         const response = await axios.post(`${URL}create-event/`, newEvent)
-        return response.data
+        return response.data.event
     }
 )
 
@@ -37,7 +37,7 @@ export const updateEvent = createAsyncThunk(
     'events/updateOneEvent',
     async ({ id, updateEvent }) => {
       const response = await axios.put(`${URL}put-events/${id}`, updateEvent);
-      return response.data;
+      return response.data.event;
     }
 );
 
@@ -48,7 +48,7 @@ export const deleteEvent = createAsyncThunk(
     'events/deleteOneEvent',
     async ({id}) => {
         const response = await axios.delete(`${URL}delete-events/${id}`)
-        return response.data
+        return response.data.event
     }
 )
 
@@ -76,14 +76,14 @@ const eventSlice = createSlice({
         state.events = [...state.events, action.payload];
     });
     builder.addCase(updateEvent.fulfilled, (state, action) => {
-        const index = state.events.findIndex((event) => event.id === action.payload.id);
+        const index = state.events.findIndex((event) => event._id === action.payload._id);
     
         if (index !== -1) {
             state.events[index] = action.payload;
         }
     });
     builder.addCase(deleteEvent.fulfilled, (state, action) => {
-        state.events = state.events.filter(event => event.id != action.payload.id)
+        state.events = state.events.filter(event => event._id != action.payload._id)
     });
   },
 })
