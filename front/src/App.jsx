@@ -22,9 +22,9 @@ function App() {
   return (
     <div className="App">
 
-        <MyCalendar/>
-        {/* <MiniCalendar/>
-        <DayCalendar/> */}
+        {/* <MyCalendar/> */}
+        <MiniCalendar/>
+        <DayCalendar/>
 
     </div>
   );
