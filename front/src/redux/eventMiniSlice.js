@@ -12,9 +12,11 @@ export const eventMiniSlice = createSlice({
         addEventMini:(state, action) => {
             state.date = action.payload;
         },
-
+        addViewMini:(state, action) => {
+            state.viewDay = action.payload;
+        }
     }
 });
 
-export const { addEventMini } = eventMiniSlice.actions;
+export const { addEventMini, addViewMini } = eventMiniSlice.actions;
 export default eventMiniSlice.reducer;
