@@ -44,6 +44,8 @@ const EventForm = ({ mode, event, onCancel }) => {
     }
   };
 
+
+
   return (
     <form onSubmit={handleSubmit}>
       <label>Title:</label>
@@ -59,7 +61,12 @@ const EventForm = ({ mode, event, onCancel }) => {
       <input type="datetime-local" name="end" value={formData.end.toISOString().slice(0, 16)} onChange={handleInputChange} required />
 
       <label>Color:</label>
-      <input type="color" name="color" value={formData.color} onChange={handleInputChange} />
+      <select name="color" value={formData.color} onChange={handleInputChange}>
+        <option value="#0000FF">Blue</option>
+        <option value="#008000">Green</option>
+        <option value="#FF0000">Red</option>
+        <option value="#FFFF00">Yellow</option>
+      </select>
 
       <button type="submit">{mode === 'add' ? 'Add Event' : 'Update Event'}</button>
       {mode === 'edit' && event &&(
