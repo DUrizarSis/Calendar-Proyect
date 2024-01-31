@@ -9,7 +9,7 @@ import EventForm from "../eventForm/EventForm";
 
 
 
-function MyCalendar({ initialDate}) {
+function MyCalendar() {
   
   const dispatch = useDispatch();
   const localizer = dayjsLocalizer(dayjs);
@@ -46,12 +46,25 @@ function MyCalendar({ initialDate}) {
     setShowForm(false);
   };
 
+  const eventStyleGetter =  (event) => {
+    let newStyle = {
+      backgroundColor: event.color,
+      opacity: 0.9,
+      color: "black",
+    };
+
+    return {
+      style: newStyle
+    };
+  }
+  
+  
   return (
     
+    <div className="flex justify-center items-center h-screen">
     <div className="max-w-7xl mx-auto p-5 bg-white rounded shadow">
-      <div style={{ padding: '20px' }}>
+      <div style={{ padding: '1rem 2rem' }}>
     <h1 className="text-3xl font-bold mb-4">My Calendar</h1>
-    <div className="w-full h-screen lg:h-full flex justify-center items-center h-screen">
       <Calendar
         localizer={localizer}
         events={events}
@@ -61,16 +74,7 @@ function MyCalendar({ initialDate}) {
         endAccessor={(event) => dayjs(event.end).toDate()}
         onSelectSlot={handleShowForm}
         style={{ width: "90%", height: "80vh", fontSize: "1.2rem" }}
-          components={{
-    month: {
-      header: ({ label, view }) => (
-        <div className="text-center">
-        <span className="text-5xl font-semibold">{label}</span>
-        <span className="text-2xl font-semibold"> {view}</span>
-        </div>
-      ),
-    },
-  }}
+        eventPropGetter={eventStyleGetter}
       />
       </div>
       </div>
