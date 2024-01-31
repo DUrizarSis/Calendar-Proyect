@@ -1,4 +1,5 @@
 /* Reset CSS */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,100;1,400&display=swap');
 
 /* Box-sizing border-box por defecto para todos los elementos */
 * {
@@ -9,7 +10,7 @@
 
 /* Establecer la fuente predeterminada y tamaño de texto para evitar variaciones */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 16px;
   line-height: 1.6;
 }

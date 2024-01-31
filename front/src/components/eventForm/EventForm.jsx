@@ -15,6 +15,7 @@ const EventForm = ({ mode, event, onCancel }) => {
     description: event ? event.description : '',
     start: event ? new Date(event.start) : new Date(),
     end: event ? new Date(event.end) : new Date(),
+    color: event ? event.color : '#000000'
   });
 
   const handleInputChange = (e) => {
@@ -56,6 +57,9 @@ const EventForm = ({ mode, event, onCancel }) => {
 
       <label>End:</label>
       <input type="datetime-local" name="end" value={formData.end.toISOString().slice(0, 16)} onChange={handleInputChange} required />
+
+      <label>Color:</label>
+      <input type="color" name="color" value={formData.color} onChange={handleInputChange} />
 
       <button type="submit">{mode === 'add' ? 'Add Event' : 'Update Event'}</button>
       {mode === 'edit' && event &&(
