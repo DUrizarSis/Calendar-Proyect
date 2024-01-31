@@ -3,8 +3,10 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import dayjs from "dayjs";
 import Styles from "./dayCalendar.module.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { addEventMini } from "../../redux/eventMiniSlice";
+import EventForm from "../eventForm/EventForm";
+import { getEvent } from "../../redux/eventSlice";
 
 
 const DayCalendar = () => {
@@ -12,6 +14,10 @@ const DayCalendar = () => {
     const dateMini= useSelector(state=> state.eventMini.date)
     const dispatch = useDispatch();
     const localizer = dayjsLocalizer(dayjs);
+    const [showForm, setShowForm] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [mode, setMode] = useState('');
+
       //Event state global
     const eventState = useSelector(state => state.events);
     //Events state
@@ -44,20 +50,54 @@ const DayCalendar = () => {
     };
   }, [dispatch]); // Asegúrate de incluir dispatch como dependencia para evitar advertencias de ESLint
 
+  const handleShowForm = (event) => {
+    console.log('Handle Show Form - Event:', event);
+    setSelectedEvent(event);
+    setMode('add');
+    setShowForm(true);
+  };
+
+  const handleSelectEvent = (selectedEvent) => {
+    console.log('Selected Event:', selectedEvent);
+    dispatch(getEvent(selectedEvent._id));
+    setSelectedEvent(selectedEvent);
+    setMode('edit');
+    setShowForm(true);
+  };
+
+  const handleCloseForm = () => {
+    console.log('Handle Close Form');
+    setSelectedEvent(null);
+    setShowForm(false);
+  };
+
     return (
-        <div className={Styles.container}>
+
+      <div className={Styles.container}>
             <h1>Day calendar</h1>
             <Calendar
                 localizer={localizer}
                 views={['day']}
                 defaultView={'day'}
                 events={events}
+                selectable
+                onSelectEvent={handleSelectEvent}
+                onSelectSlot={handleShowForm}
                 startAccessor={(event) => dayjs(event.start).toDate()}
                 endAccessor={(event) => dayjs(event.end).toDate()}
                 date={dateMini}
                 onNavigate={handleNavigate}
             />
-        </div>
+
+            {showForm && (
+              <EventForm
+              mode={mode}
+              event={selectedEvent}
+              onCancel={handleCloseForm}
+              />
+              )}
+
+          </div>
     )
 }
 

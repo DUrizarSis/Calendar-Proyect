@@ -14,8 +14,6 @@ function App() {
   const dispatch = useDispatch();
   const usersState = useSelector(state => state.usersEvents);
   const changeView = useSelector(state => state.eventMini.viewDay);
-
-  console.log(changeView)
   
   // const users = usersState.users;
   
