@@ -9,7 +9,7 @@ import EventForm from "../eventForm/EventForm";
 import { getEvent } from "../../redux/eventSlice";
 
 
-const DayCalendar = () => {
+const DayCalendar = ({eventStyleGetter}) => {
 
     const dateMini= useSelector(state=> state.eventMini.date)
     const dispatch = useDispatch();
@@ -87,6 +87,7 @@ const DayCalendar = () => {
                 endAccessor={(event) => dayjs(event.end).toDate()}
                 date={dateMini}
                 onNavigate={handleNavigate}
+                eventPropGetter={eventStyleGetter}
             />
 
             {showForm && (

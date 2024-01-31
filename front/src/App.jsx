@@ -21,6 +21,18 @@ function App() {
     dispatch(addViewMini(data))
   }
 
+  const eventStyleGetter =  (event) => {
+    let newStyle = {
+      backgroundColor: event.color,
+      opacity: 0.9,
+      color: "black",
+    };
+
+    return {
+      style: newStyle
+    };
+  }
+
   useEffect(() => {
     dispatch(getUsers());
   }, []);
@@ -30,13 +42,13 @@ function App() {
 
       {changeView ?  <div>
                         <button onClick={()=>handleViewCalendar(false)}>vista DayCalendar</button>
-                        <MyCalendar/>
+                        <MyCalendar eventStyleGetter={eventStyleGetter}/>
                       </div>
                       :
                       <div>
                         <button onClick={()=>handleViewCalendar(true)}>vista Calendar Princial</button>
-                        <MiniCalendar/>
-                        <DayCalendar/>
+                        <MiniCalendar eventStyleGetter={eventStyleGetter}/>
+                        <DayCalendar eventStyleGetter={eventStyleGetter}/>
                       </div>
       }
 
