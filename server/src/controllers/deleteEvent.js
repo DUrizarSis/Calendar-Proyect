@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     const deletedEvent = await Event.findByIdAndDelete(id);
 
     if (deletedEvent) {
-      res.status(200).json({ message: "Event deleted successfully" });
+      res.status(200).json({ message: "Event deleted successfully", event: deletedEvent });
     } else {
       res.status(500).json({ message: "Error deleting event" });
     }
