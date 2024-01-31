@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addEventMini } from "../../redux/eventMiniSlice";
 
 
-function MiniCalendar() {
+function MiniCalendar({eventStyleGetter}) {
   const dispatch = useDispatch()
   const localizer = dayjsLocalizer(dayjs);
   const eventState = useSelector(state => state.events);
@@ -36,6 +36,7 @@ function MiniCalendar() {
       selectable
       onSelectSlot={handleSelectSlot}
       onSelectEvent={handleSelectEvent}
+      eventPropGetter={eventStyleGetter}
       />
 
     </div>

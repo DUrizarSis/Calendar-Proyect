@@ -9,7 +9,7 @@ import EventForm from "../eventForm/EventForm";
 
 
 
-function MyCalendar() {
+function MyCalendar({eventStyleGetter}) {
   
   const dispatch = useDispatch();
   const localizer = dayjsLocalizer(dayjs);
@@ -46,17 +46,7 @@ function MyCalendar() {
     setShowForm(false);
   };
 
-  const eventStyleGetter =  (event) => {
-    let newStyle = {
-      backgroundColor: event.color,
-      opacity: 0.9,
-      color: "black",
-    };
 
-    return {
-      style: newStyle
-    };
-  }
   
   
   return (
