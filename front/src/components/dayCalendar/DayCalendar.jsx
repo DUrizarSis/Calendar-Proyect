@@ -1,7 +1,7 @@
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import dayjs from "dayjs";
-import Styles from "./dayCalendar.module.css";
+//import Styles from "./dayCalendar.module.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect,useState } from "react";
 import { addEventMini } from "../../redux/eventMiniSlice";
@@ -73,7 +73,7 @@ const DayCalendar = ({eventStyleGetter}) => {
 
     return (
 
-      <div className={Styles.container}>
+      <div>
             <h1>Day calendar</h1>
             <Calendar
                 localizer={localizer}
@@ -88,6 +88,7 @@ const DayCalendar = ({eventStyleGetter}) => {
                 date={dateMini}
                 onNavigate={handleNavigate}
                 eventPropGetter={eventStyleGetter}
+                style={{ width: '95vh', height: '95vh' }}
             />
 
             {showForm && (

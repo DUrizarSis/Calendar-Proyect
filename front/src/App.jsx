@@ -14,23 +14,13 @@ function App() {
   const dispatch = useDispatch();
   const usersState = useSelector(state => state.usersEvents);
   const changeView = useSelector(state => state.eventMini.viewDay);
+
+  console.log(changeView)
   
   // const users = usersState.users;
   
   const handleViewCalendar = ( data ) =>{
     dispatch(addViewMini(data))
-  }
-
-  const eventStyleGetter =  (event) => {
-    let newStyle = {
-      backgroundColor: event.color,
-      opacity: 0.9,
-      color: "black",
-    };
-
-    return {
-      style: newStyle
-    };
   }
 
   useEffect(() => {
@@ -42,13 +32,13 @@ function App() {
 
       {changeView ?  <div>
                         <button onClick={()=>handleViewCalendar(false)}>vista DayCalendar</button>
-                        <MyCalendar eventStyleGetter={eventStyleGetter}/>
+                        <MyCalendar/>
                       </div>
                       :
                       <div>
                         <button onClick={()=>handleViewCalendar(true)}>vista Calendar Princial</button>
-                        <MiniCalendar eventStyleGetter={eventStyleGetter}/>
-                        <DayCalendar eventStyleGetter={eventStyleGetter}/>
+                        <MiniCalendar/>
+                        <DayCalendar/>
                       </div>
       }
 
