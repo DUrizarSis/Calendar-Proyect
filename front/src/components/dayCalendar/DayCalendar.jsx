@@ -6,17 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect,useState } from "react";
 import { addEventMini } from "../../redux/eventMiniSlice";
 import EventForm from "../eventForm/EventForm";
+import { addShowForm } from "../../redux/showFormSlice";
 import { getEvent } from "../../redux/eventSlice";
 
 
-const DayCalendar = ({eventStyleGetter}) => {
+const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handleCloseForm}) => {
 
     const dateMini= useSelector(state=> state.eventMini.date)
     const dispatch = useDispatch();
     const localizer = dayjsLocalizer(dayjs);
-    const [showForm, setShowForm] = useState(false);
-    const [selectedEvent, setSelectedEvent] = useState(null);
-    const [mode, setMode] = useState('');
+    const { showForm, selectedEvent, mode } = useSelector(state => state.showForm);
 
       //Event state global
     const eventState = useSelector(state => state.events);
@@ -33,6 +32,10 @@ const DayCalendar = ({eventStyleGetter}) => {
     // Actualiza dateMini en el estado global
     dispatch(addEventMini(formattedDate));
   };
+  // cierra el formuario cuando crea el componente
+  useEffect(()=>{
+    dispatch(addShowForm(false))
+  },[])
 
   useEffect(() => {
     // Configura el evento onNavigate para que llame a handleNavigate
@@ -49,27 +52,6 @@ const DayCalendar = ({eventStyleGetter}) => {
       }
     };
   }, [dispatch]); // Asegúrate de incluir dispatch como dependencia para evitar advertencias de ESLint
-
-  const handleShowForm = (event) => {
-    console.log('Handle Show Form - Event:', event);
-    setSelectedEvent(event);
-    setMode('add');
-    setShowForm(true);
-  };
-
-  const handleSelectEvent = (selectedEvent) => {
-    console.log('Selected Event:', selectedEvent);
-    dispatch(getEvent(selectedEvent._id));
-    setSelectedEvent(selectedEvent);
-    setMode('edit');
-    setShowForm(true);
-  };
-
-  const handleCloseForm = () => {
-    console.log('Handle Close Form');
-    setSelectedEvent(null);
-    setShowForm(false);
-  };
 
     return (
 
