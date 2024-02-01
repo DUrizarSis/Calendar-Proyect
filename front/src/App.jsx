@@ -16,25 +16,11 @@ function App() {
   const usersState = useSelector(state => state.usersEvents);
   const { showForm, selectedEvent, mode } = useSelector(state => state.showForm);
   const changeView = useSelector(state => state.eventMini.viewDay);
-  // const [showForm, setShowForm] = useState(false);
-  // const [selectedEvent, setSelectedEvent] = useState(null);
-  // const [mode, setMode] = useState('');
+
   // const users = usersState.users;
   
   const handleViewCalendar = ( data ) =>{
     dispatch(addViewMini(data))
-  }
-
-  const eventStyleGetter =  (event) => {
-    let newStyle = {
-      backgroundColor: event.color,
-      opacity: 0.9,
-      color: "black",
-    };
-
-    return {
-      style: newStyle
-    };
   }
 
   useEffect(() => {
@@ -66,16 +52,12 @@ function App() {
     <div className="App">
 
       {changeView ?  <div>
-                        <button onClick={()=>handleViewCalendar(false)}>vista DayCalendar</button>
-                        <MyCalendar eventStyleGetter={eventStyleGetter} handleSelectEvent={handleSelectEvent}
-                        handleShowForm={handleShowForm} handleCloseForm={handleCloseForm}/>
+                        <button onClick={()=>handleViewCalendar(false)}>vista DayCalendar</button
                       </div>
                       :
                       <div>
                         <button onClick={()=>handleViewCalendar(true)}>vista Calendar Princial</button>
-                        <MiniCalendar eventStyleGetter={eventStyleGetter} handleCloseForm={handleCloseForm}/>
-                        <DayCalendar eventStyleGetter={eventStyleGetter} handleSelectEvent={handleSelectEvent}
-                        handleShowForm={handleShowForm} handleCloseForm={handleCloseForm}/>
+
                       </div>
       }
 

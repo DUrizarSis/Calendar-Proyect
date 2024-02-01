@@ -27,7 +27,7 @@ function MiniCalendar({eventStyleGetter}) {
   return (
 
     
-    <div className={Styles.container}>
+    <div >
 
       <Calendar
       localizer={localizer}
@@ -37,6 +37,7 @@ function MiniCalendar({eventStyleGetter}) {
       onSelectSlot={handleSelectSlot}
       onSelectEvent={handleSelectEvent}
       eventPropGetter={eventStyleGetter}
+      style={{ width: '20em', height: '20em' }}
       />
 
     </div>
