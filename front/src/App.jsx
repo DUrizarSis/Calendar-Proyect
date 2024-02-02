@@ -69,24 +69,34 @@ function App() {
   };
 
   return (
-    <div className="App">
-  
-      { changeView ?  <div>
-                        <button onClick={()=>handleViewCalendar(false)}>vista DayCalendar</button>
-                        <MyCalendar eventStyleGetter={eventStyleGetter} handleSelectEvent={handleSelectEvent}
-                        handleShowForm={handleShowForm} handleCloseForm={handleCloseForm} />
-                       </div>
-                      :
-                      <div>
-                        <button onClick={()=>handleViewCalendar(true)}>vista Calendar Princial</button>
-                        <MiniCalendar eventStyleGetter={eventStyleGetter} handleCloseForm={handleCloseForm}/>
-                        <DayCalendar eventStyleGetter={eventStyleGetter} handleSelectEvent={handleSelectEvent}
-                        handleShowForm={handleShowForm} handleCloseForm={handleCloseForm}/>
-
-                      </div>
-      }
-
-
+    <div className="app">
+      {changeView ? (
+        <div className='calendarContainer'>
+          <button onClick={() => handleViewCalendar(false)}>vista DayCalendar</button>
+          <MyCalendar
+            eventStyleGetter={eventStyleGetter}
+            handleSelectEvent={handleSelectEvent}
+            handleShowForm={handleShowForm}
+            handleCloseForm={handleCloseForm}
+          />
+        </div>
+      ) : (
+        <div className='calendarContainer'>
+          <button onClick={() => handleViewCalendar(true)}>vista Calendar Princial</button>
+          <div className='miniDayContainer'>
+            <MiniCalendar
+              eventStyleGetter={eventStyleGetter}
+              handleCloseForm={handleCloseForm}
+            />
+            <DayCalendar
+              eventStyleGetter={eventStyleGetter}
+              handleSelectEvent={handleSelectEvent}
+              handleShowForm={handleShowForm}
+              handleCloseForm={handleCloseForm}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
