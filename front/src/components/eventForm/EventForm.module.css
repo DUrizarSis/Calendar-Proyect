@@ -71,3 +71,29 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+    .containerConfirmDelete{
+        width: 35em;
+        height: 7em;
+        position: absolute;
+        top: 40%;
+        left: -3em;
+        z-index: 999; /* Ajusta el valor de z-index según sea necesario para que esté por encima de otros elementos */
+        /* Otros estilos */
+        border-radius: 10px;
+        background-color: #fff;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        justify-items: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        
+    }
+
+    .containerConfirmDelete p {
+        font-weight: bold;
+    }
+    .btmYesandNo{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap:3em;
+    }
