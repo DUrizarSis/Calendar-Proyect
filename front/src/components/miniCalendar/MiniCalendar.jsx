@@ -4,6 +4,8 @@ import dayjs from "dayjs";
 import Styles from "./miniCalendar.module.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { addEventMini } from "../../redux/eventMiniSlice";
+import { AddMode, addSelectedEvent, addShowForm } from "../../redux/showFormSlice";
+import { getEvent } from "../../redux/eventSlice";
 
 
 function MiniCalendar({eventStyleGetter}) {
@@ -17,11 +19,14 @@ function MiniCalendar({eventStyleGetter}) {
     dispatch(addEventMini(formattedDate));
 
   };
-  
+
   const handleSelectEvent = (event, e) => {
     const formattedDate = event.start;
     dispatch(addEventMini(formattedDate));
-
+    dispatch(getEvent(event._id)); 
+    dispatch(addSelectedEvent(event));
+    dispatch(AddMode('edit'));
+    dispatch(addShowForm(true));
   };
 
   return (
