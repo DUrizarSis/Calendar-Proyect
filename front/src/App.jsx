@@ -16,7 +16,6 @@ function App() {
   const usersState = useSelector(state => state.usersEvents);
   const { showForm, selectedEvent, mode } = useSelector(state => state.showForm);
   const changeView = useSelector(state => state.eventMini.viewDay);
-
   // const users = usersState.users;
   
   const handleViewCalendar = ( data ) =>{
@@ -61,7 +60,7 @@ function App() {
 
   return (
     <div className="App">
-
+  
       { changeView ?  <div>
                         <button onClick={()=>handleViewCalendar(false)}>vista DayCalendar</button>
                         <MyCalendar eventStyleGetter={eventStyleGetter} handleSelectEvent={handleSelectEvent}
