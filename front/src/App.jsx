@@ -47,8 +47,18 @@ function App() {
   };
 
   const handleShowForm = (event) => {
-    console.log('Handle Show Form - Event:', event);
-    dispatch(addSelectedEvent(event));
+    const startISO = new Date(event.start).toISOString();
+    const endISO = new Date(event.end).toISOString();
+    const slotsISO = event.slots.map(slot => new Date(slot).toISOString());
+  
+    const eventData = {
+      ...event,
+      start: startISO,
+      end: endISO,
+      slots: slotsISO,
+    };
+  
+    dispatch(addSelectedEvent(eventData));
     dispatch(AddMode('add'));
     dispatch(addShowForm(true));
   };
