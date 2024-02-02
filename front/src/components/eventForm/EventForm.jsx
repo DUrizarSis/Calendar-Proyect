@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEvent, updateEvent, deleteEvent, getEvents } from '../../redux/eventSlice';
-import styles from './eventForm.module.css';
+import styles from './EventForm.module.css';
 
 const EventForm = ({ mode, event, onCancel }) => {
 
