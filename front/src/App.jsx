@@ -32,7 +32,7 @@ function App() {
       style: newStyle
     }
   }
-
+  
   useEffect(() => {
     dispatch(getUsers());
     dispatch(addViewMini(true))
@@ -71,9 +71,9 @@ function App() {
 
   return (
     <div className="app">
-      {changeView ? (
-        <div className='calendarContainer'>
-          <button onClick={() => handleViewCalendar(false)}>vista DayCalendar</button>
+      {/* {changeView ? ( */}
+        {/* <div className='calendarContainer'> */}
+          {/* <button onClick={() => handleViewCalendar(false)}>vista DayCalendar</button>
           <MyCalendar
             eventStyleGetter={eventStyleGetter}
             handleSelectEvent={handleSelectEvent}
@@ -81,9 +81,9 @@ function App() {
             handleCloseForm={handleCloseForm}
           />
         </div>
-      ) : (
+      ) : ( */}
         <div className='calendarContainer'>
-          <button onClick={() => handleViewCalendar(true)}>vista Calendar Princial</button>
+          {/* <button onClick={() => handleViewCalendar(true)}>vista Calendar Princial</button> */}
           <div className='miniDayContainer'>
             <MiniCalendar
               eventStyleGetter={eventStyleGetter}
@@ -97,7 +97,8 @@ function App() {
             />
           </div>
         </div>
-      )}
+      {/* ) */}
+      {/* } */}
     </div>
   );
 }

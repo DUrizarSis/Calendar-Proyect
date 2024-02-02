@@ -7,7 +7,7 @@ import { useEffect,useState } from "react";
 import { addEventMini } from "../../redux/eventMiniSlice";
 import EventForm from "../eventForm/EventForm";
 import { addShowForm } from "../../redux/showFormSlice";
-import { getEvent } from "../../redux/eventSlice";
+import { getEvents } from "../../redux/eventSlice";
 
 
 const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handleCloseForm}) => {
@@ -53,13 +53,18 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
     };
   }, [dispatch]); // Asegúrate de incluir dispatch como dependencia para evitar advertencias de ESLint
 
+  
+  useEffect(() => {
+    dispatch(getEvents());
+  }, [dispatch]);
+
     return (
 
       <div>
             <h1>Day calendar</h1>
             <Calendar
                 localizer={localizer}
-                defaultView={'day'}
+                defaultView={'month'}
                 events={events}
                 selectable
                 onSelectEvent={handleSelectEvent}
