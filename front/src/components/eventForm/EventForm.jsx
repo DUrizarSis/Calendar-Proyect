@@ -103,7 +103,7 @@ const EventForm = ({ mode, event, onCancel }) => {
                 />
 
             <label>Color:</label>
-            <select name="color" value={formData.color} onChange={handleInputChange}>
+            <select name="color" value={formData.color}  onChange={(e) => handleInputChange('color', e.target.value)}>
               <option value="#0000FF">Blue</option>
               <option value="#008000">Green</option>
               <option value="#FF0000">Red</option>
