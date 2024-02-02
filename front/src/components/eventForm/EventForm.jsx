@@ -65,19 +65,25 @@ const EventForm = ({ mode, event, onCancel }) => {
             <img src={iconCancel} alt="close" onClick={onCancel} title='Close'/>  
           </div>
 
-          <div className={styles.formImput}>
+          <div className={styles.formInput}>
 
             <label>Title:</label>
-            <input type="text" name="title" value={formData.title} onChange={handleInputChange} required />
+            <input type="text" name="title" value={formData.title} 
+            onChange={handleInputChange} required />
 
             <label>Description:</label>
-            <textarea name="description" value={formData.description} onChange={handleInputChange} />
+            <textarea name="description" value={formData.description}
+             onChange={handleInputChange} />
 
             <label>Start:</label>
-            <input type="datetime-local" name="start" value={formData.start.toISOString().slice(0, 16)} onChange={handleInputChange} required />
+            <input type="datetime-local" name="start" 
+            value={formData.start.toISOString().slice(0, 16)} onChange={handleInputChange} 
+            required />
 
             <label>End:</label>
-            <input type="datetime-local" name="end" value={formData.end.toISOString().slice(0, 16)} onChange={handleInputChange} required />
+            <input type="datetime-local" name="end" 
+            value={formData.end.toISOString().slice(0, 16)} onChange={handleInputChange} 
+            required />
 
             <label>Color:</label>
             <select name="color" value={formData.color} onChange={handleInputChange}>
