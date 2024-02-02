@@ -37,7 +37,7 @@ function MiniCalendar({eventStyleGetter}) {
       onSelectSlot={handleSelectSlot}
       onSelectEvent={handleSelectEvent}
       eventPropGetter={eventStyleGetter}
-      style={{ width: '20em', height: '20em' }}
+      style={{ width: '25em', height: '25em' }}
       />
 
     </div>

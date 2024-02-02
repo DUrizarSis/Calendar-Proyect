@@ -1,9 +1,4 @@
-/* .App{
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    display: flex;
-} */
+
 button{
     
     background-color: white;
@@ -25,14 +20,16 @@ button:hover {
 .app {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    padding: 2rem;
   }
   
   .calendarContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
-    padding: 2rem;
+    gap: 2rem;
+    padding: 1rem;
   }
   
   .miniDayContainer {
