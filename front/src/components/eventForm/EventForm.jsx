@@ -79,77 +79,81 @@ const EventForm = ({ mode, event, onCancel }) => {
       <div className={styles.container}>
 
         <form ref={formRef} onSubmit={handleSubmit}>
-          <div className={styles.iconClose}>
-            <img src={iconCancel} alt="close" onClick={onCancel} title='Close'/>  
-          </div>
 
-          <div className={styles.formInput}>
+              <div className={styles.iconClose}>
+                <img src={iconCancel} alt="close" onClick={onCancel} title='Close'/>  
+              </div>
 
-            <label>Title:</label>
-            <input type="text" name="title" value={formData.title} 
-            onChange={(e) => handleInputChange('title', e.target.value)} required />
+              <div className={styles.formInput}>
 
-            <label>Description:</label>
-            <textarea name="description" value={formData.description}
-             onChange={(e) => handleInputChange('description', e.target.value)} />
-              
-                <label>Start:</label>
+                  <label>Title:</label>
+                  <input type="text" name="title" value={formData.title} 
+                  onChange={(e) => handleInputChange('title', e.target.value)} required />
 
-                <DatePicker
-                selected={formData.start}
-                onChange={(value) => handleInputChange('start', value)}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                dateFormat="MMMM d, yyyy h:mm aa"
-                required
-                />
+                  <label>Description:</label>
+                  <textarea name="description" value={formData.description}
+                  onChange={(e) => handleInputChange('description', e.target.value)} />
+                    
+                      <label>Start:</label>
 
-              
+                  <DatePicker
+                  selected={formData.start}
+                  onChange={(value) => handleInputChange('start', value)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  required
+                  />
 
-                <label>End:</label>
+                
 
-                <DatePicker
-                selected={formData.end}
-                onChange={(value) => handleInputChange('end', value)}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                dateFormat="MMMM d, yyyy h:mm aa"
-                required
-                />
+                  <label>End:</label>
 
-            <label>Color:</label>
-            <select name="color" value={formData.color}  onChange={(e) => handleInputChange('color', e.target.value)}>
-              <option value="#0000FF">Blue</option>
-              <option value="#008000">Green</option>
-              <option value="#FF0000">Red</option>
-              <option value="#FFFF00">Yellow</option>
-            </select>
+                  <DatePicker
+                  selected={formData.end}
+                  onChange={(value) => handleInputChange('end', value)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  required
+                  />
 
-          </div>
+                  <label>Color:</label>
+                  <select name="color" value={formData.color}  onChange={(e) => handleInputChange('color', e.target.value)}>
+                    <option value="#0000FF">Blue</option>
+                    <option value="#008000">Green</option>
+                    <option value="#FF0000">Red</option>
+                    <option value="#FFFF00">Yellow</option>
+                  </select>
+
+              </div>
 
           <div className={styles.containerIcons}>
-            {mode === 'add' ? (
-              <img src={iconAdd} alt="add" className={styles.icons} onClick={handleSubmit}  title="Add event"/>
-            ) : (
-              <img src={iconUpdate} alt="update" className={styles.icons} onClick={handleSubmit}  title="Update"/>
-            )}
-        
-            {mode === 'edit' && event &&(
-              <img src={iconDelete} alt="delete" className={styles.icons} onClick={handleDelete}  title="Delete"/>
-            )}
+              {mode === 'add' ? (
+                <img src={iconAdd} alt="add" className={styles.icons} onClick={handleSubmit}  title="Add event"/>
+              ) : (
+                <img src={iconUpdate} alt="update" className={styles.icons} onClick={handleSubmit}  title="Update"/>
+              )}
+          
+              {mode === 'edit' && event &&(
+                <img src={iconDelete} alt="delete" className={styles.icons} onClick={handleDelete}  title="Delete"/>
+              )}
 
-          {showConfirmation && (
-            <div>
-              <p>Are you sure you want to delete this event?</p>
-              <button onClick={confirmDelete}>Yes</button>
-              <button onClick={cancelDelete}>No</button>
-            </div>
+              {showConfirmation && (
+                <div className={styles.containerConfirmDelete}>
+                  <p>Are you sure you want to delete this event?</p>
+                  <div className={styles.btmYesandNo}>
+                    <button onClick={confirmDelete}>Yes</button>
+                    <button onClick={cancelDelete}>No</button>
+                  </div>
+
+                </div>
           )}
 
 
-          </div>
+        </div>
           
         </form>
       </div>
