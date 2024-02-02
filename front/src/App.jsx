@@ -35,6 +35,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(addViewMini(true))
   }, []);
 
   const handleSelectEvent = (selectedEvent) => {
