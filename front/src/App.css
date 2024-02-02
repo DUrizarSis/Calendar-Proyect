@@ -4,3 +4,39 @@
     height: 100%;
     display: flex;
 } */
+button{
+    
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: black;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f0f0f0; /* Cambia el color de fondo cuando se pasa el mouse sobre el botón */
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .calendarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem;
+  }
+  
+  .miniDayContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+  }
