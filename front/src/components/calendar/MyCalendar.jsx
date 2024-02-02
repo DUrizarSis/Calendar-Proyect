@@ -41,8 +41,9 @@ function MyCalendar({eventStyleGetter,handleSelectEvent, handleShowForm, handleC
         startAccessor={(event) => dayjs(event.start).toDate()}
         endAccessor={(event) => dayjs(event.end).toDate()}
         onSelectSlot={handleShowForm}
-        style={{ width: "90%", height: "80vh", fontSize: "1.2rem" }}
+        style={{ width: "90vw", height: "77vh", fontSize: "1.2rem" }}
         eventPropGetter={eventStyleGetter}
+        className="m-2"
       />
       </div>
       </div>

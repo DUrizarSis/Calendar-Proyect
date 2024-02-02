@@ -70,7 +70,7 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
                 date={dateMini}
                 onNavigate={handleNavigate}
                 eventPropGetter={eventStyleGetter}
-                style={{ width: '95vh', height: '95vh' }}
+                style={{ width: '70vw', height: '80vh'}}
             />
 
             {showForm && (
