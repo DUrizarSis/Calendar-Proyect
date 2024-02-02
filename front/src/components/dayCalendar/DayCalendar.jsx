@@ -59,7 +59,6 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
             <h1>Day calendar</h1>
             <Calendar
                 localizer={localizer}
-                views={['day']}
                 defaultView={'day'}
                 events={events}
                 selectable
