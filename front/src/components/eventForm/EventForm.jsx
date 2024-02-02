@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEvent, updateEvent, deleteEvent, getEvents } from '../../redux/eventSlice';
 import styles from './EventForm.module.css';
-import Datetime from 'react-datetime';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const EventForm = ({ mode, event, onCancel }) => {
 
@@ -74,22 +75,32 @@ const EventForm = ({ mode, event, onCancel }) => {
             <label>Description:</label>
             <textarea name="description" value={formData.description}
              onChange={(e) => handleInputChange('description', e.target.value)} />
+              
+                <label>Start:</label>
 
-            <label>Start:</label>
-            <Datetime
-              inputProps={{ name: 'start' }}
-              value={formData.start}
-              onChange={(value) => handleInputChange('start', value)}
-              required
-            />
+                <DatePicker
+                selected={formData.start}
+                onChange={(value) => handleInputChange('start', value)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                dateFormat="MMMM d, yyyy h:mm aa"
+                required
+                />
 
-            <label>End:</label>
-            <Datetime
-              inputProps={{ name: 'end' }}
-              value={formData.end}
-              onChange={(value) => handleInputChange('end', value)}
-              required
-            />
+              
+
+                <label>End:</label>
+
+                <DatePicker
+                selected={formData.end}
+                onChange={(value) => handleInputChange('end', value)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                dateFormat="MMMM d, yyyy h:mm aa"
+                required
+                />
 
             <label>Color:</label>
             <select name="color" value={formData.color} onChange={handleInputChange}>
