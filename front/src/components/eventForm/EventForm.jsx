@@ -9,6 +9,8 @@ const EventForm = ({ mode, event, onCancel }) => {
 
   const dispatch = useDispatch();
   const formRef = useRef();
+  
+  const [showConfirmation, setShowConfirmation] = useState(false); // Estado para controlar la visibilidad del mensaje de confirmación
 
   const iconDelete = process.env.PUBLIC_URL + '/delete.png';
   const iconCancel = process.env.PUBLIC_URL + '/cancel.png';
@@ -46,13 +48,28 @@ const EventForm = ({ mode, event, onCancel }) => {
   };
   
 
+  // const handleDelete = () => {
+  //   if (mode === 'edit' && event) {
+  //     dispatch(deleteEvent({id: event._id}));
+  //     onCancel();
+  //   }
+  // };
+
   const handleDelete = () => {
+    setShowConfirmation(true); // Mostrar el mensaje de confirmación al hacer clic en eliminar
+  };
+
+  const confirmDelete = () => {
+    setShowConfirmation(false); // Ocultar el mensaje de confirmación
     if (mode === 'edit' && event) {
-      dispatch(deleteEvent({id: event._id}));
+      dispatch(deleteEvent({ id: event._id }));
       onCancel();
     }
   };
 
+  const cancelDelete = () => {
+    setShowConfirmation(false); // Ocultar el mensaje de confirmación
+  };
 
 
   return (
@@ -122,6 +139,16 @@ const EventForm = ({ mode, event, onCancel }) => {
             {mode === 'edit' && event &&(
               <img src={iconDelete} alt="delete" className={styles.icons} onClick={handleDelete}  title="Delete"/>
             )}
+
+          {showConfirmation && (
+            <div>
+              <p>Are you sure you want to delete this event?</p>
+              <button onClick={confirmDelete}>Yes</button>
+              <button onClick={cancelDelete}>No</button>
+            </div>
+          )}
+
+
           </div>
           
         </form>
