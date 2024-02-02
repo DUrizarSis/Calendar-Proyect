@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEvent, updateEvent, deleteEvent, getEvents } from '../../redux/eventSlice';
+import styles from './eventForm.module.css';
 
 const EventForm = ({ mode, event, onCancel }) => {
 
   const dispatch = useDispatch();
+  const formRef = useRef();
+
+  const iconDelete = process.env.PUBLIC_URL + '/delete.png';
+  const iconCancel = process.env.PUBLIC_URL + '/cancel.png';
+  const iconAdd = process.env.PUBLIC_URL + '/add.png';
+  const iconUpdate = process.env.PUBLIC_URL + '/update.png';
+
 
   useEffect(() => {
     dispatch(getEvents());
@@ -27,7 +35,7 @@ const EventForm = ({ mode, event, onCancel }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Asegúrate de evitar el comportamiento predeterminado del formulario
     if (mode === 'add') {
       dispatch(addEvent(formData));
     } else if (mode === 'edit' && event) {
@@ -47,37 +55,55 @@ const EventForm = ({ mode, event, onCancel }) => {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Title:</label>
-      <input type="text" name="title" value={formData.title} onChange={handleInputChange} required />
+    <>
+      <div className={styles.overlay}></div>
 
-      <label>Description:</label>
-      <textarea name="description" value={formData.description} onChange={handleInputChange} />
+      <div className={styles.container}>
 
-      <label>Start:</label>
-      <input type="datetime-local" name="start" value={formData.start.toISOString().slice(0, 16)} onChange={handleInputChange} required />
+        <form ref={formRef} onSubmit={handleSubmit}>
+          <div className={styles.iconClose}>
+            <img src={iconCancel} alt="close" onClick={onCancel} title='Close'/>  
+          </div>
 
-      <label>End:</label>
-      <input type="datetime-local" name="end" value={formData.end.toISOString().slice(0, 16)} onChange={handleInputChange} required />
+          <div className={styles.formImput}>
 
-      <label>Color:</label>
-      <select name="color" value={formData.color} onChange={handleInputChange}>
-        <option value="#0000FF">Blue</option>
-        <option value="#008000">Green</option>
-        <option value="#FF0000">Red</option>
-        <option value="#FFFF00">Yellow</option>
-      </select>
+            <label>Title:</label>
+            <input type="text" name="title" value={formData.title} onChange={handleInputChange} required />
 
-      <button type="submit">{mode === 'add' ? 'Add Event' : 'Update Event'}</button>
-      {mode === 'edit' && event &&(
-        <button type="button" onClick={handleDelete}>
-          Delete Event
-        </button>
-      )}
-      <button type="button" onClick={onCancel}>
-        Cancel
-      </button>
-    </form>
+            <label>Description:</label>
+            <textarea name="description" value={formData.description} onChange={handleInputChange} />
+
+            <label>Start:</label>
+            <input type="datetime-local" name="start" value={formData.start.toISOString().slice(0, 16)} onChange={handleInputChange} required />
+
+            <label>End:</label>
+            <input type="datetime-local" name="end" value={formData.end.toISOString().slice(0, 16)} onChange={handleInputChange} required />
+
+            <label>Color:</label>
+            <select name="color" value={formData.color} onChange={handleInputChange}>
+              <option value="#0000FF">Blue</option>
+              <option value="#008000">Green</option>
+              <option value="#FF0000">Red</option>
+              <option value="#FFFF00">Yellow</option>
+            </select>
+
+          </div>
+
+          <div className={styles.containerIcons}>
+            {mode === 'add' ? (
+              <img src={iconAdd} alt="add" className={styles.icons} onClick={handleSubmit}  title="Add event"/>
+            ) : (
+              <img src={iconUpdate} alt="update" className={styles.icons} onClick={handleSubmit}  title="Update"/>
+            )}
+        
+            {mode === 'edit' && event &&(
+              <img src={iconDelete} alt="delete" className={styles.icons} onClick={handleDelete}  title="Delete"/>
+            )}
+          </div>
+          
+        </form>
+      </div>
+    </>
   );
 };
 
