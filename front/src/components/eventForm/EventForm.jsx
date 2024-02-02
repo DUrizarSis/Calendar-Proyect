@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEvent, updateEvent, deleteEvent, getEvents } from '../../redux/eventSlice';
 import styles from './EventForm.module.css';
+import Datetime from 'react-datetime';
 
 const EventForm = ({ mode, event, onCancel }) => {
 
@@ -26,11 +27,10 @@ const EventForm = ({ mode, event, onCancel }) => {
     color: event ? event.color : '#000000'
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (name, value) => {
     setFormData((prevData) => ({
       ...prevData,
-      [name]: name.includes('start') || name.includes('end') ? new Date(value) : value,
+      [name]: value,
     }));
   };
 
@@ -69,21 +69,27 @@ const EventForm = ({ mode, event, onCancel }) => {
 
             <label>Title:</label>
             <input type="text" name="title" value={formData.title} 
-            onChange={handleInputChange} required />
+            onChange={(e) => handleInputChange('title', e.target.value)} required />
 
             <label>Description:</label>
             <textarea name="description" value={formData.description}
-             onChange={handleInputChange} />
+             onChange={(e) => handleInputChange('description', e.target.value)} />
 
             <label>Start:</label>
-            <input type="datetime-local" name="start" 
-            value={formData.start.toISOString().slice(0, 16)} onChange={handleInputChange} 
-            required />
+            <Datetime
+              inputProps={{ name: 'start' }}
+              value={formData.start}
+              onChange={(value) => handleInputChange('start', value)}
+              required
+            />
 
             <label>End:</label>
-            <input type="datetime-local" name="end" 
-            value={formData.end.toISOString().slice(0, 16)} onChange={handleInputChange} 
-            required />
+            <Datetime
+              inputProps={{ name: 'end' }}
+              value={formData.end}
+              onChange={(value) => handleInputChange('end', value)}
+              required
+            />
 
             <label>Color:</label>
             <select name="color" value={formData.color} onChange={handleInputChange}>
