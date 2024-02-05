@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
 
     image: {
         type: String // para almacenar la imagen del usuario
-    }
+    },
     
     isSuperuser: {
         type: Boolean,
