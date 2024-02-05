@@ -26,8 +26,8 @@ function App() {
   const eventStyleGetter = (event) => {
     let newStyle = {
       backgroundColor: event.color,
-      opacity: 0.9,
-      color: "black"
+      color: "black",
+      fontWeight: "bold"
     }
     return {
       style: newStyle

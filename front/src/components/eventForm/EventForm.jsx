@@ -122,12 +122,12 @@ const EventForm = ({ mode, event, onCancel }) => {
 
                   <label>Color:</label>
                   <select name="color" value={formData.color}  onChange={(e) => handleInputChange('color', e.target.value)}>
-                    <option value="#0000FF">Blue</option>
-                    <option value="#008000">Green</option>
-                    <option value="#FF0000">Red</option>
-                    <option value="#FFFF00">Yellow</option>
+                  <option value="#5C7FFF">Blue</option>
+                  <option value="#328C46">Green</option>
+                  <option value="#FF5A52">Red</option>
+                  <option value="#F0FF80">Yellow</option>
                   </select>
-
+            
               </div>
 
           <div className={styles.containerIcons}>
