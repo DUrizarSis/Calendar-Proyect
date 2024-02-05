@@ -1,7 +1,6 @@
 .container {
     width: 30em;
     max-height: 80vh; /* Establece una altura máxima para limitar el estiramiento */
-    
     position: fixed;
     top: 50%;
     left: 50%;
@@ -34,6 +33,7 @@
         grid-template-rows: 2.5em 2.5em 2.5em 2.5em 2.5em 2.5em 2.5em 2.5em 2.5em 2.5em;
         gap: 5px;
     }
+
     .formInput label{
         font-weight: bold;
         font-size: 1.3em;
@@ -43,14 +43,26 @@
         height: 2.5em;
         font-size: 1em;
     }
+
     .formInput select{
         height: 3em;
     }
     input:focus{
         box-shadow: 0 0 8px #88D5E9;
         border: 1px solid #88D5E9;
+       outline: none;
+       border: transparent;
+    }
+
+    select:focus{
+        box-shadow: 0 0 8px #88D5E9;
+        border: 1px solid #88D5E9;
+       outline: none;
+       border: transparent;
     }
    
+
+
     .iconClose{
         position: absolute;
         top:-1.5em;
