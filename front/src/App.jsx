@@ -9,6 +9,7 @@ import { getUsers } from './redux/userSlice';
 import { getEvent } from './redux/eventSlice';
 import { addViewMini } from './redux/eventMiniSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
 
@@ -71,6 +72,7 @@ function App() {
 
   return (
     <div className="app">
+
       {/* {changeView ? ( */}
         {/* <div className='calendarContainer'> */}
           {/* <button onClick={() => handleViewCalendar(false)}>vista DayCalendar</button>
@@ -83,19 +85,26 @@ function App() {
         </div>
       ) : ( */}
         <div className='calendarContainer'>
+
+          <Routes>
+            {/* <Route path='/' element={Login}/> */}
+            <Route path='/home' element={
+              <div className='miniDayContainer'>
+                <MiniCalendar
+                  eventStyleGetter={eventStyleGetter}
+                  handleCloseForm={handleCloseForm}
+                />
+                <DayCalendar
+                  eventStyleGetter={eventStyleGetter}
+                  handleSelectEvent={handleSelectEvent}
+                  handleShowForm={handleShowForm}
+                  handleCloseForm={handleCloseForm}
+                />
+              </div>
+            }></Route>
+          </Routes>
           {/* <button onClick={() => handleViewCalendar(true)}>vista Calendar Princial</button> */}
-          <div className='miniDayContainer'>
-            <MiniCalendar
-              eventStyleGetter={eventStyleGetter}
-              handleCloseForm={handleCloseForm}
-            />
-            <DayCalendar
-              eventStyleGetter={eventStyleGetter}
-              handleSelectEvent={handleSelectEvent}
-              handleShowForm={handleShowForm}
-              handleCloseForm={handleCloseForm}
-            />
-          </div>
+
         </div>
       {/* ) */}
       {/* } */}
