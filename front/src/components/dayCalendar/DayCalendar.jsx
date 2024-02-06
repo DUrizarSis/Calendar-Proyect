@@ -70,7 +70,7 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
       <div className={styles.container}>
 
         <div className={styles.nav}>
-            <h1>Day calendar</h1>
+            
             <button onClick={handleLogout}>Logout</button>
         </div>
         <div className={styles.calendar}>
