@@ -41,16 +41,16 @@ const ProjectsForm = () => {
     // Mini validaciónes
     const validationErrors = {};
     if (!formData.name) {
-      validationErrors.name = 'El nombre del proyecto es obligatorio';
+      validationErrors.name = 'The project name is required';
     }
     if (!formData.start) {
-      validationErrors.start = 'La fecha de inicio es obligatoria';
+      validationErrors.start = 'The start date is required';
     }
     if (!formData.end) {
-      validationErrors.end = 'La fecha de finalización es obligatoria';
+      validationErrors.end = 'The end date is required';
     }
     if (formData.team.length === 0) {
-      validationErrors.team = 'Debe seleccionar al menos un miembro del equipo';
+      validationErrors.team = 'You must select at least one team member';
     }
 
     if (Object.keys(validationErrors).length === 0) {
@@ -64,7 +64,7 @@ const ProjectsForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Nombre del Proyecto:</label>
+        <label>Project Name:</label>
         <input
           type="text"
           id="name"
@@ -76,7 +76,7 @@ const ProjectsForm = () => {
       </div>
 
       <div>
-        <label>Fecha de Inicio:</label>
+        <label>Start date:</label>
         <DatePicker
           selected={formData.start}
           onChange={(date) => handleDateChange('start', date)}
@@ -90,7 +90,7 @@ const ProjectsForm = () => {
       </div>
 
       <div>
-        <label>Fecha de Finalización:</label>
+        <label>End date:</label>
         <DatePicker
           selected={formData.end}
           onChange={(date) => handleDateChange('end', date)}
@@ -104,7 +104,7 @@ const ProjectsForm = () => {
       </div>
 
       <div>
-        <label>Seleccionar Miembros del Equipo:</label>
+        <label>Team members:</label>
         <select
           id="team"
           name="team"
@@ -118,7 +118,7 @@ const ProjectsForm = () => {
       </div>
 
       <div>
-        <button type="submit">Enviar</button>
+        <button type="submit">Add</button>
       </div>
     </form>
   );
