@@ -4,9 +4,18 @@ const getEvents = require("../controllers/getEvents");
 const getEvent = require("../controllers/getEvent");
 const putEvent = require("../controllers/putEvent");
 const deleteEvent = require("../controllers/deleteEvent");
+
 const getUsers = require("../controllers/getUsers");
 const postUser = require("../controllers/postUser");
 const login = require("../controllers/login");
+
+const postProject = require('../controllers/postProject')
+const getProjects = require("../controllers/getProjects");
+const getProjectById = require("../controllers/getProjectById");
+const updateProject = require("../controllers/updateProject");
+const deleteProject= require("../controllers/deleteProject");
+
+
 
 const router = express.Router();
 
@@ -36,5 +45,15 @@ router.post('/new-user', postUser);
 router.get('/user', login);
 
 
+
+router.post("/projects", postProject); // Crear un nuevo proyecto
+
+router.get("/projects/all", getProjects); // Obtener todos los proyectos
+
+router.get("/projects/:id", getProjectById); // Obtener un proyecto por su ID
+
+router.put("/projects/:id", updateProject); // Actualizar un proyecto 
+
+router.delete("/projects/:id", deleteProject); // Eliminar un proyecto
 
 module.exports = router;
