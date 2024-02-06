@@ -13,6 +13,7 @@ import { addViewMini } from './redux/eventMiniSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { AddShowLogin } from './redux/loginForm';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
   // const users = usersState.users;
   const navigate = useNavigate();
   const [access, setAccess] = useState(false);
-  const [register, setRegister] = useState(true);
+  const [register, setRegister] = useState(false);
   const handleViewCalendar = ( data ) =>{
     dispatch(addViewMini(data))
   }
@@ -44,10 +45,7 @@ function App() {
     dispatch(addViewMini(true))
   }, []);
 
-  // useEffect(() => {
-  //   !access && navigate('/login');
-  // }, [access]);
-
+  
   const handleSelectEvent = (selectedEvent) => {
     console.log('Selected Event:', selectedEvent);
     dispatch(getEvent(selectedEvent._id));
@@ -55,30 +53,36 @@ function App() {
     dispatch(AddMode('edit'));
     dispatch(addShowForm(true));
   };
-
+  
   const handleShowForm = (event) => {
     const startISO = new Date(event.start).toISOString();
     const endISO = new Date(event.end).toISOString();
     const slotsISO = event.slots.map(slot => new Date(slot).toISOString());
-  
+    
     const eventData = {
       ...event,
       start: startISO,
       end: endISO,
       slots: slotsISO,
     };
-  
+    
     dispatch(addSelectedEvent(eventData));
     dispatch(AddMode('add'));
     dispatch(addShowForm(true));
   };
-
+  
   const handleCloseForm = () => {
     console.log('Handle Close Form');
     dispatch(addSelectedEvent(null));
     dispatch(addShowForm(false));
   };
 
+
+  // empecia el codigo para manejar el loginForm y registerForm
+  useEffect(() => {
+    !access && navigate('/');
+  }, [access]);
+  
   const login = async (useData)=>{
     try {
       const {data} = await axios(`http://localhost:5000/api/user?username=${useData.username}&password=${useData.password}`)
@@ -95,6 +99,12 @@ function App() {
     }
   }
 
+  const logout = ()=>{
+    setAccess(false);
+    navigate('/');
+    dispatch(AddShowLogin(false))
+  }
+
   const checkIn = async (useData)=>{
     try {
       const {email, username, image, password, isSuperuser} = useData;
@@ -104,7 +114,7 @@ function App() {
       
       if(data.access) {
         setRegister(true)
-        navigate('/login')
+        setRegister(false)
         window.alert('El usuario '+ data.user.username + ', se creo exitosamente.')
       }
     } catch (error) {
@@ -113,25 +123,19 @@ function App() {
     }
   }
 
+  const handleRegister = ()=>{
+    setRegister(!register)
+  }
+
   return (
     <div className="app">
-
-      {/* {changeView ? ( */}
-        {/* <div className='calendarContainer'> */}
-          {/* <button onClick={() => handleViewCalendar(false)}>vista DayCalendar</button>
-          <MyCalendar
-            eventStyleGetter={eventStyleGetter}
-            handleSelectEvent={handleSelectEvent}
-            handleShowForm={handleShowForm}
-            handleCloseForm={handleCloseForm}
-          />
-        </div>
-      ) : ( */}
         <div className='calendarContainer'>
 
           <Routes>
-            <Route path='/login' element={<LoginForm login={login}/>}/>
-            <Route path='/register' element={<RegisterForm checkIn={checkIn}/>}/>
+          {
+          !register ? <Route path='/' element={<LoginForm login={login} handleRegister={handleRegister}/>}/>
+                    : <Route path='/' element={<RegisterForm checkIn={checkIn} handleRegister={handleRegister}/>}/>
+          }
             <Route path='/home' element={
               <div className='miniDayContainer'>
                 <MiniCalendar
@@ -143,15 +147,13 @@ function App() {
                   handleSelectEvent={handleSelectEvent}
                   handleShowForm={handleShowForm}
                   handleCloseForm={handleCloseForm}
+                  logout={logout}
                 />
               </div>
             }></Route>
           </Routes>
-          {/* <button onClick={() => handleViewCalendar(true)}>vista Calendar Princial</button> */}
 
         </div>
-      {/* ) */}
-      {/* } */}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import dayjs from "dayjs";
-import Styles from "./miniCalendar.module.css";
+import styles from "./miniCalendar.module.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { addEventMini } from "../../redux/eventMiniSlice";
 import { AddMode, addSelectedEvent, addShowForm } from "../../redux/showFormSlice";
@@ -32,7 +32,7 @@ function MiniCalendar({eventStyleGetter}) {
   return (
 
     
-    <div >
+    <div className={styles.container}>
 
       <Calendar
       localizer={localizer}
@@ -42,7 +42,7 @@ function MiniCalendar({eventStyleGetter}) {
       onSelectSlot={handleSelectSlot}
       onSelectEvent={handleSelectEvent}
       eventPropGetter={eventStyleGetter}
-      style={{ width: '25em', height: '25em' }}
+      style={{ width: '22em', height: '22em' }}
       />
 
     </div>

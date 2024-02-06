@@ -1,4 +1,131 @@
+
+.container{
+    width: auto;
+    height: 95vh;
+    display: grid;
+    grid-template-rows: 18% 72% 10%;
+    justify-content: center;
+    align-items: center;
+    padding: 0%;
+    gap:10px;
+}
+.formContainer{
+    width: 30em;
+    height: auto;
+    display: grid;
+    grid-template-rows:  2em 1.5em 2em 1.5em 2em 1.5em 2em 1.5em 2em 1.5em 2.5em 1em 1em;
+    align-items: center;
+    text-align: center;
+    gap:5px;
+}
+.inputForm{
+    width: 100%;
+    background-color:#f4baeb;
+    margin: 10px 0;
+    height: 45px;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 0.4rem;
+    position: relative;
+}
+.formIcons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.inputForm input, label{
+    width: 92%;
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-size: 1.1rem;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+.inputForm img{
+    width: 2em;
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    transition: 0.5s;
+    font-size: 1.1rem;
+}
 .spanError{
     font-size: 0.6em;
-    color: #050505;
+    color: #f0f0f0;
+}
+.container h1{
+    color: black
+}
+.container p{
+    color:black;
+}
+h1{
+    font-size: 4em;
+}
+span{
+color: #5995fd;
+}
+.btn{
+    width: 150px;
+    background-color: #5995fd;
+    border: none;
+    outline: none;
+    height: 49px;
+    border-radius: 49px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.5s, color 0.5s; /* Agregamos el color al efecto de transición */
+}
+
+.btn:hover {
+    background-color: #f0f0f0; /* Cambia el color de fondo al pasar el mouse */
+    color: #000; /* Cambia el color del texto al pasar el mouse */
+}
+.inputFormSelect{
+    width: 100%;
+    background-color:#f4baeb;
+    margin: 10px 0;
+    height: 45px;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 65% 20%;
+    padding: 0 0.4rem;
+    position: relative;
+    justify-content: center;
+    text-align: center;
+}
+
+.formSuperUser{
+    display: flex;
+    align-items:center;
+    text-align: start;
+    color:#333;
+}
+
+.inputFormSelect select{
+    border: none;
+    outline: none;
+    background: none;
+    text-align: start;
+}
+.inputFormSelect img{
+    width: 2em;
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    transition: 0.5s;
+    font-size: 1.1rem;
+}
+
+.message{
+    display: flex;
+    text-align:justify;
+    justify-content: end;
 }

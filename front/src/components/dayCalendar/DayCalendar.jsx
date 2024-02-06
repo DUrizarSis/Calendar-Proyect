@@ -1,7 +1,7 @@
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import dayjs from "dayjs";
-//import Styles from "./dayCalendar.module.css";
+import styles from "./dayCalendar.module.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect,useState } from "react";
 import { addEventMini } from "../../redux/eventMiniSlice";
@@ -10,7 +10,7 @@ import { addShowForm } from "../../redux/showFormSlice";
 import { getEvents } from "../../redux/eventSlice";
 
 
-const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handleCloseForm}) => {
+const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handleCloseForm, logout}) => {
 
     const dateMini= useSelector(state=> state.eventMini.date)
     const dispatch = useDispatch();
@@ -52,7 +52,10 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
       }
     };
   }, [dispatch]); // Asegúrate de incluir dispatch como dependencia para evitar advertencias de ESLint
-
+  
+  const handleLogout = () => {
+    logout();
+  }
   
   useEffect(() => {
     dispatch(getEvents());
@@ -60,8 +63,13 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
 
     return (
 
-      <div>
+      <div className={styles.container}>
+
+        <div className={styles.nav}>
             <h1>Day calendar</h1>
+            <button onClick={handleLogout}>Logout</button>
+        </div>
+        <div className={styles.calendar}>
             <Calendar
                 localizer={localizer}
                 defaultView={'month'}
@@ -74,8 +82,9 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
                 date={dateMini}
                 onNavigate={handleNavigate}
                 eventPropGetter={eventStyleGetter}
-                style={{ width: '70vw', height: '80vh'}}
-            />
+                style={{ width: '69vw', height: '75vh'}}
+                />
+          </div>
 
             {showForm && (
               <EventForm
