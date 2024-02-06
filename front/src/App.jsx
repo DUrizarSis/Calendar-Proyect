@@ -13,6 +13,7 @@ import { addViewMini } from './redux/eventMiniSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from "axios";
+
 function App() {
 
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function App() {
   // const users = usersState.users;
   const navigate = useNavigate();
   const [access, setAccess] = useState(false);
-
+  const [register, setRegister] = useState(true);
   const handleViewCalendar = ( data ) =>{
     dispatch(addViewMini(data))
   }
@@ -43,9 +44,9 @@ function App() {
     dispatch(addViewMini(true))
   }, []);
 
-  useEffect(() => {
-    !access && navigate('/login');
-  }, [access]);
+  // useEffect(() => {
+  //   !access && navigate('/login');
+  // }, [access]);
 
   const handleSelectEvent = (selectedEvent) => {
     console.log('Selected Event:', selectedEvent);
@@ -94,6 +95,24 @@ function App() {
     }
   }
 
+  const checkIn = async (useData)=>{
+    try {
+      const {email, username, image, password, isSuperuser} = useData;
+      const dataSend = {email, username, image, password, isSuperuser};
+
+      const {data} = await axios.post(`http://localhost:5000/api/new-user`, dataSend);
+      
+      if(data.access) {
+        setRegister(true)
+        navigate('/login')
+        window.alert('El usuario '+ data.user.username + ', se creo exitosamente.')
+      }
+    } catch (error) {
+      // window.alert(error.response.data.error + ', cree una cuenta')
+      console.log(error)
+    }
+  }
+
   return (
     <div className="app">
 
@@ -112,7 +131,7 @@ function App() {
 
           <Routes>
             <Route path='/login' element={<LoginForm login={login}/>}/>
-            <Route path='/register' element={<RegisterForm/>}/>
+            <Route path='/register' element={<RegisterForm checkIn={checkIn}/>}/>
             <Route path='/home' element={
               <div className='miniDayContainer'>
                 <MiniCalendar
