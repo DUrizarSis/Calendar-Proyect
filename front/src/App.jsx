@@ -12,6 +12,7 @@ import { getEvent } from './redux/eventSlice';
 import { addViewMini } from './redux/eventMiniSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import axios from "axios";
 function App() {
 
   const dispatch = useDispatch();
@@ -20,8 +21,7 @@ function App() {
   const changeView = useSelector(state => state.eventMini.viewDay);
   // const users = usersState.users;
   const navigate = useNavigate();
-  const user = 'gustavo@hotmail.com';
-  const pass = 'Pass123'
+  const [access, setAccess] = useState(false);
 
   const handleViewCalendar = ( data ) =>{
     dispatch(addViewMini(data))
@@ -42,6 +42,10 @@ function App() {
     dispatch(getUsers());
     dispatch(addViewMini(true))
   }, []);
+
+  useEffect(() => {
+    !access && navigate('/login');
+  }, [access]);
 
   const handleSelectEvent = (selectedEvent) => {
     console.log('Selected Event:', selectedEvent);
@@ -76,15 +80,14 @@ function App() {
 
   const login = async (useData)=>{
     try {
-      if(user === useData.email && pass == useData.password)
-      // const {data} = await axios(`http://localhost:3001/login?email=${useData.email}&password=${useData.password}`)
-      // const {access, logUser} = data;
+      const {data} = await axios(`http://localhost:5000/api/user?username=${useData.username}&password=${useData.password}`)
+      const {access, logUser} = data;
       
-      // if(access) {
-      //   setAccess(true);
+      if(access) {
+        setAccess(true);
         navigate('/home');
 
-      // }
+      }
 
     } catch (error) {
       window.alert(error.response.data.message + ', cree una cuenta')

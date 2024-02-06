@@ -5,7 +5,7 @@ import styles from "./loginForm.module.css"
 const LoginForm = ({login}) => {
 
     const [useData, setUseData] = useState({
-        email:'',
+        username:'',
         password:''
      });
      const [errors, setError] = useState({});
@@ -34,16 +34,16 @@ const LoginForm = ({login}) => {
                 <div> 
                     
                     <input 
-                        type="email"
-                        id='email'
-                        name='email'
+                        type="text"
+                        id='username'
+                        name='username'
                         value={useData.email}
                         onChange={handleChange}
-                        placeholder="Tu email"
+                        placeholder="your username"
                     />
                 </div>
                 <div className={styles.spanError}>
-                    <span>{errors.email}</span> 
+                    <span>{errors.username}</span> 
                 </div>
                 <div>
 
@@ -53,7 +53,7 @@ const LoginForm = ({login}) => {
                     name='password'
                     value={useData.password}
                     onChange={handleChange}
-                    placeholder="tu password"
+                    placeholder="your password"
                     />  
                 </div>
 
