@@ -13,7 +13,7 @@ import { addViewMini } from './redux/eventMiniSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { AddShowLogin } from './redux/loginForm';
+import { AddShowLogin, AddUserData } from './redux/loginForm';
 
 function App() {
 
@@ -86,12 +86,12 @@ function App() {
   const login = async (useData)=>{
     try {
       const {data} = await axios(`http://localhost:5000/api/user?username=${useData.username}&password=${useData.password}`)
-      const {access, logUser} = data;
+      const {access, user} = data;
       
       if(access) {
         setAccess(true);
         navigate('/home');
-
+        dispatch(AddUserData(user));
       }
 
     } catch (error) {

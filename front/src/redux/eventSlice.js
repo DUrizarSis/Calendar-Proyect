@@ -7,12 +7,17 @@ const URL = 'http://localhost:5000/api/'
 
 // Get events
 export const getEvents = createAsyncThunk(
-  'events/getAllEvents',
-  async () => {
-    const response = await axios(`${URL}get-events`)
-    return response.data
-  }
-)
+    'events/getAllEvents',
+    async (userId) => { 
+      try {
+        const response = await axios.get(`${URL}get-events/${userId}`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching events:', error);
+        throw error;
+      }
+    }
+  );
 
 // Get One Event
 export const getEvent = createAsyncThunk(

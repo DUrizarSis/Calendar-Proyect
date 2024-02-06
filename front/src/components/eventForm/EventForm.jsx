@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addEvent, updateEvent, deleteEvent, getEvents } from '../../redux/eventSlice';
 import styles from './EventForm.module.css';
 import DatePicker from 'react-datepicker';
@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const EventForm = ({ mode, event, onCancel }) => {
 
+  const userData = useSelector(state => state.loginForm.logUserData);
   const dispatch = useDispatch();
   const formRef = useRef();
   
@@ -19,15 +20,18 @@ const EventForm = ({ mode, event, onCancel }) => {
 
 
   useEffect(() => {
-    dispatch(getEvents());
-  }, [dispatch]);
+    if (userData && userData._id) {
+      dispatch(getEvents(userData._id));
+    }
+  }, [dispatch, userData]);
 
   const [formData, setFormData] = useState({
     title: event ? event.title : '',
     description: event ? event.description : '',
     start: event ? new Date(event.start) : new Date(),
     end: event ? new Date(event.end) : new Date(),
-    color: event ? event.color : '#000000'
+    color: event ? event.color : '#000000',
+    user: userData._id ,
   });
 
   const handleInputChange = (name, value) => {
