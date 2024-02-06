@@ -1,6 +1,7 @@
 const passwordRegex = /^(?=.*\d).{4,10}$/;
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const userregex = /^[a-zA-Z0-9]{6,13}$/;
+const imageregex = /^https?:\/\/.*\.(png|jpg|jpeg)$/;
 
     export function validation(data) {
         let error = {};
@@ -23,10 +24,15 @@ const userregex = /^[a-zA-Z0-9]{6,13}$/;
           error.username = 'debe contener de 8 a 13 caracter, solo letras y numeros'
         }
         if (!passwordRegex.test(data.password)) {
-          error.password = 'La contraseña debe tener al menos un número y tener una longitud entre 6 y 10 caracteres.';
+          error.password = 'La contraseña debe tener al menos un número y tener una longitud entre 6 y 13 caracteres.';
         }
         if(data.password && data.confirmPassword){
           data.password !== data.confirmPassword && (error.confirmPassword = 'La confirmacion es diferente a la contraseña');
         }
+
+        if(!imageregex.test(data.image)){
+          error.image = "El campo debe ser una URL de imagen (png,jpg,jpeg)."
+        }
+
         return error;
       }

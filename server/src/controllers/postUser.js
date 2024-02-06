@@ -9,8 +9,8 @@ module.exports = async (req, res) => {
             return res.status(400).json({ message: "Invalid email format" });
         }
 
-        if (req.body.password.length < 13) {
-            return res.status(400).json({ message: "Password must be at least 8 characters long" });
+        if (req.body.password.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters long" });
         }
 
         // Verificar si ya existe un usuario con el mismo username o email
@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
 
         await newUser.save();
 
-        res.status(201).json({ message: "New user created successfully", user: newUser });
+        res.status(201).json({ message: "New user created successfully", user: newUser, access: true });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error with the creation of the User" });
