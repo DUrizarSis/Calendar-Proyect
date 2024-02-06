@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     showLogin: false,
+    logUserData: {}
 }
 
 export const loginFormSlice = createSlice({
@@ -10,9 +11,12 @@ export const loginFormSlice = createSlice({
     reducers: {
         AddShowLogin:(state, action) => {
             state.showLogin = action.payload;
+        },
+        AddUserData: (state, action) => {
+            state.logUserData = action.payload;
         }
     }
 });
 
-export const { AddShowLogin } = loginFormSlice.actions;
+export const { AddShowLogin, AddUserData } = loginFormSlice.actions;
 export default loginFormSlice.reducer;

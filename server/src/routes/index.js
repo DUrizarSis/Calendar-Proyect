@@ -15,7 +15,7 @@ const router = express.Router();
 router.post("/create-event", postEvent )
 
 //Get events route
-router.get("/get-events", getEvents )
+router.get("/get-events/:userId", getEvents);
 
 //Get One event
 router.get("/get-events/:id", getEvent);

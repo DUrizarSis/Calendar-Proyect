@@ -57,9 +57,13 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
     logout();
   }
   
+  const userData = useSelector(state => state.loginForm.logUserData);
+
   useEffect(() => {
-    dispatch(getEvents());
-  }, [dispatch]);
+    if (userData && userData._id) {
+      dispatch(getEvents(userData._id));
+    }
+  }, [dispatch, userData]);
 
     return (
 

@@ -1,11 +1,11 @@
 const Event = require("../models/event")
 
-module.exports = async(req, res) => {
+module.exports = async (req, res) => {
     try {
-        const events = await Event.find()
-        res.status(200).json(events);
-
+      const userId = req.params.userId;
+      const events = await Event.find({ user: userId });
+      res.status(200).json(events);
     } catch (error) {
-        res.status(500).json({message: "Internal Server Error"});
+      res.status(500).json({ message: "Internal Server Error" });
     }
-};
+  };
