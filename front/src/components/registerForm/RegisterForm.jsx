@@ -2,7 +2,7 @@ import { useState } from "react";
 import { validation } from "../../validation/validation";
 import styles from "./registerForm.module.css"
 
-const RegisterForm = ({checkIn}) => {
+const RegisterForm = ({checkIn, handleRegister}) => {
 
     const [useData, setUseData] = useState({
         email:'',
@@ -11,11 +11,17 @@ const RegisterForm = ({checkIn}) => {
         password:'',
         isSuperuser:false,
         confirmPassword: ''
-     });
-     const [errors, setError] = useState({});
-     const [showPassword, setShowPassword] = useState(false);
+    });
+    const [errors, setError] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
 
-     const handleChange = (e) => {
+    //imagenes
+    const invisible = process.env.PUBLIC_URL + '/invisible.png';
+    const visible = process.env.PUBLIC_URL + '/visible.png';
+    const usuario = process.env.PUBLIC_URL + '/usuario.png';
+    const iconMail = process.env.PUBLIC_URL + '/email.png';
+    const imagen = process.env.PUBLIC_URL + '/imagen.png';
+    const handleChange = (e) => {
         const value =
           e.target.type === "checkbox"
             ? e.target.checked
@@ -24,7 +30,8 @@ const RegisterForm = ({checkIn}) => {
             : e.target.value;
         setError(validation({ ...useData, [e.target.name]: value }));
         setUseData({ ...useData, [e.target.name]: value });
-      };
+    };
+
     const handleSubmit = (e)=>{
         e.preventDefault();
         checkIn(useData);
@@ -35,16 +42,17 @@ const RegisterForm = ({checkIn}) => {
     }
 
     return (
-        <div>
+        <div className = {styles.container}>
+
             <h1>Sign up</h1>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.formContainer}>
 
-                    <div> 
+                    <div className={styles.inputForm}> 
                         
-                        {/* <div>
+                        <div className={styles.formIcons}>
                             <img src={iconMail} alt="email" />
-                        </div>   */}
+                        </div>  
                         
                         <input 
                             type="email"
@@ -62,9 +70,9 @@ const RegisterForm = ({checkIn}) => {
 
                     <div className={styles.inputForm}> 
                         
-                        {/* <div className={styles.formIcons}>
-                            <img src={iconUser} alt="username" />
-                        </div>   */}
+                        <div className={styles.formIcons}>
+                            <img src={usuario} alt="username" />
+                        </div>  
                         
                         <input 
                             type="text"
@@ -80,10 +88,10 @@ const RegisterForm = ({checkIn}) => {
                         <span>{errors.username}</span> 
                     </div>
                     <div className={styles.inputForm}>
-{/* 
+
                     <div className={styles.formIcons}>
-                        <img src={iconMail} alt="nombre" />
-                    </div>  */}
+                        <img src={imagen} alt="nombre" />
+                    </div> 
 
                     <input
                     type="text"
@@ -94,12 +102,21 @@ const RegisterForm = ({checkIn}) => {
                     />
 
                     </div>
+
                     <div className={styles.spanError}>
                         <span>{errors.image}</span> 
                     </div>
 
-                    <div className={styles.inputForm}>
-                        <label htmlFor="isSuperuser">¿Es superusuario?</label>
+                    <div className={styles.inputFormSelect}>
+
+                        <div className={styles.formIcons}>
+                            <img src={usuario} alt="nombre" />
+                        </div> 
+
+                        <div className={styles.formSuperUser}>
+                            <label htmlFor="isSuperuser">¿Es superusuario?</label>
+                        </div> 
+                            
                         <select
                             id="isSuperuser"
                             name="isSuperuser"
@@ -110,12 +127,12 @@ const RegisterForm = ({checkIn}) => {
                             <option value={false}>No</option>
                         </select>
                     </div>
-
+                    <div></div>
                     <div className={styles.inputForm}> 
                         
-                        {/* <div className={styles.formIcons}>
+                        <div className={styles.formIcons}>
                             <img src={showPassword ? visible : invisible} alt="password" onClick={()=>handlePass()}/>
-                        </div>   */}
+                        </div>  
                         
                         <input 
                             type={showPassword ? 'text' : 'password'}
@@ -133,9 +150,9 @@ const RegisterForm = ({checkIn}) => {
 
                     <div className={styles.inputForm}> 
                         
-                        {/* <div className={styles.formIcons}>
+                        <div className={styles.formIcons}>
                             <img src={showPassword ? visible : invisible} alt="confirmPassword" onClick={()=>handlePass()}/>
-                        </div>   */}
+                        </div>  
                         
                         <input 
                             type={showPassword ? 'text' : 'password'}
@@ -156,7 +173,9 @@ const RegisterForm = ({checkIn}) => {
                     </div>
 
                 </form>
-                {/* <p>Ya tienes tu cuenta? <span onClick={()=>{handleRegister()}}> Ingresa aqui</span> .</p> */}
+                <div className={styles.message}>
+                    <p>Ya tienes tu cuenta? <span onClick={()=>{handleRegister()}}> Ingresa aqui</span> .</p>
+                </div>
         </div>
     )
 
