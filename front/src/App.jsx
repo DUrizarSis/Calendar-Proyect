@@ -1,5 +1,4 @@
 
-import MyCalendar from './components/calendar/MyCalendar';
 import LoginForm from './components/loginForm/LoginForm';
 import RegisterForm from './components/registerForm/RegisterForm';
 import MiniCalendar from './components/miniCalendar/MiniCalendar';
@@ -7,9 +6,7 @@ import DayCalendar from './components/dayCalendar/DayCalendar';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState} from 'react';
-import { getUsers } from './redux/userSlice';
 import { getEvent } from './redux/eventSlice';
-import { addViewMini } from './redux/eventMiniSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -18,16 +15,8 @@ import { AddShowLogin, AddUserData } from './redux/loginForm';
 function App() {
 
   const dispatch = useDispatch();
-  const usersState = useSelector(state => state.usersEvents);
-  const { showForm, selectedEvent, mode } = useSelector(state => state.showForm);
-  const changeView = useSelector(state => state.eventMini.viewDay);
-  // const users = usersState.users;
   const navigate = useNavigate();
-  const [access, setAccess] = useState(false);
   const [register, setRegister] = useState(false);
-  const handleViewCalendar = ( data ) =>{
-    dispatch(addViewMini(data))
-  }
 
   const eventStyleGetter = (event) => {
     let newStyle = {
@@ -39,12 +28,6 @@ function App() {
       style: newStyle
     }
   }
-  
-  useEffect(() => {
-    dispatch(getUsers());
-    dispatch(addViewMini(true))
-  }, []);
-
   
   const handleSelectEvent = (selectedEvent) => {
     console.log('Selected Event:', selectedEvent);
@@ -80,16 +63,30 @@ function App() {
 
   // empecia el codigo para manejar el loginForm y registerForm
   useEffect(() => {
-    !access && navigate('/');
-  }, [access]);
+
+      const storedAccess = localStorage.getItem('access');
+      const userJSON = localStorage.getItem('useData');
+      const useData = JSON.parse(userJSON);
+
+      if (storedAccess === 'true') {
+        login(useData)
+      }
+
+  
+    if (!storedAccess) {
+      navigate('/');
+    } 
+
+  }, []);
   
   const login = async (useData)=>{
     try {
       const {data} = await axios(`http://localhost:5000/api/user?username=${useData.username}&password=${useData.password}`)
       const {access, user} = data;
-      
+
       if(access) {
-        setAccess(true);
+        localStorage.setItem('access', 'true');
+        localStorage.setItem('useData', JSON.stringify(useData));
         navigate('/home');
         dispatch(AddUserData(user));
       }
@@ -100,7 +97,8 @@ function App() {
   }
 
   const logout = ()=>{
-    setAccess(false);
+    localStorage.setItem('access', 'false');
+    localStorage.setItem('useData', 'null')
     navigate('/');
     dispatch(AddShowLogin(false))
   }
