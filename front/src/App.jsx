@@ -1,5 +1,7 @@
 
 import MyCalendar from './components/calendar/MyCalendar';
+import LoginForm from './components/loginForm/LoginForm';
+import RegisterForm from './components/registerForm/RegisterForm';
 import MiniCalendar from './components/miniCalendar/MiniCalendar';
 import DayCalendar from './components/dayCalendar/DayCalendar';
 import './App.css';
@@ -9,8 +11,7 @@ import { getUsers } from './redux/userSlice';
 import { getEvent } from './redux/eventSlice';
 import { addViewMini } from './redux/eventMiniSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
-import { Routes, Route } from 'react-router-dom';
-
+import { Routes, Route, useNavigate } from 'react-router-dom';
 function App() {
 
   const dispatch = useDispatch();
@@ -18,7 +19,10 @@ function App() {
   const { showForm, selectedEvent, mode } = useSelector(state => state.showForm);
   const changeView = useSelector(state => state.eventMini.viewDay);
   // const users = usersState.users;
-  
+  const navigate = useNavigate();
+  const user = 'gustavo@hotmail.com';
+  const pass = 'Pass123'
+
   const handleViewCalendar = ( data ) =>{
     dispatch(addViewMini(data))
   }
@@ -70,6 +74,23 @@ function App() {
     dispatch(addShowForm(false));
   };
 
+  const login = async (useData)=>{
+    try {
+      if(user === useData.email && pass == useData.password)
+      // const {data} = await axios(`http://localhost:3001/login?email=${useData.email}&password=${useData.password}`)
+      // const {access, logUser} = data;
+      
+      // if(access) {
+      //   setAccess(true);
+        navigate('/home');
+
+      // }
+
+    } catch (error) {
+      window.alert(error.response.data.message + ', cree una cuenta')
+    }
+  }
+
   return (
     <div className="app">
 
@@ -87,7 +108,8 @@ function App() {
         <div className='calendarContainer'>
 
           <Routes>
-            {/* <Route path='/' element={Login}/> */}
+            <Route path='/login' element={<LoginForm login={login}/>}/>
+            <Route path='/register' element={<RegisterForm/>}/>
             <Route path='/home' element={
               <div className='miniDayContainer'>
                 <MiniCalendar
