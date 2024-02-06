@@ -20,7 +20,7 @@
 }
 .inputForm{
     width: 100%;
-    background-color:#f4baeb;
+    background-color:#afaedf;
     margin: 10px 0;
     height: 45px;
     border-radius: 55px;
@@ -83,6 +83,7 @@ color:#0e0f10;
     margin: 10px 0;
     cursor: pointer;
     transition: background-color 0.5s, color 0.5s; /* Agregamos el color al efecto de transición */
+    margin-top: 1rem;
 }
 
 .btn:hover {
@@ -91,7 +92,7 @@ color:#0e0f10;
 }
 .inputFormSelect{
     width: 100%;
-    background-color:#f4baeb;
+    background-color:#afaedf;
     margin: 10px 0;
     height: 45px;
     border-radius: 55px;
@@ -129,4 +130,14 @@ color:#0e0f10;
     display: flex;
     text-align:justify;
     justify-content: end;
+}
+
+.enterBtn{
+    cursor: pointer;
+    color: #0b13f7;
+}
+
+.enterBtn:hover{
+    color: #2530cc;
+    font-weight: bold;
 }

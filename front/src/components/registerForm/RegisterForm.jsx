@@ -60,7 +60,7 @@ const RegisterForm = ({checkIn, handleRegister}) => {
                             name='email'
                             value={useData.email}
                             onChange={handleChange}
-                            placeholder="Tu email"
+                            placeholder="Email"
                         />
                     </div>
 
@@ -80,7 +80,7 @@ const RegisterForm = ({checkIn, handleRegister}) => {
                             name='username'
                             value={useData.username}
                             onChange={handleChange}
-                            placeholder="Tu usuario"
+                            placeholder="Username"
                             /> 
                     </div>
 
@@ -114,7 +114,7 @@ const RegisterForm = ({checkIn, handleRegister}) => {
                         </div> 
 
                         <div className={styles.formSuperUser}>
-                            <label htmlFor="isSuperuser">¿Es superusuario?</label>
+                            <label htmlFor="isSuperuser">Is superuser?</label>
                         </div> 
                             
                         <select
@@ -140,7 +140,7 @@ const RegisterForm = ({checkIn, handleRegister}) => {
                             name='password'
                             value={useData.password}
                             onChange={handleChange}
-                            placeholder="Tu contraseña"
+                            placeholder="Password"
                             />
                     </div>
 
@@ -160,7 +160,7 @@ const RegisterForm = ({checkIn, handleRegister}) => {
                             name='confirmPassword'
                             value={useData.confirmPassword}
                             onChange={handleChange}
-                            placeholder="Confirme contraseña"
+                            placeholder="Confirm password"
                             />  
                     </div>
 
@@ -174,7 +174,7 @@ const RegisterForm = ({checkIn, handleRegister}) => {
 
                 </form>
                 <div className={styles.message}>
-                    <p>Ya tienes tu cuenta? <span onClick={()=>{handleRegister()}}> Ingresa aqui</span> .</p>
+                    <p>Do you have an account? <span className={styles.enterBtn} onClick={()=>{handleRegister()}}>Enter here</span> .</p>
                 </div>
         </div>
     )

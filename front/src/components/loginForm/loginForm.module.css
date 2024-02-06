@@ -6,7 +6,8 @@
     grid-template-rows: 20% 70% 10%;
     align-items: center;
     justify-content: center;
-    padding: 0%;
+
+    text-align: center;
 }
 .formContainer{
     width: 30em;
@@ -14,13 +15,14 @@
     grid-template-rows: 1fr 1em 1fr 1em 1fr;
     align-items: center;
     text-align: center;
+    
 }
 .inputForm{
     width: 100%;
-    background-color:#f4baeb;
+    background-color:#afaedf;
     margin: 10px 0;
-    height: 55px;
-    border-radius: 55px;
+    height: 4rem;
+    border-radius: 4rem;
     display: grid;
     grid-template-columns: 15% 85%;
     padding: 0 0.4rem;
@@ -36,7 +38,7 @@
     background: none;
     outline: none;
     border: none;
-    line-height: 1;
+    /* line-height: 1; */
     font-size: 1.1rem;
     color: #333;
     font-family: 'Poppins', sans-serif;
@@ -49,6 +51,7 @@
     color: #acacac;
     transition: 0.5s;
     font-size: 1.1rem;
+
 }
 .spanError{
     font-size: 0.6em;
@@ -61,11 +64,13 @@
     color:black;
 }
 h1{
-    font-size: 4em;
+    font-size: 3em;
 }
 span{
-color: #5995fd;
+color: #0a0a0a;
+
 }
+
 .btn{
     width: 150px;
     background-color: #5995fd;
@@ -95,8 +100,19 @@ color: #5995fd;
     justify-content: center;
     align-items: center;
     height: 100vh; /* Esto hace que el div ocupe toda la altura de la pantalla */
+   
   }
   
   .msg {
     text-align: center;
+  }
+
+  .registerLink {
+    cursor: pointer;
+    color: #0b13f7;
+  }
+
+  .registerLink:hover{
+    color: #2530cc;
+    font-weight: bold;
   }

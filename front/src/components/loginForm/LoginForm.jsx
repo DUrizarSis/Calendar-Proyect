@@ -42,7 +42,7 @@ const LoginForm = ({login, handleRegister}) => {
         <>
             {showLogin ? (
                 <div className={styles.container}>
-                    <h1>Sign in</h1>
+                    <h1 className={styles.title}>Sign in</h1>
                     <form onSubmit={handleSubmit} className={styles.formContainer}>
                         <div className={styles.inputForm}>
                             <div className={styles.formIcons}>
@@ -54,7 +54,7 @@ const LoginForm = ({login, handleRegister}) => {
                                 name='username'
                                 value={useData.email}
                                 onChange={handleChange}
-                                placeholder="your username"
+                                placeholder="Username"
                             />
                         </div>
                         <div className={styles.spanError}>
@@ -70,7 +70,7 @@ const LoginForm = ({login, handleRegister}) => {
                                 name='password'
                                 value={useData.password}
                                 onChange={handleChange}
-                                placeholder="your password"
+                                placeholder="Password"
                             />
                         </div>
                         <div className={styles.spanError}>
@@ -81,15 +81,15 @@ const LoginForm = ({login, handleRegister}) => {
                         </div>
                     </form>
                     <div className={styles.message}>
-                        <p>¿No tienes una cuenta? <span onClick={()=>{handleRegister()}}> Crea una</span> .</p>
+                        <p>Dont have an account? <span className={styles.registerLink} onClick={()=>{handleRegister()}}> Create one</span> .</p>
                     </div>
                 </div>
             ) : (
                 <div className={styles.containerMsg}>
                     <div className={styles.msg}>
-                        <h1>Bienvenido a My Calendar</h1>
-                        <p>¡Gracias por unirte a nosotros!</p>
-                        <p>Esperamos que disfrutes de tu experiencia con nuestra aplicación.</p>
+                        <h1>Welcome to My Calendar</h1>
+                         <p>Thank you for joining us!</p>
+                         <p>We hope you enjoy your experience with our application.</p>
                         
                         <div>
                             <button onClick={handleShowLogin} className={styles.btn}>go!</button>
