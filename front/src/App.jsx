@@ -14,6 +14,8 @@ import { AddShowLogin, AddUserData } from './redux/loginForm';
 import Nav from './components/nav/Nav';
 import UserView from './components/userView/UserView';
 import { addUserView } from './redux/userView';
+import ProjectsForm from "./components/projectsForm/ProjectsForm";
+import { getUsers } from './redux/userSlice';
 
 function App() {
 
@@ -95,6 +97,7 @@ function App() {
         navigate('/home');
         dispatch(AddUserData(user))
         dispatch(addUserView(user));
+        dispatch(getUsers());
       }
 
     } catch (error) {
@@ -142,6 +145,8 @@ function App() {
           !register ? <Route path='/' element={<LoginForm login={login} handleRegister={handleRegister}/>}/>
                     : <Route path='/' element={<RegisterForm checkIn={checkIn} handleRegister={handleRegister}/>}/>
           }
+
+            <Route path='/projects' element={<ProjectsForm/>}/>
             <Route path='/home' element={
 
               <div className='miniDayContainer'>
