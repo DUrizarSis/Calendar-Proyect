@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const ProjectsForm = () => {
 
-  const users = useSelector(state => state.userEvents.users.normalUsers);
+  const users = useSelector(state => state.userEvents.users.normalUsers) || [];
 
   const dispatch = useDispatch();
 
