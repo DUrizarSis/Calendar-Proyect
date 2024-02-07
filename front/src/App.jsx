@@ -102,6 +102,7 @@ function App() {
   const logout = ()=>{
     localStorage.setItem('access', 'false');
     localStorage.setItem('useData', 'null')
+    
     navigate('/');
     dispatch(AddShowLogin(false))
   }
