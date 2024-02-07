@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 import styles from "./nav.module.css";
 
 const Nav = ({logout}) => {
@@ -17,9 +18,12 @@ const Nav = ({logout}) => {
             </div>
             {user.isSuperuser === true && 
             <div className={styles.logout}>
-                <img src={projectIcon} alt="project" title='Create project' className={styles.projectIcon}/>
+                <Link to='/projects'>
+                    <img src={projectIcon} alt="project" title='Create project' className={styles.projectIcon}/>
+                </Link>
             </div>
             }
+            
             <div className={styles.logout}>
                 <img src={logoutIcon} alt="logout" onClick={handleLogout} title='logout' className={styles.logoutIcon}/>
             </div>
