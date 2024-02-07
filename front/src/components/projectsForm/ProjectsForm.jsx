@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
+import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { AddNewProject } from '../../redux/projectSlice';
+import axios from 'axios';
 
 const ProjectsForm = () => {
+
+  const users = useSelector(state => state.userEvents.users.normalUsers);
+
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     name: '',
     start: new Date(),
@@ -27,15 +36,15 @@ const ProjectsForm = () => {
     });
   };
 
-  const handleTeamChange = (e) => {
-    const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+  const handleTeamChange = (selectedOptions) => {
     setFormData({
       ...formData,
-      team: selectedOptions
+      team: selectedOptions.map(option => option.value)
     });
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     // Mini validaciónes
@@ -53,13 +62,26 @@ const ProjectsForm = () => {
       validationErrors.team = 'You must select at least one team member';
     }
 
-    if (Object.keys(validationErrors).length === 0) {
-      // Aquí hay que manejar la logica del submit jaja
-      console.log(formData);
-    } else {
-      setErrors(validationErrors);
-    }
+      if (Object.keys(validationErrors).length === 0) {
+        try {
+          const response = await axios.post('http://localhost:5000/api/projects', formData);
+    
+          if (response.status === 201) {
+            const data = response.data.project;
+            console.log(data);
+            dispatch(AddNewProject(data));
+          } else {
+            console.error('Internal Error Server');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      } else {
+        setErrors(validationErrors);
+      }
   };
+
+  const options = users.map(user => ({ value: user._id, label: user.username }));
 
   return (
     <form onSubmit={handleSubmit}>
@@ -67,7 +89,6 @@ const ProjectsForm = () => {
         <label>Project Name:</label>
         <input
           type="text"
-          id="name"
           name="name"
           onChange={handleChange}
           value={formData.name}
@@ -105,17 +126,15 @@ const ProjectsForm = () => {
 
       <div>
         <label>Team members:</label>
-        <select
-          id="team"
-          name="team"
+        <Select
+          isMulti
+          options={options}
+          value={options.filter(option => formData.team.includes(option.value))}
           onChange={handleTeamChange}
-          value={formData.team}
-          multiple
-        >
-          {/* Falta la logica de rasterizar a los users de redux */}
-        </select>
+        />
         {errors.team && <div>{errors.team}</div>}
       </div>
+
 
       <div>
         <button type="submit">Add</button>
