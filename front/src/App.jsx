@@ -77,6 +77,11 @@ function App() {
 
       if (storedAccess === 'true') {
         login(useData)
+
+        const storedUsers = localStorage.getItem('users');
+        if (storedUsers) {
+          dispatch(getUsers());
+        }
       }
 
   
@@ -84,7 +89,7 @@ function App() {
       navigate('/');
     } 
 
-  }, []);
+  }, [dispatch]);
   
   const login = async (useData)=>{
     try {
@@ -94,10 +99,18 @@ function App() {
       if(access) {
         localStorage.setItem('access', 'true');
         localStorage.setItem('useData', JSON.stringify(useData));
-        navigate('/home');
+        localStorage.setItem('users', JSON.stringify(data.users));
+        dispatch(getUsers());
+
+        const someRoutes = ['/projects', '/otherRoute'];
+
+        if (!someRoutes.includes(location.pathname)) {
+          navigate('/home');
+        }
+
         dispatch(AddUserData(user));
         dispatch(addUserView(user));
-        dispatch(getUsers());
+
       }
 
     } catch (error) {
