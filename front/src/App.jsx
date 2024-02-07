@@ -93,7 +93,7 @@ function App() {
         localStorage.setItem('access', 'true');
         localStorage.setItem('useData', JSON.stringify(useData));
         navigate('/home');
-        dispatch(AddUserData(user))
+        dispatch(AddUserData(user));
         dispatch(addUserView(user));
       }
 
