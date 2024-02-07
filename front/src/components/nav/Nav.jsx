@@ -14,7 +14,7 @@ const Nav = ({logout}) => {
     return(
         <div className={styles.container}>
             <div className={styles.title}>
-                <h2>My calendar.</h2>
+                <h3>welcome {user.username}!!</h3>
             </div>
             {user.isSuperuser === true && 
             <div className={styles.logout}>
