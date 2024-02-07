@@ -5,6 +5,7 @@ import eventMiniReducer from './eventMiniSlice';
 import showFormReducer from './showFormSlice';
 import loginFormSlice from './loginForm';
 import projectSlice from './projectSlice';
+import userViewReducer from './userView';
 
 const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
         showForm: showFormReducer,
         loginForm: loginFormSlice,
         projects: projectSlice,
+        userView: userViewReducer,
     }
 })
 
