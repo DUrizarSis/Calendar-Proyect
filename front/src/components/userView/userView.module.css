@@ -1,0 +1,23 @@
+.container{
+    width: 17em;
+    height: 14.3em;
+    margin: 1em 1em 1em 2em;
+    border: 1px solid #cccccc;
+    overflow: auto;
+    overflow-x: hidden;
+}
+.userContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3em 1fr;
+    text-align: start;
+    align-items: center;
+    margin: 0.5em;
+
+}
+
+.Icon{
+    width: 2em;
+    align-items: center;
+    text-align: start;
+}

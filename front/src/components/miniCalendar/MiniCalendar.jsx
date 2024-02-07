@@ -8,7 +8,7 @@ import { AddMode, addSelectedEvent, addShowForm } from "../../redux/showFormSlic
 import { getEvent } from "../../redux/eventSlice";
 
 
-function MiniCalendar({eventStyleGetter}) {
+function MiniCalendar() {
   const dispatch = useDispatch()
   const localizer = dayjsLocalizer(dayjs);
   const eventState = useSelector(state => state.events);
@@ -29,6 +29,28 @@ function MiniCalendar({eventStyleGetter}) {
     dispatch(addShowForm(true));
   };
 
+  const eventStyleGetter = (event) => {
+    let newStyle = {
+      backgroundColor: event.color,
+      color: "black",
+      fontWeight: "bold",
+      borderRadius: '5px',
+      opacity: 0.8,
+      border: '1px solid black',
+      display: 'flex',
+      textAlign: 'center',
+      padding: '5px',
+      height: '60%', // Modificar el alto del evento
+      width: '90%',   // Modificar el ancho del evento
+      fontSize: '10px',
+      alignItems: 'center', // Centrar verticalmente
+    justifyContent: 'center', // Centrar horizontalmente
+    }
+    return {
+      style: newStyle
+    }
+  }
+
   return (
 
     
@@ -42,7 +64,7 @@ function MiniCalendar({eventStyleGetter}) {
       onSelectSlot={handleSelectSlot}
       onSelectEvent={handleSelectEvent}
       eventPropGetter={eventStyleGetter}
-      style={{ width: '22em', height: '28em' }}
+      style={{ width: '17em', height: '21em' }}
       />
 
     </div>

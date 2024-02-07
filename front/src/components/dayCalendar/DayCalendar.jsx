@@ -10,7 +10,7 @@ import { addShowForm } from "../../redux/showFormSlice";
 import { getEvents } from "../../redux/eventSlice";
 
 
-const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handleCloseForm, logout}) => {
+const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handleCloseForm}) => {
 
     const dateMini= useSelector(state=> state.eventMini.date)
     const dispatch = useDispatch();
@@ -53,9 +53,7 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
     };
   }, [dispatch]); // Asegúrate de incluir dispatch como dependencia para evitar advertencias de ESLint
   
-  const handleLogout = () => {
-    logout();
-  }
+
   
   const userData = useSelector(state => state.loginForm.logUserData);
 
@@ -68,12 +66,6 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
     return (
 
       <div className={styles.container}>
-
-        <div className={styles.nav}>
-            
-            <button onClick={handleLogout}>Logout</button>
-        </div>
-        <div className={styles.calendar}>
             <Calendar
                 localizer={localizer}
                 defaultView={'month'}
@@ -86,9 +78,8 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
                 date={dateMini}
                 onNavigate={handleNavigate}
                 eventPropGetter={eventStyleGetter}
-                style={{ width: '69vw', height: '75vh'}}
+                style={{ width: '67em', height: '86vh'}}
                 />
-          </div>
 
             {showForm && (
               <EventForm
