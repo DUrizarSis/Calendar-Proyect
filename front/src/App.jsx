@@ -13,6 +13,7 @@ import axios from "axios";
 import { AddShowLogin, AddUserData } from './redux/loginForm';
 import Nav from './components/nav/Nav';
 import UserView from './components/userView/UserView';
+import { addUserView } from './redux/userView';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const [register, setRegister] = useState(false);
+  const user = useSelector(state => state.userView.userData);
 
   const eventStyleGetter = (event) => {
     let newStyle = {
@@ -91,7 +93,8 @@ function App() {
         localStorage.setItem('access', 'true');
         localStorage.setItem('useData', JSON.stringify(useData));
         navigate('/home');
-        dispatch(AddUserData(user));
+        dispatch(AddUserData(user))
+        dispatch(addUserView(user));
       }
 
     } catch (error) {
@@ -146,7 +149,7 @@ function App() {
                   <MiniCalendar
                     handleCloseForm={handleCloseForm}
                   />
-                  <UserView/>
+                  {user.isSuperuser === true && <UserView/>}
                 </div>
                 <DayCalendar
                   eventStyleGetter={eventStyleGetter}
