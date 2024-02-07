@@ -1,3 +1,23 @@
+.app {
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .calendarContainer {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr ;
+    align-items: center;
+  }
+  
+  .miniDayContainer {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap:5%;
+  }
 
 button{
     
@@ -5,7 +25,6 @@ button{
     border: 1px solid #ccc;
     border-radius: 4px;
     color: black;
-    padding: 8px 16px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -14,31 +33,14 @@ button{
 }
 
 button:hover {
-    background-color: #f0f0f0; /* Cambia el color de fondo cuando se pasa el mouse sobre el botón */
+    background-color: #f0f0f0; 
 }
 
-.app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .calendarContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    padding: 1rem;
-  }
-  
-  .miniDayContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-  }
 
  .rbc-toolbar-label{
     font-size: 1.5rem;
-    margin: 0.6rem;
-  
-}
+  }
+  .containerMini-User{
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }

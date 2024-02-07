@@ -8,14 +8,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState} from 'react';
 import { getEvent } from './redux/eventSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate,useLocation } from 'react-router-dom';
 import axios from "axios";
 import { AddShowLogin, AddUserData } from './redux/loginForm';
+import Nav from './components/nav/Nav';
+import UserView from './components/userView/UserView';
 
 function App() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [register, setRegister] = useState(false);
 
   const eventStyleGetter = (event) => {
@@ -128,6 +131,7 @@ function App() {
   return (
     <div className="app">
         <div className='calendarContainer'>
+          {location.pathname !== "/" && <Nav logout={logout}/>}
 
           <Routes>
           {
@@ -135,17 +139,19 @@ function App() {
                     : <Route path='/' element={<RegisterForm checkIn={checkIn} handleRegister={handleRegister}/>}/>
           }
             <Route path='/home' element={
+
               <div className='miniDayContainer'>
-                <MiniCalendar
-                  eventStyleGetter={eventStyleGetter}
-                  handleCloseForm={handleCloseForm}
-                />
+                <div className='containerMini-User'>
+                  <MiniCalendar
+                    handleCloseForm={handleCloseForm}
+                  />
+                  <UserView/>
+                </div>
                 <DayCalendar
                   eventStyleGetter={eventStyleGetter}
                   handleSelectEvent={handleSelectEvent}
                   handleShowForm={handleShowForm}
                   handleCloseForm={handleCloseForm}
-                  logout={logout}
                 />
               </div>
             }></Route>
