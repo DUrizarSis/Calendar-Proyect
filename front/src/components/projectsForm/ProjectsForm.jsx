@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { AddNewProject } from '../../redux/projectSlice';
+import { AddNewProject, setProjects } from '../../redux/projectSlice';
 import axios from 'axios';
+import validationProjects from '../../validation/validationProjects';
 
 const ProjectsForm = () => {
 
   const users = useSelector(state => state.userEvents.users.normalUsers) || [];
   const userSuper = useSelector(state => state.loginForm.logUserData)
+  const existingProjects = useSelector(state => state.projects.projects.map(project => project.name.toLowerCase()));
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -20,7 +22,24 @@ const ProjectsForm = () => {
     projectCreator: userSuper.isSuperuser && userSuper._id,
 
   });
+
+  useEffect(() => {
+    // Al montar el componente, obtener la lista de proyectos
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/projects/all');
+        const data = response.data;
+        dispatch(setProjects(data));
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
+
+    fetchProjects();
+  }, [dispatch]);
+
   console.log(formData.projectCreator)
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -29,6 +48,9 @@ const ProjectsForm = () => {
       ...formData,
       [name]: value
     });
+
+    const validationErrors = validationProjects({ ...formData, [name]: value }, existingProjects);
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: validationErrors[name] || null }));
   };
 
   const handleDateChange = (field, date) => {
@@ -36,6 +58,9 @@ const ProjectsForm = () => {
       ...formData,
       [field]: date
     });
+
+    const validationErrors = validationProjects({ ...formData, [field]: date }, existingProjects);
+    setErrors((prevErrors) => ({ ...prevErrors, [field]: validationErrors[field] || null }));
   };
 
   const handleTeamChange = (selectedOptions) => {
@@ -43,26 +68,16 @@ const ProjectsForm = () => {
       ...formData,
       team: selectedOptions.map(option => option.value)
     });
+
+    const validationErrors = validationProjects({ ...formData, team: selectedOptions.map(option => option.value) }, existingProjects);
+    setErrors((prevErrors) => ({ ...prevErrors, team: validationErrors.team || null }));
   };
 
 
   const handleSubmit = async(e) => {
     e.preventDefault();
 
-    // Mini validaciónes
-    const validationErrors = {};
-    if (!formData.name) {
-      validationErrors.name = 'The project name is required';
-    }
-    if (!formData.start) {
-      validationErrors.start = 'The start date is required';
-    }
-    if (!formData.end) {
-      validationErrors.end = 'The end date is required';
-    }
-    if (formData.team.length === 0) {
-      validationErrors.team = 'You must select at least one team member';
-    }
+    const validationErrors = validationProjects(formData, existingProjects);
 
       if (Object.keys(validationErrors).length === 0) {
         try {
@@ -72,6 +87,14 @@ const ProjectsForm = () => {
             const data = response.data.project;
             console.log(data);
             dispatch(AddNewProject(data));
+
+            setFormData({
+              name: '',
+              start: new Date(),
+              end: new Date(),
+              team: [],
+              projectCreator: userSuper.isSuperuser && userSuper._id,
+            });
           } else {
             console.error('Internal Error Server');
           }
