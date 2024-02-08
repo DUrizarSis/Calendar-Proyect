@@ -6,6 +6,7 @@ import showFormReducer from './showFormSlice';
 import loginFormSlice from './loginForm';
 import projectSlice from './projectSlice';
 import userViewReducer from './userView';
+import teamSuperUserReducer from './teamSuperUser';
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
         loginForm: loginFormSlice,
         projects: projectSlice,
         userView: userViewReducer,
+        teamSuperUser: teamSuperUserReducer,
     }
 })
 
