@@ -15,6 +15,8 @@ const getProjects = require("../controllers/getProjects");
 const getProjectById = require("../controllers/getProjectById");
 const updateProject = require("../controllers/updateProject");
 const deleteProject= require("../controllers/deleteProject");
+const getUserProjectAndEvents = require("../controllers/getUserProjectAndEvents")
+
 
 
 
@@ -56,5 +58,9 @@ router.get("/projects/:id", getProjectById); // Obtener un proyecto por su ID
 router.put("/projects/:id", updateProject); // Actualizar un proyecto 
 
 router.delete("/projects/:id", deleteProject); // Eliminar un proyecto
+
+router.get("/:id/projects-events", getUserProjectAndEvents)
+
+
 
 module.exports = router;
