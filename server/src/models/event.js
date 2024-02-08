@@ -28,7 +28,11 @@ const eventSchema = mongoose.Schema({
     superuser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    project: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project' // Referencia al modelo de proyecto
+    },
 });
 
 module.exports = mongoose.model('Event', eventSchema);
