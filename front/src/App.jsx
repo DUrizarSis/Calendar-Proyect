@@ -16,6 +16,8 @@ import UserView from './components/userView/UserView';
 import { addUserView } from './redux/userView';
 import ProjectsForm from "./components/projectsForm/ProjectsForm";
 import { getUsers } from './redux/userSlice';
+import { AddTeam } from './redux/teamSuperUser';
+import ProjectView from './components/projectView/ProjectView';
 
 function App() {
 
@@ -95,12 +97,14 @@ function App() {
     try {
       const {data} = await axios(`http://localhost:5000/api/user?username=${useData.username}&password=${useData.password}`)
       const {access, user} = data;
-
+      const response = await axios(`http://localhost:5000/api/projects/all`);
+      const team = response.data;
+      const superU = data.user._id;
+   
       if(access) {
         localStorage.setItem('access', 'true');
         localStorage.setItem('useData', JSON.stringify(useData));
         localStorage.setItem('users', JSON.stringify(data.users));
-        dispatch(getUsers());
 
         const someRoutes = ['/projects', '/otherRoute'];
 
@@ -110,6 +114,7 @@ function App() {
 
         dispatch(AddUserData(user));
         dispatch(addUserView(user));
+        dispatch(AddTeam({team, superU}))
 
       }
 
@@ -167,7 +172,7 @@ function App() {
                   <MiniCalendar
                     handleCloseForm={handleCloseForm}
                   />
-                  {user.isSuperuser === true && <UserView/>}
+                  {user.isSuperuser === true && <div> <ProjectView/> <UserView/>  </div> }
                 </div>
                 <DayCalendar
                   eventStyleGetter={eventStyleGetter}

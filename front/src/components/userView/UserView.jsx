@@ -1,45 +1,50 @@
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./userView.module.css";
+import { addProject } from "../../redux/teamSuperUser";
+import { useEffect } from "react";
 
 const UserView = () => {
-    const usuario = process.env.PUBLIC_URL + '/usuario.png';
+    const usericon = process.env.PUBLIC_URL + '/usuario.png';
+    const team = useSelector(state => state.teamSuperUser.team);
+    const users = useSelector(state => state.userEvents.users.normalUsers) || [];
+    const projects = useSelector(state => state.teamSuperUser.projects)|| [];
+    const indexProject = useSelector(state => state.teamSuperUser.indexProject);
+    const dispatch = useDispatch();
+    let listUser = [];
+    console.log(team)
+    useEffect(()=>{
+        let usersMatching = [];
+
+        const newArray = team.map(obj => {
+            usersMatching = users.filter(user => obj.team.includes(user._id));
+            return { name: obj.name, usersMatching };
+        });
+        dispatch(addProject(newArray))
+    },[])
+
+    let project = projects[indexProject];
+    if (project) {
+        listUser = project.usersMatching.map((user, index) => (
+            <div className={styles.userContainer} key={user._id}>
+                <div className={styles.Icon}>
+                    <img src={usericon} alt="icon" />
+                </div>
+                <p>{user.username}</p>
+            </div>
+        ));
+    }
+    console.log(projects)
     return(
+
         <div className={styles.container}>
-            <div className={styles.userContainer}>
-                <div className={styles.Icon}>
-                    <img src={usuario} alt="email" />
-                </div>
-                <p>John Doe</p>
+            <div className={styles.title}>
+                <h3>Team:</h3>
             </div>
-            <div className={styles.userContainer}>
-                <div className={styles.Icon}>
-                    <img src={usuario} alt="email" />
-                </div>
-                <p>Jane Smith</p>  
+
+            <div className={styles.containerList}>
+                {listUser}
             </div>
-            <div className={styles.userContainer}>
-                <div className={styles.Icon}>
-                    <img src={usuario} alt="email" />
-                </div>
-                <p>Michael Johnson</p>  
-            </div>
-            <div className={styles.userContainer}>
-                <div className={styles.Icon}>
-                    <img src={usuario} alt="email" />
-                </div>
-                <p>Emily Brown</p>
-            </div>
-            <div className={styles.userContainer}>
-                <div className={styles.Icon}>
-                    <img src={usuario} alt="email" />
-                </div>
-                <p>David Wilson</p>  
-            </div>
-            <div className={styles.userContainer}>
-                <div className={styles.Icon}>
-                    <img src={usuario} alt="email" />
-                </div>
-                <p>Sarah Taylor</p>
-            </div>
+            
         </div>
     )
 }

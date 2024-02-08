@@ -9,16 +9,18 @@ import axios from 'axios';
 const ProjectsForm = () => {
 
   const users = useSelector(state => state.userEvents.users.normalUsers) || [];
-
+  const userSuper = useSelector(state => state.loginForm.logUserData)
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     name: '',
     start: new Date(),
     end: new Date(),
-    team: []
-  });
+    team: [],
+    projectCreator: userSuper.isSuperuser && userSuper._id,
 
+  });
+  console.log(formData.projectCreator)
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {

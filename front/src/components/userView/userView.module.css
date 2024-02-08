@@ -1,8 +1,21 @@
 .container{
     width: 17em;
-    height: 14.3em;
+    height: 10.3em;
+    grid-template-rows: 1em 1fr;
+    text-align: start;
+    align-items: center;
     margin: 1em 1em 1em 2em;
     border: 1px solid #cccccc;
+
+}
+.title{
+    margin-top: 0.5em;
+    margin-left: 1em;
+
+}
+.containerList{
+    width: 100%;
+    height: 7em;
     overflow: auto;
     overflow-x: hidden;
 }
@@ -12,12 +25,19 @@
     grid-template-columns: 3em 1fr;
     text-align: start;
     align-items: center;
+    justify-content: center;
     margin: 0.5em;
 
 }
 
+.userContainer p{
+    font-size: 1em;
+    font-weight: bold;
+}
+
 .Icon{
-    width: 2em;
+    width: 1.5em;
     align-items: center;
     text-align: start;
 }
+
