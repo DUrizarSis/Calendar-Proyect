@@ -13,6 +13,11 @@ const projectSchema = mongoose.Schema({
         type: Date,
         required: true
     },
+    projectCreator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    
+    },
     team: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
