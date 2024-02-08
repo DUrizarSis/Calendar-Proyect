@@ -15,7 +15,8 @@ const getProjects = require("../controllers/getProjects");
 const getProjectById = require("../controllers/getProjectById");
 const updateProject = require("../controllers/updateProject");
 const deleteProject= require("../controllers/deleteProject");
-const getUserProjectAndEvents = require("../controllers/getUserProjectAndEvents")
+const getUserProjectAndEvents = require("../controllers/getUserProjectAndEvents");
+const getUserProjEvents = require("../controllers/getUserProjEvents");
 
 
 
@@ -61,6 +62,6 @@ router.delete("/projects/:id", deleteProject); // Eliminar un proyecto
 
 router.get("/:id/projects-events", getUserProjectAndEvents)
 
-
+router.get("/projects-events", getUserProjEvents); //Traer events de un user en cierto project
 
 module.exports = router;

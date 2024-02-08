@@ -17,7 +17,7 @@ const UserView = () => {
 
         const newArray = team.map(obj => {
             usersMatching = users.filter(user => obj.team.includes(user._id));
-            return { name: obj.name, usersMatching };
+            return {_id: obj._id, name: obj.name, usersMatching };
         });
         dispatch(addProject(newArray))
     },[])

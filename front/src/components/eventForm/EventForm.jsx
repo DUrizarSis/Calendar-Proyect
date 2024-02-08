@@ -8,6 +8,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 const EventForm = ({ mode, event, onCancel }) => {
 
   const userData = useSelector(state => state.loginForm.logUserData);
+  const projects = useSelector(state => state.teamSuperUser.projects);
+  const onProject = useSelector(state => state.teamSuperUser.indexProject);
   const dispatch = useDispatch();
   const formRef = useRef();
   
@@ -32,6 +34,7 @@ const EventForm = ({ mode, event, onCancel }) => {
     end: event ? new Date(event.end) : new Date(),
     color: event ? event.color : '#000000',
     user: userData._id ,
+    project: projects[onProject]._id,
   });
 
   const handleInputChange = (name, value) => {
