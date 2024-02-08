@@ -7,6 +7,8 @@ import { AddNewProject, setProjects } from '../../redux/projectSlice';
 import axios from 'axios';
 import validationProjects from '../../validation/validationProjects';
 import { NavLink } from 'react-router-dom';
+import styles from './projectsForm.module.css';
+
 
 const ProjectsForm = () => {
   const users = useSelector(state => state.userEvents.users.normalUsers) || [];
@@ -109,65 +111,73 @@ const ProjectsForm = () => {
   const options = users.map(user => ({ value: user._id, label: user.username }));
 
   return (
-    <div>
-      <NavLink to="/home">
-        <button>Home</button>
-      </NavLink>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className={styles.container}>
+        <div className={styles.btnClose}>
+          <NavLink to="/home">
+            <button>Home</button>
+          </NavLink>
+        </div>
+
+      <form onSubmit={handleSubmit} className={styles.form}>
+
+        <div className={styles.formInputSimple}>
           <label>Project Name:</label>
-          <input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            value={formData.name}
-          />
+
+            <input
+              type="text"
+              name="name"
+              onChange={handleChange}
+              value={formData.name}
+            />
+
           {errors.name && <div>{errors.name}</div>}
         </div>
 
-        <div>
+        <div className={styles.formInputDate}>
           <label>Start date:</label>
-          <DatePicker
-            selected={formData.start}
-            onChange={(date) => handleDateChange('start', date)}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={15}
-            dateFormat="MMMM d, yyyy h:mm aa"
-            required
-          />
+            <DatePicker
+              selected={formData.start}
+              onChange={(date) => handleDateChange('start', date)}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={15}
+              dateFormat="MMMM d, yyyy h:mm aa"
+              required
+            />
           {errors.start && <div>{errors.start}</div>}
         </div>
 
-        <div>
+        <div className={styles.formInputDate}>
           <label>End date:</label>
-          <DatePicker
-            selected={formData.end}
-            onChange={(date) => handleDateChange('end', date)}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={15}
-            dateFormat="MMMM d, yyyy h:mm aa"
-            required
-          />
+            <DatePicker
+                selected={formData.end}
+                onChange={(date) => handleDateChange('end', date)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                dateFormat="MMMM d, yyyy h:mm aa"
+                required
+            />
+
           {errors.end && <div>{errors.end}</div>}
         </div>
 
-        <div>
+        <div className={styles.formInputSelect}>
           <label>Team members:</label>
-          <Select
-            isMulti
-            options={options}
-            value={options.filter(option => formData.team.includes(option.value))}
-            onChange={handleTeamChange}
-          />
+            <Select
+              isMulti
+              options={options}
+              value={options.filter(option => formData.team.includes(option.value))}
+              onChange={handleTeamChange}
+            />
           {errors.team && <div>{errors.team}</div>}
         </div>
 
 
-        <div>
+        <div className={styles.btn}>
           <button type="submit">Add</button>
         </div>
+
       </form>
     </div>
   );
