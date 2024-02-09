@@ -84,6 +84,7 @@
         grid-template-columns: 1fr 1fr;
     }
     .containerConfirmDelete{
+        padding: 1em;
         width: 35em;
         height: 7em;
         position: absolute;
@@ -104,8 +105,13 @@
     .containerConfirmDelete p {
         font-weight: bold;
     }
+
     .btmYesandNo{
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap:3em;
+    }
+    .btmYesandNo button{
+        width: 2.5em;
+        height: 2;
     }

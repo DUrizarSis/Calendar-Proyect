@@ -7,6 +7,8 @@ import loginFormSlice from './loginForm';
 import projectSlice from './projectSlice';
 import userViewReducer from './userView';
 import teamSuperUserReducer from './teamSuperUser';
+import projectUserViewReducer from './projectUserView';
+import confirmEmpyReducer from './confirmEmpyP';
 
 const store = configureStore({
     reducer: {
@@ -18,6 +20,8 @@ const store = configureStore({
         projects: projectSlice,
         userView: userViewReducer,
         teamSuperUser: teamSuperUserReducer,
+        projectUserView: projectUserViewReducer,
+        confirmEmpy: confirmEmpyReducer
     }
 })
 

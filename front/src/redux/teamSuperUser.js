@@ -4,6 +4,7 @@ const initialState = {
     team: [],
     projects: [],
     indexProject: 0,
+
 }
 
 export const teamSuperUserSlice = createSlice({
@@ -14,13 +15,14 @@ export const teamSuperUserSlice = createSlice({
             const superU = action.payload.superU;
             const filteredObjects = action.payload.team.filter(objeto => objeto.projectCreator === superU);
             state.team = filteredObjects.map(objeto => ({ name: objeto.name, _id: objeto._id, team: objeto.team }));
+            
         },
         addProject:(state, action) => {
             state.projects = action.payload;
         },
         selectProject:(state, action) => {
             state.indexProject = action.payload;
-        }
+        },
     }
 });
 

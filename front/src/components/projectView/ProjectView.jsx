@@ -3,18 +3,27 @@ import styles from './projectView.module.css';
 import { useSelector } from 'react-redux';
 import { selectProject } from '../../redux/teamSuperUser';
 import { useDispatch } from 'react-redux';
+import { selectProjectUser } from '../../redux/projectUserView';
 
 const ProjectView = () => {
+    const projecstUser = useSelector(state => state.projectUserView.projects);
     const projects = useSelector(state => state.teamSuperUser.projects);
-    const projetsSelect = projects.map((obj, index) => ({ value: index, label: obj.name }));
+    const user = useSelector(state => state.userView.userData);
     const dispatch = useDispatch();
+
+    let projetsSelect = [];
+    user.isSuperuser ? projetsSelect = projects.map((obj, index) => ({ value: index, label: obj.name }))
+    : projetsSelect = projecstUser.map((obj, index) => ({ value: index, label: obj.name }));
+
 
     const handleSelectChange = selectedOption => {
         // Aquí puedes acceder al índice seleccionado
-        console.log("Índice seleccionado:", selectedOption.value);
-        dispatch(selectProject(selectedOption.value))
+        user.isSuperuser ? dispatch(selectProject(selectedOption.value))
+        : dispatch(selectProjectUser(selectedOption.value))
     };
+
     return (
+
         <div className={styles.container}>
             <div className={styles.title}>
                 <h3>Projects:</h3>

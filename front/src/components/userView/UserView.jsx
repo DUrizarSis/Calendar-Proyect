@@ -10,8 +10,9 @@ const UserView = () => {
     const projects = useSelector(state => state.teamSuperUser.projects)|| [];
     const indexProject = useSelector(state => state.teamSuperUser.indexProject);
     const dispatch = useDispatch();
+
     let listUser = [];
-    console.log(team)
+ 
     useEffect(()=>{
         let usersMatching = [];
 
@@ -19,10 +20,14 @@ const UserView = () => {
             usersMatching = users.filter(user => obj.team.includes(user._id));
             return {_id: obj._id, name: obj.name, usersMatching };
         });
+
         dispatch(addProject(newArray))
     },[])
 
     let project = projects[indexProject];
+
+    console.log(projects[indexProject])
+    console.log(indexProject)
     if (project) {
         listUser = project.usersMatching.map((user, index) => (
             <div className={styles.userContainer} key={user._id}>
@@ -33,7 +38,7 @@ const UserView = () => {
             </div>
         ));
     }
-    console.log(projects)
+
     return(
 
         <div className={styles.container}>

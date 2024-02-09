@@ -18,6 +18,8 @@ import ProjectsForm from "./components/projectsForm/ProjectsForm";
 import { getUsers } from './redux/userSlice';
 import { AddTeam } from './redux/teamSuperUser';
 import ProjectView from './components/projectView/ProjectView';
+import { addProjectUser } from './redux/projectUserView';
+import { confirmSuper,confirmUser } from './redux/confirmEmpyP';
 
 function App() {
 
@@ -26,7 +28,12 @@ function App() {
   const location = useLocation();
   const [register, setRegister] = useState(false);
   const user = useSelector(state => state.userView.userData);
-
+  const teamConfirm = useSelector(state => state.teamSuperUser.projects);
+  const confirmProjectEmpyUser =useSelector(state => state.projectUserView.projects);
+  const confirmSuperP = useSelector(state => state.confirmEmpy.projectSuper);
+  const confirmUserP = useSelector(state => state.confirmEmpy.projectUser);
+  console.log(confirmProjectEmpyUser)
+  
   const eventStyleGetter = (event) => {
     let newStyle = {
       backgroundColor: event.color,
@@ -44,8 +51,9 @@ function App() {
     dispatch(addSelectedEvent(selectedEvent));
     dispatch(AddMode('edit'));
     dispatch(addShowForm(true));
+
   };
-  
+
   const handleShowForm = (event) => {
     const startISO = new Date(event.start).toISOString();
     const endISO = new Date(event.end).toISOString();
@@ -57,10 +65,16 @@ function App() {
       end: endISO,
       slots: slotsISO,
     };
-    
+    if(teamConfirm.length === 0){
+      dispatch(confirmSuper(true));
+    }
+    if(confirmProjectEmpyUser.legth === 0){
+      dispatch(confirmUser(true))
+    }
     dispatch(addSelectedEvent(eventData));
     dispatch(AddMode('add'));
     dispatch(addShowForm(true));
+ 
   };
   
   const handleCloseForm = () => {
@@ -98,6 +112,7 @@ function App() {
       const {data} = await axios(`http://localhost:5000/api/user?username=${useData.username}&password=${useData.password}`)
       const {access, user} = data;
       const response = await axios(`http://localhost:5000/api/projects/all`);
+      
       const team = response.data;
       const superU = data.user._id;
    
@@ -111,10 +126,11 @@ function App() {
         if (!someRoutes.includes(location.pathname)) {
           navigate('/home');
         }
-
+        
         dispatch(AddUserData(user));
         dispatch(addUserView(user));
-        dispatch(AddTeam({team, superU}))
+        dispatch(AddTeam({team, superU}));
+        dispatch(addProjectUser({team, user}))
 
       }
 
@@ -172,7 +188,9 @@ function App() {
                   <MiniCalendar
                     handleCloseForm={handleCloseForm}
                   />
-                  {user.isSuperuser === true && <div> <ProjectView/> <UserView/>  </div> }
+                  <ProjectView/>
+                  {user.isSuperuser === true && <div> <UserView/>   </div> }
+                  
                 </div>
                 <DayCalendar
                   eventStyleGetter={eventStyleGetter}
