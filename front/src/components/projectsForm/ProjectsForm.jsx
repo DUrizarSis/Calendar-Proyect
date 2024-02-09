@@ -8,6 +8,7 @@ import axios from 'axios';
 import validationProjects from '../../validation/validationProjects';
 import { NavLink } from 'react-router-dom';
 import styles from './projectsForm.module.css';
+import { AddTeam } from '../../redux/teamSuperUser';
 
 
 const ProjectsForm = () => {
@@ -24,21 +25,6 @@ const ProjectsForm = () => {
     projectCreator: userSuper.isSuperuser && userSuper._id,
 
   });
-
-  useEffect(() => {
-    // Al montar el componente, obtener la lista de proyectos
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/projects/all');
-        const data = response.data;
-        dispatch(setProjects(data));
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      }
-    };
-
-    fetchProjects();
-  }, [dispatch]);
 
   console.log(formData.projectCreator)
 
@@ -86,9 +72,13 @@ const ProjectsForm = () => {
           const response = await axios.post('http://localhost:5000/api/projects', formData);
     
           if (response.status === 201) {
-            const data = response.data.project;
-            console.log(data);
-            dispatch(AddNewProject(data));
+
+            const responseAll = await axios.get('http://localhost:5000/api/projects/all');
+            const team = responseAll.data;
+    
+            const superU = userSuper._id;
+    
+            dispatch(AddTeam({team, superU}));
 
             setFormData({
               name: '',
