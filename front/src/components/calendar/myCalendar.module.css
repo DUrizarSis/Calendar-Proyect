@@ -1,6 +1,13 @@
-.container{
-    text-align: center;
-    width: 95vh;
-    height: 95vh;
-    background-color: aqua;
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.calendarContainer {
+    max-width: 90vw;
+    height: 77vh;
+    font-size: 1.2rem;
+    margin: 1rem;
 }

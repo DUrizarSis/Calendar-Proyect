@@ -1,19 +1,21 @@
 .container{
-    width: 17em;
-    height: 3em;
+    width: 17rem;
+    height: 3rem;
     display: grid;
     grid-template-columns: 35% 65%;
     text-align: center;
     align-items: center;
-    margin: 0em 1em 1em 2em;
-    border: 1px solid #cccccc;
+    margin: 0em 1em 1em 1.9em;
+   border: 1px solid #cccccc; 
+    
 }
 .title{
     display: flex;
     text-align: center;
     justify-content: start;
     align-items: center; 
-    margin-left: 1em;
+    margin-left: 1rem;
+    
 }
 .containerSelect {
     display: flex;
@@ -21,6 +23,8 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    
+   
 }
 .mySelect{
     width: 10em;

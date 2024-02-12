@@ -1,7 +1,7 @@
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import dayjs from "dayjs";
-//import Styles from "./myCalendar.module.css";
+import Styles from "./myCalendar.module.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { getEvent, getEvents } from "../../redux/eventSlice";
@@ -29,22 +29,20 @@ function MyCalendar({eventStyleGetter,handleSelectEvent, handleShowForm, handleC
 
   return (
     
-    <div className="flex justify-center items-center h-screen">
-    <div className="max-w-7xl mx-auto p-5 bg-white rounded shadow">
+    <div className={styles.container}>
+    <div className={styles.maxWidthContainer}>
       <div style={{ padding: '1rem 2rem' }}>
-    <h1 className="text-3xl font-bold mb-4">My Calendar</h1>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        onSelectEvent={handleSelectEvent}
-        selectable
-        startAccessor={(event) => dayjs(event.start).toDate()}
-        endAccessor={(event) => dayjs(event.end).toDate()}
-        onSelectSlot={handleShowForm}
-        style={{ width: "90vw", height: "77vh", fontSize: "1.2rem" }}
-        eventPropGetter={eventStyleGetter}
-        className="m-2"
-      />
+    <Calendar
+                        localizer={localizer}
+                        events={events}
+                        onSelectEvent={handleSelectEvent}
+                        selectable
+                        startAccessor={(event) => dayjs(event.start).toDate()}
+                        endAccessor={(event) => dayjs(event.end).toDate()}
+                        onSelectSlot={handleShowForm}
+                        style={{ width: "90%", height: "77vh", fontSize: "1.2rem", margin: "1rem" }}
+                        eventPropGetter={eventStyleGetter}
+                    />
       </div>
       </div>
 

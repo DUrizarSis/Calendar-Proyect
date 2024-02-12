@@ -1,9 +1,12 @@
-.container{
-    width: 100vh;
-    height: 89%;
-    display: grid;
-    grid-template-rows: 1fr;
-    margin: 1em;
+.container {
+    width: 90%; 
+    max-width: 1000px; 
+    margin: 1em auto; 
+  
 }
 
-
+@media (max-width: 768px) {
+    .container {
+        width: 95%; 
+    }
+}
