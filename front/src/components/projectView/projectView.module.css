@@ -5,8 +5,8 @@
     grid-template-columns: 35% 65%;
     text-align: center;
     align-items: center;
-    margin: 0em 1em 1em 1.9em;
-   border: 1px solid #cccccc; 
+    margin: 0em 0em 1em 3rem;
+    border: 1px solid #cccccc; 
     
 }
 .title{
