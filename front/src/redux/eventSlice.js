@@ -46,6 +46,21 @@ export const updateEvent = createAsyncThunk(
     }
 );
 
+// Get events for idUser and Project
+export const getEventsforProjectAndIdUser = createAsyncThunk(
+  'events/getEventForIdUserAndIdProject',
+  async ({idUser, idProject}) => { 
+
+    try {
+      const response = await axios.get(`${URL}projects-events?idUser=${idUser}&idProject=${idProject}`);
+      console.log(response.data)
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
 
 
 // Delete Event
@@ -57,41 +72,59 @@ export const deleteEvent = createAsyncThunk(
     }
 )
 
-
-
 //Handle actions reducer
 
 const initialState = {
     events: [],
-    onEvent: []
+    backupEvents: [],
+    onEvent: [],
+    errorMessage: null,
 }
 
 const eventSlice = createSlice({
   name: 'events',
   initialState,
-  reducers: {},
+  reducers: {
+    addErrorMessage(state, action) {
+      state.errorMessage = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getEvents.fulfilled, (state, action) => {
       state.events = action.payload;
+      state.backupEvents = state.events
     });
     builder.addCase(getEvent.fulfilled, (state, action) => {
         state.onEvent = action.payload
     });
     builder.addCase(addEvent.fulfilled, (state, action) => {
         state.events = [...state.events, action.payload];
+        state.backupEvents = state.events
     });
     builder.addCase(updateEvent.fulfilled, (state, action) => {
         const index = state.events.findIndex((event) => event._id === action.payload._id);
     
         if (index !== -1) {
             state.events[index] = action.payload;
+            state.backupEvents = state.events
         }
     });
     builder.addCase(deleteEvent.fulfilled, (state, action) => {
-        state.events = state.events.filter(event => event._id != action.payload._id)
+        state.events = state.events.filter(event => event._id != action.payload._id);
+        state.backupEvents = state.events
+    });
+    builder.addCase(getEventsforProjectAndIdUser.fulfilled, (state, action) => {
+      if(action.payload.message){
+        state.errorMessage = action.payload.message;
+        state.events = [];
+      }else{
+        state.events = action.payload;
+        state.errorMessage = null
+      }
+
     });
   },
 })
 
-
+export const { addErrorMessage } = eventSlice.actions;
 export default eventSlice.reducer;

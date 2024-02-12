@@ -9,6 +9,7 @@
     display: grid;
     grid-template-rows: auto 1fr ;
     align-items: center;
+    position: relative;
   }
   
   .miniDayContainer {
@@ -17,6 +18,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap:5%;
+    
   }
 
 button{
@@ -44,3 +46,46 @@ button:hover {
     display: grid;
     grid-template-rows: auto 1fr;
   }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    z-index: 998; /* Asegúrate de que este valor sea menor que el z-index del contenedor */
+  }
+
+  .containerConfirmDelete{
+    padding: 1em;
+    width: 35em;
+    height: 7em;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    z-index: 999; /* Ajusta el valor de z-index según sea necesario para que esté por encima de otros elementos */
+    /* Otros estilos */
+    border-radius: 10px;
+    background-color: #fff;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    
+}
+
+.containerConfirmDelete p {
+    font-weight: bold;
+}
+
+.btmYesandNo{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.btmYesandNo button{
+
+    width: 2.5em;
+    height: 2;
+}

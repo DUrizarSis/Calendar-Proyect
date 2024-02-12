@@ -10,7 +10,8 @@ export const userViewSlice = createSlice({
     reducers: {
         addUserView: (state, action) => {
             state.userData = action.payload;
-        }
+        },
+        
     }
 });
 

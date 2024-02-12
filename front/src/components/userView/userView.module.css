@@ -27,7 +27,11 @@
     align-items: center;
     justify-content: center;
     margin: 0.5em;
+    cursor: pointer;
 
+}
+.userContainer:hover{
+    background-color:rgb(189, 218, 245);;
 }
 
 .userContainer p{
@@ -37,7 +41,9 @@
 
 .Icon{
     width: 1.5em;
+    display: flex;
     align-items: center;
     text-align: start;
+    justify-content: center;
 }
 

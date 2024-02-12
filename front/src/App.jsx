@@ -6,7 +6,7 @@ import DayCalendar from './components/dayCalendar/DayCalendar';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState} from 'react';
-import { getEvent } from './redux/eventSlice';
+import { getEvent, addErrorMessage } from './redux/eventSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
 import { Routes, Route, useNavigate,useLocation } from 'react-router-dom';
 import axios from "axios";
@@ -30,10 +30,8 @@ function App() {
   const user = useSelector(state => state.userView.userData);
   const teamConfirm = useSelector(state => state.teamSuperUser.projects);
   const confirmProjectEmpyUser =useSelector(state => state.projectUserView.projects);
-  const confirmSuperP = useSelector(state => state.confirmEmpy.projectSuper);
-  const confirmUserP = useSelector(state => state.confirmEmpy.projectUser);
-  console.log(confirmProjectEmpyUser)
-  
+  const errorMessage = useSelector(state => state.events.errorMessage);
+
   const eventStyleGetter = (event) => {
     let newStyle = {
       backgroundColor: event.color,
@@ -83,27 +81,30 @@ function App() {
     dispatch(addShowForm(false));
   };
 
+  const refreshLogin = () => {
+    const storedAccess = localStorage.getItem('access');
+    const userJSON = localStorage.getItem('useData');
+    const useData = JSON.parse(userJSON);
+
+    if (storedAccess === 'true') {
+      login(useData)
+
+      const storedUsers = localStorage.getItem('users');
+      if (storedUsers) {
+        dispatch(getUsers());
+      }
+    }
+
+
+  if (!storedAccess) {
+    navigate('/');
+  } 
+  }
 
   // empecia el codigo para manejar el loginForm y registerForm
   useEffect(() => {
 
-      const storedAccess = localStorage.getItem('access');
-      const userJSON = localStorage.getItem('useData');
-      const useData = JSON.parse(userJSON);
-
-      if (storedAccess === 'true') {
-        login(useData)
-
-        const storedUsers = localStorage.getItem('users');
-        if (storedUsers) {
-          dispatch(getUsers());
-        }
-      }
-
-  
-    if (!storedAccess) {
-      navigate('/');
-    } 
+     refreshLogin()
 
   }, [dispatch]);
   
@@ -117,6 +118,7 @@ function App() {
       const superU = data.user._id;
    
       if(access) {
+
         localStorage.setItem('access', 'true');
         localStorage.setItem('useData', JSON.stringify(useData));
         localStorage.setItem('users', JSON.stringify(data.users));
@@ -142,6 +144,7 @@ function App() {
   const logout = ()=>{
     localStorage.setItem('access', 'false');
     localStorage.setItem('useData', 'null')
+    localStorage.setItem('accessYourCalender', 'false');
     
     navigate('/');
     dispatch(AddShowLogin(false))
@@ -169,6 +172,24 @@ function App() {
     setRegister(!register)
   }
 
+  const handleYourEvents = () => {
+    // const eventJSON = localStorage.getItem('eventKey');
+    // const eventKey = JSON.parse(eventJSON);
+    // console.log(eventKey)
+    // const lastClickedElement = document.querySelector(`.${styles.userContainer}[data-key="${eventKey}"]`);
+    // console.log(lastClickedElement)
+    // if (lastClickedElement) {
+    //   lastClickedElement.style.backgroundColor = ""; // Remover la clase que establece el color de fondo azul
+    // }
+    localStorage.setItem('accessYourCalender','false');
+    const userJSON = localStorage.getItem('useData');
+    const useData = JSON.parse(userJSON);
+    login(useData)
+  }
+
+  const handleErrorMessage = () => {
+    dispatch(addErrorMessage());
+  }
   return (
     <div className="app">
         <div className='calendarContainer'>
@@ -189,15 +210,30 @@ function App() {
                     handleCloseForm={handleCloseForm}
                   />
                   <ProjectView/>
-                  {user.isSuperuser === true && <div> <UserView/>   </div> }
+                  {user.isSuperuser === true && <div> <UserView handleYourEvents={handleYourEvents}/>   </div> }
                   
                 </div>
+
                 <DayCalendar
                   eventStyleGetter={eventStyleGetter}
                   handleSelectEvent={handleSelectEvent}
                   handleShowForm={handleShowForm}
                   handleCloseForm={handleCloseForm}
                 />
+                
+                {errorMessage && (
+                <div>
+                  <div className='overlay'></div>
+                  <div className='containerConfirmDelete'>
+                    <p>{errorMessage}</p>
+                    <div className='btmYesandNo'>
+                      <button onClick={handleErrorMessage}>ok</button>
+                    </div>
+
+                  </div>
+                </div>
+                
+              )}
               </div>
             }></Route>
           </Routes>
