@@ -17,6 +17,92 @@ const ProjectsForm = () => {
   const existingProjects = useSelector(state => state.projects.projects.map(project => project.name.toLowerCase()));
   const dispatch = useDispatch();
 
+  /////////////////////
+
+  const [projectsList, setProjectsList] = useState([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [projectId, setProjectId] = useState(null);
+
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [projectToDeleteId, setProjectToDeleteId] = useState(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/projects/all');
+        setProjectsList(response.data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
+
+    fetchProjects();
+  }, [projectsList]);
+  
+  //Handle Reset Form
+  const handleResetForm = () => {
+    setFormData({
+      name: '',
+      start: new Date(),
+      end: new Date(),
+      team: [],
+      projectCreator: userSuper.isSuperuser && userSuper._id,
+    });
+    setIsEditMode(false);
+    setProjectId(null);
+    setErrors({});
+  };
+
+  //Handle Edit Project
+  const handleEdit = async(projectId) => {
+    const selectedProject = projectsList.find((project) => project._id === projectId);
+    setFormData({
+      name: selectedProject.name,
+      start: new Date(selectedProject.start),
+      end: new Date(selectedProject.end),
+      team: selectedProject.team,
+      projectCreator: userSuper.isSuperuser && userSuper._id,
+    });
+    setProjectId(projectId); // Guarda el ID del proyecto en edición
+    setIsEditMode(true); // Cambia el estado para indicar que está en modo de edición
+  };
+
+  //Handle Delete Project
+  const handleDelete = (projectId) => {
+    setProjectToDeleteId(projectId);
+    setShowConfirmation(true);
+  };
+  
+  const confirmDelete = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/projects/${projectToDeleteId}`);
+
+      const updatedProjects = projectsList.filter((project) => project._id !== projectToDeleteId);
+      setProjectsList(updatedProjects);
+  
+      setShowConfirmation(false);
+      setProjectToDeleteId(null);
+  
+      if (response.status === 200) {
+        const responseAll = await axios.get('http://localhost:5000/api/projects/all');
+        const team = responseAll.data;
+    
+        const superU = userSuper._id;
+    
+        dispatch(AddTeam({ team, superU }));
+      }
+    } catch (error) {
+      console.error('Error deleting project:', error);
+    }
+  };
+  
+  const cancelDelete = () => {
+    setShowConfirmation(false);
+    setProjectToDeleteId(null);
+  };
+
+  ///////////////
+
   const [formData, setFormData] = useState({
     name: '',
     start: new Date(),
@@ -30,6 +116,7 @@ const ProjectsForm = () => {
 
   const [errors, setErrors] = useState({});
 
+  //Handle Name Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -41,6 +128,7 @@ const ProjectsForm = () => {
     setErrors((prevErrors) => ({ ...prevErrors, [name]: validationErrors[name] || null }));
   };
 
+  //Handle Date Change
   const handleDateChange = (field, date) => {
     setFormData({
       ...formData,
@@ -51,6 +139,7 @@ const ProjectsForm = () => {
     setErrors((prevErrors) => ({ ...prevErrors, [field]: validationErrors[field] || null }));
   };
 
+  //Handle Team Change
   const handleTeamChange = (selectedOptions) => {
     setFormData({
       ...formData,
@@ -62,40 +151,57 @@ const ProjectsForm = () => {
   };
 
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const validationErrors = validationProjects(formData, existingProjects);
 
-      if (Object.keys(validationErrors).length === 0) {
-        try {
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        if (isEditMode) { //If is Update
+        const response = await axios.put(`http://localhost:5000/api/projects/${projectId}`, formData);
+
+            if (response.status === 200) {
+
+              const responseAll = await axios.get('http://localhost:5000/api/projects/all');
+              const team = responseAll.data;
+          
+              const superU = userSuper._id;
+          
+              dispatch(AddTeam({team, superU}));
+
+            } 
+
+        } else { //If is'n update
           const response = await axios.post('http://localhost:5000/api/projects', formData);
-    
+            
           if (response.status === 201) {
 
             const responseAll = await axios.get('http://localhost:5000/api/projects/all');
             const team = responseAll.data;
-    
+        
             const superU = userSuper._id;
-    
+        
             dispatch(AddTeam({team, superU}));
+        }}
 
-            setFormData({
-              name: '',
-              start: new Date(),
-              end: new Date(),
-              team: [],
-              projectCreator: userSuper.isSuperuser && userSuper._id,
-            });
-          } else {
-            console.error('Internal Error Server');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      } else {
-        setErrors(validationErrors);
+        //Reset Form and States
+        setFormData({
+          name: '',
+          start: new Date(),
+          end: new Date(),
+          team: [],
+          projectCreator: userSuper.isSuperuser && userSuper._id,
+        });
+        setIsEditMode(false);
+        setProjectId(null);
+
+      } catch (error) {
+        console.error('Error:', error);
       }
+    } else {
+      setErrors(validationErrors);
+    }
   };
 
   const options = users.map(user => ({ value: user._id, label: user.username }));
@@ -108,7 +214,23 @@ const ProjectsForm = () => {
           </NavLink>
         </div>
 
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.containerProjects}>
+        <div className={styles.container}>
+          <div className={styles.projectsList}>
+            <h2>Existing Projects:</h2>
+            <ul>
+              {projectsList.map((project) => (
+                <li key={project._id}>
+                  {project.name} -{' '}
+                  <button onClick={() => handleEdit(project._id)}>Edit</button>
+                  <button onClick={() => handleDelete(project._id)}>Delete</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className={styles.form}>
 
         <div className={styles.formInputSimple}>
           <label>Project Name:</label>
@@ -165,10 +287,34 @@ const ProjectsForm = () => {
 
 
         <div className={styles.btn}>
-          <button type="submit">Add</button>
+          <button type="submit">{isEditMode ? 'Update' : 'Add'}</button>
         </div>
 
-      </form>
+        {isEditMode && (
+          <div className={styles.btn}>
+            <button type="button" onClick={handleResetForm}>
+              New Project
+            </button>
+          </div>
+        )}
+
+        {showConfirmation && (
+          <div className={styles.containerConfirmDelete}>
+            <p>Are you sure you want to delete this project?</p>
+            <div className={styles.btmYesandNo}>
+              <button onClick={confirmDelete}>Yes</button>
+              <button onClick={cancelDelete}>No</button>
+            </div>
+          </div>     
+        )}
+
+        </form>
+
+      </div>
+
+
+
+
     </div>
   );
 };
