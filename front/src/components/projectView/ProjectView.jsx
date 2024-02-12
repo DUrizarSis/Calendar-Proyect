@@ -21,7 +21,7 @@ const ProjectView = () => {
         user.isSuperuser ? dispatch(selectProject(selectedOption.value))
         : dispatch(selectProjectUser(selectedOption.value))
     };
-
+    console.log()
     return (
 
         <div className={styles.container}>

@@ -8,15 +8,16 @@ import { addEventMini } from "../../redux/eventMiniSlice";
 import EventForm from "../eventForm/EventForm";
 import { addShowForm } from "../../redux/showFormSlice";
 import { getEvents } from "../../redux/eventSlice";
+import { getEventsforProjectAndIdUser } from "../../redux/eventSlice";
 
 
 const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handleCloseForm}) => {
-
+    
     const dateMini= useSelector(state=> state.eventMini.date)
     const dispatch = useDispatch();
     const localizer = dayjsLocalizer(dayjs);
     const { showForm, selectedEvent, mode } = useSelector(state => state.showForm);
-
+    const today = new Date();
       //Event state global
     const eventState = useSelector(state => state.events);
     //Events state
@@ -26,8 +27,6 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
     const handleNavigate = (date, view) => {
     // Convierte la fecha a un formato que necesites, por ejemplo, a una cadena de texto
     const formattedDate = date.toISOString();
-
-    console.log(formattedDate);
 
     // Actualiza dateMini en el estado global
     dispatch(addEventMini(formattedDate));
@@ -54,15 +53,20 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
   }, [dispatch]); // Asegúrate de incluir dispatch como dependencia para evitar advertencias de ESLint
   
 
-  
+  const accessYourCalendar = localStorage.getItem('accessYourCalender');
   const userData = useSelector(state => state.loginForm.logUserData);
-
+  
   useEffect(() => {
-    if (userData && userData._id) {
-      dispatch(getEvents(userData._id));
+    if (userData && accessYourCalendar === 'false') {
+        dispatch(getEvents(userData._id));
+        
+    }else{
+      const calenderJSON = localStorage.getItem('useDatacalender');
+      const { useDataCalender} = JSON.parse(calenderJSON);
+      dispatch(getEventsforProjectAndIdUser(useDataCalender))
     }
-  }, [dispatch, userData]);
-
+  }, [dispatch, userData, accessYourCalendar]);
+  
     return (
 
       <div className={styles.container}>
@@ -70,6 +74,7 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
                 localizer={localizer}
                 defaultView={'month'}
                 events={events}
+                min={today}
                 selectable
                 onSelectEvent={handleSelectEvent}
                 onSelectSlot={handleShowForm}
