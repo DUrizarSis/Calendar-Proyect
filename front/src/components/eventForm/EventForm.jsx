@@ -5,6 +5,7 @@ import styles from './EventForm.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { confirmSuper,confirmUser } from '../../redux/confirmEmpyP';
+import { getEventsforProjectAndIdUser } from '../../redux/eventSlice';
 
 const EventForm = ({ mode, event, onCancel }) => {
 
@@ -34,11 +35,18 @@ const EventForm = ({ mode, event, onCancel }) => {
   const iconUpdate = process.env.PUBLIC_URL + '/update.png';
 
 
+  const accessYourCalendar = localStorage.getItem('accessYourCalender');
+  
   useEffect(() => {
-    if (userData && userData._id) {
-      dispatch(getEvents(userData._id));
+    if (userData && accessYourCalendar === 'false') {
+        dispatch(getEvents(userData._id));
+        
+    }else{
+      const calenderJSON = localStorage.getItem('useDatacalender');
+      const { useDataCalender} = JSON.parse(calenderJSON);
+      dispatch(getEventsforProjectAndIdUser(useDataCalender))
     }
-  }, [dispatch, userData]);
+  }, [dispatch, userData, accessYourCalendar]);
 
   useEffect(() => {
     handleNameProyect(event.project ? event.project : projects[onProject]?._id);
