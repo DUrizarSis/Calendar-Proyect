@@ -55,18 +55,21 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
 
   const accessYourCalendar = localStorage.getItem('accessYourCalender');
   const userData = useSelector(state => state.loginForm.logUserData);
-  
   useEffect(() => {
     if (userData && accessYourCalendar === 'false') {
         dispatch(getEvents(userData._id));
-        
-    }else{
-      const calenderJSON = localStorage.getItem('useDatacalender');
-      const { useDataCalender} = JSON.parse(calenderJSON);
-      dispatch(getEventsforProjectAndIdUser(useDataCalender))
+    } else {
+        const calenderJSON = localStorage.getItem('useDatacalender');
+        if (calenderJSON) {
+            const { useDataCalender } = JSON.parse(calenderJSON);
+            dispatch(getEventsforProjectAndIdUser(useDataCalender));
+        } else {
+            console.error('El valor de calenderJSON es null');
+            // Maneja este caso según sea necesario
+        }
     }
-  }, [dispatch, userData, accessYourCalendar]);
-  
+}, [dispatch, userData, accessYourCalendar]);
+
     return (
 
       <div className={styles.container}>
