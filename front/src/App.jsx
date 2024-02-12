@@ -173,17 +173,15 @@ function App() {
   }
 
   const handleYourEvents = () => {
-    // const eventJSON = localStorage.getItem('eventKey');
-    // const eventKey = JSON.parse(eventJSON);
-    // console.log(eventKey)
-    // const lastClickedElement = document.querySelector(`.${styles.userContainer}[data-key="${eventKey}"]`);
-    // console.log(lastClickedElement)
-    // if (lastClickedElement) {
-    //   lastClickedElement.style.backgroundColor = ""; // Remover la clase que establece el color de fondo azul
-    // }
+    const useDataCalender = { idUser: null, idProject: null };
+
+    localStorage.setItem('useDatacalender', JSON.stringify({ useDataCalender }));
     localStorage.setItem('accessYourCalender','false');
+    localStorage.setItem('useDatacalender','false');
+    localStorage.setItem('eventKey', null);
     const userJSON = localStorage.getItem('useData');
     const useData = JSON.parse(userJSON);
+
     login(useData)
   }
 
