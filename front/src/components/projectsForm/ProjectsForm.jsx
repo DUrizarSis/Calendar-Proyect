@@ -30,7 +30,9 @@ const ProjectsForm = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/projects/all');
-        setProjectsList(response.data);
+
+        const filteredProjects = response.data.filter(proj => proj.projectCreator === userSuper._id);
+        setProjectsList(filteredProjects);
       } catch (error) {
         console.error('Error fetching projects:', error);
       }
