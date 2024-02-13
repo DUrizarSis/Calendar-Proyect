@@ -14,7 +14,6 @@ import { AddTeam } from '../../redux/teamSuperUser';
 const ProjectsForm = () => {
   const users = useSelector(state => state.userEvents.users.normalUsers) || [];
   const userSuper = useSelector(state => state.loginForm.logUserData)
-  const existingProjects = useSelector(state => state.projects.projects.map(project => project.name.toLowerCase()));
   const dispatch = useDispatch();
 
   /////////////////////
@@ -40,6 +39,8 @@ const ProjectsForm = () => {
 
     fetchProjects();
   }, [projectsList]);
+
+  const existingProjects = projectsList.map(project => project.name.toLowerCase());
   
   //Handle Reset Form
   const handleResetForm = () => {
