@@ -40,10 +40,13 @@ const UserView = ({handleYourEvents}) => {
         let usersMatching = [];
                 
         newArray = team.map(obj => {
+
             usersMatching = users.filter(user => obj.team.includes(user._id));
             return { _id: obj._id, name: obj.name, usersMatching };
+
         });
     
+        console.log(newArray)
         if (!userLogin.isSuperuser) {
             newArray = newArray.map(obj => {
                    let updatedUsersMatching = obj.usersMatching.filter(user => user._id !== userLogin._id);

@@ -219,13 +219,14 @@ function App() {
                   {/* } */}
                   
                 </div>
-
-                <DayCalendar
-                  eventStyleGetter={eventStyleGetter}
-                  handleSelectEvent={handleSelectEvent}
-                  handleShowForm={handleShowForm}
-                  handleCloseForm={handleCloseForm}
-                />
+                <div className='dayContainer'>
+                  <DayCalendar
+                    eventStyleGetter={eventStyleGetter}
+                    handleSelectEvent={handleSelectEvent}
+                    handleShowForm={handleShowForm}
+                    handleCloseForm={handleCloseForm}
+                  />
+                </div>
                 
                 {errorMessage && (
                 <div>
