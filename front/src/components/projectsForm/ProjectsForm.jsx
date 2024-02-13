@@ -112,7 +112,7 @@ const ProjectsForm = () => {
 
   });
 
-  console.log(formData.projectCreator)
+  //console.log(formData.projectCreator)
 
   const [errors, setErrors] = useState({});
 
@@ -209,9 +209,7 @@ const ProjectsForm = () => {
   return (
     <div className={styles.container}>
         <div className={styles.btnClose}>
-          <NavLink to="/home">
-            <button>Home</button>
-          </NavLink>
+         
         </div>
 
       <div className={styles.containerProjects}>
@@ -222,11 +220,14 @@ const ProjectsForm = () => {
               {projectsList.map((project) => (
                 <li key={project._id}>
                   {project.name} -{' '}
-                  <button onClick={() => handleEdit(project._id)}>Edit</button>
-                  <button onClick={() => handleDelete(project._id)}>Delete</button>
+                  <button className={styles.btnEdit} onClick={() => handleEdit(project._id)}>Edit</button>
+                  <button  className={styles.btnDelete} onClick={() => handleDelete(project._id)}>Delete</button>
                 </li>
               ))}
             </ul>
+            <NavLink to="/home">
+            <button className={styles.btnHome}>Home</button>
+          </NavLink>
           </div>
         </div>
 
