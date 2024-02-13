@@ -13,6 +13,9 @@ const projectSchema = mongoose.Schema({
         type: Date,
         required: true
     },
+    color: {
+        type: String,
+    },
     projectCreator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
