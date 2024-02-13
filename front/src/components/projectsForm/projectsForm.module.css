@@ -1,21 +1,19 @@
 
 .container{
-    width: 100%;
-    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content:space-around;
+    flex-wrap: wrap;
+    padding: 1rem;
 
 }
 .form{
-    width: 60rem;
+    width:  calc(50% - 1rem);
     border: 1px solid lightslategray; 
-   
+    padding: 1rem; 
+    box-sizing: border-box; 
 }
 
-
 .formInputSimple{
-    
     display: grid;
     grid-template-rows: 2rem 1fr 2rem;
     
@@ -43,14 +41,12 @@
 }
 
 .btn{
-    display: flex;
     text-align: center;
     justify-content: end;
 
-
 }
 .btn button{
-    margin: 1rem;
+    margin: 1.3rem;
     text-align: center;
     text-transform: uppercase;
     padding: 0.5rem;
@@ -60,11 +56,6 @@
  padding: 0.5rem;
  margin: 0.4rem;
  text-transform: uppercase;
-
-}
-
-.btnHome {
-    
 }
 
 .btnEdit:hover {
@@ -81,17 +72,14 @@
     color: white;
 }
 
-
-.containerProjects {
-    display: flex;
-    padding: 2rem;
-    justify-content: space-between;
-    
-}
-
 .projectsList {
-    width: 100%;
-  
+    width: 50%;
+    max-height: 40rem;
+    overflow: auto;
+    padding: 2rem;
+    text-align: center;
+    /* display: flex;
+    justify-content: space-around; */
 }
 
 .containerConfirmDelete{
@@ -129,7 +117,8 @@
 }
 
 li{
-    padding: 0.5rem;
-
+    margin-top: 2rem;
+    padding: 0.2rem; 
 }
+
 

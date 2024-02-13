@@ -210,14 +210,17 @@ const ProjectsForm = () => {
   const options = users.map(user => ({ value: user._id, label: user.username }));
 
   return (
-    <div className={styles.container}>
-        <div className={styles.btnClose}>
-         
-        </div>
+   
 
-      <div className={styles.containerProjects}>
-        <div className={styles.container}>
+      <div>
+      
+      <NavLink to="/home">
+            <button className={styles.btnHome}>Home</button>
+          </NavLink>
+
+      <div className={styles.container}>
           <div className={styles.projectsList}>
+
             <h2>Existing Projects:</h2>
             <ul>
               {projectsList.map((project) => (
@@ -228,11 +231,8 @@ const ProjectsForm = () => {
                 </li>
               ))}
             </ul>
-            <NavLink to="/home">
-            <button className={styles.btnHome}>Home</button>
-          </NavLink>
-          </div>
-        </div>
+            
+           </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
 
@@ -244,7 +244,7 @@ const ProjectsForm = () => {
               name="name"
               onChange={handleChange}
               value={formData.name}
-            />
+              />
 
           {errors.name && <div>{errors.name}</div>}
         </div>
@@ -259,7 +259,7 @@ const ProjectsForm = () => {
               timeIntervals={15}
               dateFormat="MMMM d, yyyy h:mm aa"
               required
-            />
+              />
           {errors.start && <div>{errors.start}</div>}
         </div>
 
@@ -273,7 +273,7 @@ const ProjectsForm = () => {
                 timeIntervals={15}
                 dateFormat="MMMM d, yyyy h:mm aa"
                 required
-            />
+                />
 
           {errors.end && <div>{errors.end}</div>}
         </div>
@@ -285,7 +285,7 @@ const ProjectsForm = () => {
               options={options}
               value={options.filter(option => formData.team.includes(option.value))}
               onChange={handleTeamChange}
-            />
+              />
           {errors.team && <div>{errors.team}</div>}
         </div>
 
@@ -314,12 +314,13 @@ const ProjectsForm = () => {
 
         </form>
 
+        </div>  
       </div>
 
 
 
 
-    </div>
+    
   );
 };
 
