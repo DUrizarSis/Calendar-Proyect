@@ -40,6 +40,11 @@ const EventForm = ({ mode, event, onCancel }) => {
 
   const accessYourCalendar = localStorage.getItem('accessYourCalender');
 
+  const isStartDateValid = (startDate) => {
+    const currentDate = new Date();
+    return startDate >= currentDate;
+  };
+
   const isDateTimeValid = (start, end) => {
     for (const existingEvent of events) {
       const existingStart = new Date(existingEvent.start);
@@ -97,6 +102,11 @@ const EventForm = ({ mode, event, onCancel }) => {
 
     if (!isDateTimeValid(start, end)) {
       alert('There is already an event scheduled at this time.');
+      return;
+    }
+
+    if (!isStartDateValid(start)) {
+      alert('Start date cannot be before the current date.');
       return;
     }
 

@@ -1,8 +1,9 @@
 .container {
-    width: 80vw; 
+    width: 76vw; 
     height: 85.4vh;
-    margin-right: 3rem;
+    /* margin-right: 3rem; */
     margin-top: 2rem;
+    padding-right: 1rem;
     
 }
 
