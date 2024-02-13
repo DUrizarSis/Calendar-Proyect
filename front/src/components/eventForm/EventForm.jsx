@@ -11,6 +11,8 @@ const EventForm = ({ mode, event, onCancel }) => {
 
   const userData = useSelector(state => state.loginForm.logUserData);
 
+  const events = useSelector(state => state.events.events)
+
   const isSuperuser = userData.isSuperuser;
   const teamSuperUserProjects = useSelector(state => state.teamSuperUser.projects);
   const projectUserViewProjects = useSelector(state => state.projectUserView.projects);
@@ -37,6 +39,23 @@ const EventForm = ({ mode, event, onCancel }) => {
 
 
   const accessYourCalendar = localStorage.getItem('accessYourCalender');
+
+  const isDateTimeValid = (start, end) => {
+    for (const existingEvent of events) {
+      const existingStart = new Date(existingEvent.start);
+      const existingEnd = new Date(existingEvent.end);
+
+      // Verificar si hay superposición de fechas
+      if (
+        (start >= existingStart && start < existingEnd) ||
+        (end > existingStart && end <= existingEnd) ||
+        (start <= existingStart && end >= existingEnd)
+      ) {
+        return false; // Hay superposición
+      }
+    }
+    return true; // No hay superposición
+  };
   
   useEffect(() => {
     if (userData && accessYourCalendar === 'false') {
@@ -73,6 +92,14 @@ const EventForm = ({ mode, event, onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Asegúrate de evitar el comportamiento predeterminado del formulario
+
+    const { start, end } = formData;
+
+    if (!isDateTimeValid(start, end)) {
+      alert('There is already an event scheduled at this time.');
+      return;
+    }
+
     if (mode === 'add') {
       dispatch(addEvent(formData));
     } else if (mode === 'edit' && event) {
