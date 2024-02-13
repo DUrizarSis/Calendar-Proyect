@@ -55,6 +55,7 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
 
   const accessYourCalendar = localStorage.getItem('accessYourCalender');
   const userData = useSelector(state => state.loginForm.logUserData);
+
   useEffect(() => {
     if (userData && accessYourCalendar === 'false') {
         dispatch(getEvents(userData._id));

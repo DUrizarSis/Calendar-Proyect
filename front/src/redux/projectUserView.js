@@ -18,7 +18,7 @@ export const projectUserViewSlice = createSlice({
                 project.team.some(teamMember => teamMember === user)
             );
 
-            state.projects = filteredProjects
+            state.team = filteredProjects
 
         },
         addProject2:(state, action) => {
@@ -30,5 +30,5 @@ export const projectUserViewSlice = createSlice({
     }
 });
 
-export const { addProjectUser, selectProjectUser } = projectUserViewSlice.actions;
+export const { addProjectUser, selectProjectUser, addProject2 } = projectUserViewSlice.actions;
 export default projectUserViewSlice.reducer;

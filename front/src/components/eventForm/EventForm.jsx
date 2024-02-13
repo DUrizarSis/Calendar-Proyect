@@ -28,7 +28,8 @@ const EventForm = ({ mode, event, onCancel }) => {
   const [showName, setShowName] = useState({
     name:'',
     id:''
-  })
+  });
+
   const iconDelete = process.env.PUBLIC_URL + '/delete.png';
   const iconCancel = process.env.PUBLIC_URL + '/cancel.png';
   const iconAdd = process.env.PUBLIC_URL + '/add.png';
@@ -117,6 +118,9 @@ const EventForm = ({ mode, event, onCancel }) => {
     onCancel()
   }
 
+  const dataJSON = localStorage.getItem('useDatacalender');
+  const useData = JSON.parse(dataJSON);
+
   return (
     <>
       <div className={styles.overlay}></div>
@@ -178,17 +182,22 @@ const EventForm = ({ mode, event, onCancel }) => {
                   </select>
             
               </div>
-
-          <div className={styles.containerIcons}>
-              {mode === 'add' ? (
-                <img src={iconAdd} alt="add" className={styles.icons} onClick={handleSubmit}  title="Add event"/>
-              ) : (
-                <img src={iconUpdate} alt="update" className={styles.icons} onClick={handleSubmit}  title="Update"/>
-              )}
           
-              {mode === 'edit' && event &&(
-                <img src={iconDelete} alt="delete" className={styles.icons} onClick={handleDelete}  title="Delete"/>
-              )}
+          <div className={styles.containerIcons}>
+          {!useData ? (
+                  <div className={styles.containerIcons}>
+                    {mode === 'add' ? (
+                      <img src={iconAdd} alt="add" className={styles.icons} onClick={handleSubmit} title="Add event" />
+                    ) : (
+                      <img src={iconUpdate} alt="update" className={styles.icons} onClick={handleSubmit} title="Update" />
+                    )}
+
+                    {mode === 'edit' && event && (
+                      <img src={iconDelete} alt="delete" className={styles.icons} onClick={handleDelete} title="Delete" />
+                    )}
+                  </div>
+                ): null
+                }
 
               {showConfirmation && (
                 <div className={styles.containerConfirmDelete}>
