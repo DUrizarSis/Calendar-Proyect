@@ -4,24 +4,37 @@ import { useSelector } from 'react-redux';
 import { selectProject } from '../../redux/teamSuperUser';
 import { useDispatch } from 'react-redux';
 import { selectProjectUser } from '../../redux/projectUserView';
+import { useEffect, useState } from 'react';
 
 const ProjectView = () => {
     const projecstUser = useSelector(state => state.projectUserView.projects);
     const projects = useSelector(state => state.teamSuperUser.projects);
     const user = useSelector(state => state.userView.userData);
     const dispatch = useDispatch();
+    const [projetsSelect, setProjetsSelect] = useState([]);
 
-    let projetsSelect = [];
-    user.isSuperuser ? projetsSelect = projects.map((obj, index) => ({ value: index, label: obj.name }))
-    : projetsSelect = projecstUser.map((obj, index) => ({ value: index, label: obj.name }));
+    console.log(projecstUser)
+
+    useEffect(() => {
+        let selectOptions = [];
+
+        if (user.isSuperuser) {
+            selectOptions = projects.map((obj, index) => ({ value: index, label: obj.name }));
+        } else {
+            selectOptions = projecstUser.map((obj, index) => ({ value: index, label: obj.name }));
+            console.log(selectOptions)
+        }
+        setProjetsSelect(selectOptions);
+    }, [user, projects, projecstUser, dispatch]);
 
 
     const handleSelectChange = selectedOption => {
         // Aquí puedes acceder al índice seleccionado
-        user.isSuperuser ? dispatch(selectProject(selectedOption.value))
-        : dispatch(selectProjectUser(selectedOption.value))
+        user.isSuperuser 
+        ? dispatch(selectProject(selectedOption.value))
+        : dispatch(selectProjectUser(selectedOption.value));
     };
-    console.log()
+
     return (
 
         <div className={styles.container}>

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 import axios from 'axios';
 
 const URL = 'http://localhost:5000/api/'
@@ -53,7 +54,7 @@ export const getEventsforProjectAndIdUser = createAsyncThunk(
 
     try {
       const response = await axios.get(`${URL}projects-events?idUser=${idUser}&idProject=${idProject}`);
-      console.log(response.data)
+
       return response.data;
     } catch (error) {
       console.log(error);
@@ -114,6 +115,7 @@ const eventSlice = createSlice({
         state.backupEvents = state.events
     });
     builder.addCase(getEventsforProjectAndIdUser.fulfilled, (state, action) => {
+
       if(action.payload.message){
         state.errorMessage = action.payload.message;
         state.events = [];

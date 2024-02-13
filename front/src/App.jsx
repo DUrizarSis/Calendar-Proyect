@@ -6,7 +6,7 @@ import DayCalendar from './components/dayCalendar/DayCalendar';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState} from 'react';
-import { getEvent, addErrorMessage } from './redux/eventSlice';
+import { getEvent, addErrorMessage, getEventsforProjectAndIdUser } from './redux/eventSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
 import { Routes, Route, useNavigate,useLocation } from 'react-router-dom';
 import axios from "axios";
@@ -20,6 +20,7 @@ import { AddTeam } from './redux/teamSuperUser';
 import ProjectView from './components/projectView/ProjectView';
 import { addProjectUser } from './redux/projectUserView';
 import { confirmSuper,confirmUser } from './redux/confirmEmpyP';
+import { setProjects } from './redux/projectSlice';
 
 function App() {
 
@@ -81,41 +82,42 @@ function App() {
     dispatch(addShowForm(false));
   };
 
-  const refreshLogin = () => {
-    const storedAccess = localStorage.getItem('access');
-    const userJSON = localStorage.getItem('useData');
-    const useData = JSON.parse(userJSON);
-
-    if (storedAccess === 'true') {
-      login(useData)
-
-      const storedUsers = localStorage.getItem('users');
-      if (storedUsers) {
-        dispatch(getUsers());
-      }
-    }
-
-
-  if (!storedAccess) {
-    navigate('/');
-  } 
-  }
-
   // empecia el codigo para manejar el loginForm y registerForm
   useEffect(() => {
 
+    const refreshLogin = () => {
+      const storedAccess = localStorage.getItem('access');
+      const userJSON = localStorage.getItem('useData');
+      const useData = JSON.parse(userJSON);
+  
+      if (storedAccess === 'true') {
+        login(useData)
+        const storedUsers = localStorage.getItem('users');
+        
+        if (storedUsers) {
+          dispatch(getUsers());
+        }
+      }
+  
+      if (!storedAccess) {
+        navigate('/');
+      } 
+  
+    }
+
      refreshLogin()
 
-  }, [dispatch]);
+  }, []);
   
-  const login = async (useData)=>{
+  const login =  (useData)=>{
+    const fecthData = async() =>{ 
     try {
-      const {data} = await axios(`http://localhost:5000/api/user?username=${useData.username}&password=${useData.password}`)
-      const {access, user} = data;
+      const {data} = await axios(`http://localhost:5000/api/user?username=${useData.username}&password=${useData.password}`);
       const response = await axios(`http://localhost:5000/api/projects/all`);
       
+      const {access, user} = data;
+      const superU = user._id;
       const team = response.data;
-      const superU = data.user._id;
    
       if(access) {
 
@@ -128,17 +130,21 @@ function App() {
         if (!someRoutes.includes(location.pathname)) {
           navigate('/home');
         }
-        
+
         dispatch(AddUserData(user));
         dispatch(addUserView(user));
         dispatch(AddTeam({team, superU}));
-        dispatch(addProjectUser({team, user}))
+        dispatch(addProjectUser({team, user}));
+        dispatch(getUsers())
+
 
       }
 
     } catch (error) {
       window.alert(error.response.data.message + ', cree una cuenta')
-    }
+    };
+  }
+    fecthData();
   }
 
   const logout = ()=>{
@@ -207,8 +213,10 @@ function App() {
                   <MiniCalendar
                     handleCloseForm={handleCloseForm}
                   />
-                  <ProjectView/>
-                  {user.isSuperuser === true && <div> <UserView handleYourEvents={handleYourEvents}/>   </div> }
+                  
+                  {/* {user.isSuperuser === true &&  */}
+                  <div> <ProjectView/> <UserView handleYourEvents={handleYourEvents}/>   </div> 
+                  {/* } */}
                   
                 </div>
 
