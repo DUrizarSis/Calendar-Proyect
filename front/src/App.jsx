@@ -6,7 +6,7 @@ import DayCalendar from './components/dayCalendar/DayCalendar';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState} from 'react';
-import { getEvent, addErrorMessage, getEventsforProjectAndIdUser } from './redux/eventSlice';
+import { getEvent, addErrorMessage } from './redux/eventSlice';
 import { AddMode,addSelectedEvent,addShowForm } from './redux/showFormSlice';
 import { Routes, Route, useNavigate,useLocation } from 'react-router-dom';
 import axios from "axios";
@@ -20,7 +20,6 @@ import { AddTeam } from './redux/teamSuperUser';
 import ProjectView from './components/projectView/ProjectView';
 import { addProjectUser } from './redux/projectUserView';
 import { confirmSuper,confirmUser } from './redux/confirmEmpyP';
-import { setProjects } from './redux/projectSlice';
 
 function App() {
 
@@ -30,8 +29,10 @@ function App() {
   const [register, setRegister] = useState(false);
   const user = useSelector(state => state.userView.userData);
   const teamConfirm = useSelector(state => state.teamSuperUser.projects);
+  const indexProjectUserActual = useSelector(state => state.teamSuperUser.indexProject);
   const confirmProjectEmpyUser =useSelector(state => state.projectUserView.projects);
   const errorMessage = useSelector(state => state.events.errorMessage);
+  
 
   const eventStyleGetter = (event) => {
     let newStyle = {
@@ -135,9 +136,7 @@ function App() {
         dispatch(addUserView(user));
         dispatch(AddTeam({team, superU}));
         dispatch(addProjectUser({team, user}));
-        dispatch(getUsers())
-
-
+        dispatch(getUsers());
       }
 
     } catch (error) {
@@ -187,8 +186,8 @@ function App() {
     localStorage.setItem('eventKey', null);
     const userJSON = localStorage.getItem('useData');
     const useData = JSON.parse(userJSON);
-
     login(useData)
+    window.location.reload();
   }
 
   const handleErrorMessage = () => {

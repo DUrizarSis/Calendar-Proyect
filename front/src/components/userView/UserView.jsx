@@ -18,23 +18,24 @@ const UserView = ({handleYourEvents}) => {
 
     const indexProjectSuper = useSelector(state => state?.teamSuperUser?.indexProject);
     const indexProjectUser = useSelector(state=> state?.projectUserView?.indexProject);
-
+     
+    
     const dispatch = useDispatch();
-
+    
     const [lastClickedElementId, setLastClickedElementId] = useState(null); // Estado para almacenar el último elemento clickeado
-
+    
     const team = teamSuper.length > 0 
-                ? teamSuper
-                : teamUser;
-
+    ? teamSuper
+    : teamUser;
+    
     const projects = userLogin.isSuperuser 
-                    ? projectsSuper
-                    : projectsUser;
-
+    ? projectsSuper
+    : projectsUser;
+    
     const indexProject = userLogin.isSuperuser 
-                        ? indexProjectSuper
-                        : indexProjectUser;
-                        
+    ? indexProjectSuper
+    : indexProjectUser;
+
     useEffect(() => {
         let newArray = [];
         let usersMatching = [];
@@ -46,7 +47,6 @@ const UserView = ({handleYourEvents}) => {
 
         });
     
-        console.log(newArray)
         if (!userLogin.isSuperuser) {
             newArray = newArray.map(obj => {
                    let updatedUsersMatching = obj.usersMatching.filter(user => user._id !== userLogin._id);
@@ -82,7 +82,6 @@ const UserView = ({handleYourEvents}) => {
     const handleClickUser = (event, userId, project) => {
         const useDataCalender = { idUser: userId, idProject: project };
 
-        console.log(useDataCalender)
         dispatch(getEventsforProjectAndIdUser(useDataCalender));
         localStorage.setItem('useDatacalender', JSON.stringify({ useDataCalender }));
         localStorage.setItem('accessYourCalender', 'true');
@@ -110,7 +109,7 @@ const UserView = ({handleYourEvents}) => {
     
     let listUser = [];
     let project = projects[indexProject];
-    console.log(projects[indexProject])
+
     if (project) {
         listUser = project.usersMatching.map((user, index) => (
             <div
