@@ -79,6 +79,8 @@ const initialState = {
     events: [],
     backupEvents: [],
     onEvent: [],
+    eventsProjectfiltered:[],
+    idProjectActual: null,
     errorMessage: null,
 }
 
@@ -91,12 +93,16 @@ const eventSlice = createSlice({
     },
     eventsForProject: (state, action) => {
       console.log(action.payload);
+      state.eventsProjectfiltered = action.payload;
+    },
+    addIdProjectActual:(state, action) => {
+      state.idProjectActual = action.payload;
     }
   },
   extraReducers: (builder) => {
     builder.addCase(getEvents.fulfilled, (state, action) => {
       state.events = action.payload;
-      state.backupEvents = state.events
+      state.backupEvents = action.payload;
     });
     builder.addCase(getEvent.fulfilled, (state, action) => {
         state.onEvent = action.payload
@@ -121,9 +127,9 @@ const eventSlice = createSlice({
 
       if(action.payload.message){
         state.errorMessage = action.payload.message;
-        state.events = [];
+        state.eventsProjectfiltered = [];
       }else{
-        state.events = action.payload;
+        state.eventsProjectfiltered = action.payload;
         state.errorMessage = null
       }
 
@@ -131,5 +137,5 @@ const eventSlice = createSlice({
   },
 })
 
-export const { addErrorMessage } = eventSlice.actions;
+export const { addErrorMessage, eventsForProject, addIdProjectActual } = eventSlice.actions;
 export default eventSlice.reducer;
