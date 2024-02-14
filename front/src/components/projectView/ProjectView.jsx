@@ -5,10 +5,12 @@ import { selectProject } from '../../redux/teamSuperUser';
 import { useDispatch } from 'react-redux';
 import { selectProjectUser } from '../../redux/projectUserView';
 import { useEffect, useState } from 'react';
+import { onProject, setOnProject } from '../../redux/projectSlice';
 
 const ProjectView = () => {
     const projecstUser = useSelector(state => state.projectUserView.projects);
     const projects = useSelector(state => state.teamSuperUser.projects);
+    const projects2 = useSelector(state => state.projects.projects);
     const user = useSelector(state => state.userView.userData);
     const dispatch = useDispatch();
     const [projetsSelect, setProjetsSelect] = useState([]);
@@ -30,9 +32,18 @@ const ProjectView = () => {
 
     const handleSelectChange = selectedOption => {
         // Aquí puedes acceder al índice seleccionado
+
+        const selectedIndex = selectedOption.value;
+
         user.isSuperuser 
         ? dispatch(selectProject(selectedOption.value))
         : dispatch(selectProjectUser(selectedOption.value));
+
+        if(projects2.length > 0) {
+            const selectedProject = projects2[selectedIndex];
+            dispatch(setOnProject(selectedProject));
+        }
+
     };
 
     return (

@@ -85,7 +85,7 @@ function App() {
   // empecia el codigo para manejar el loginForm y registerForm
   useEffect(() => {
 
-    const refreshLogin = () => {
+    const refreshLogin = async() => {
       const storedAccess = localStorage.getItem('access');
       const userJSON = localStorage.getItem('useData');
       const useData = JSON.parse(userJSON);
@@ -130,6 +130,13 @@ function App() {
         if (!someRoutes.includes(location.pathname)) {
           navigate('/home');
         }
+
+        const response = await axios.get('http://localhost:5000/api/projects/all');
+
+        const filteredProjects = response.data.filter(proj => proj.projectCreator === user._id);
+    
+        dispatch(setProjects(filteredProjects));
+        console.log('Filtered Projects:', filteredProjects);
 
         dispatch(AddUserData(user));
         dispatch(addUserView(user));

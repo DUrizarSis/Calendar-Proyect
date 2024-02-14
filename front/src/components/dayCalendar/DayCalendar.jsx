@@ -71,6 +71,31 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
     }
 }, [dispatch, userData, accessYourCalendar]);
 
+    const projectRange = useSelector(state => state.projects.onProject);
+
+    const isDateOutsideProjectRange = (date) => {
+      // Verifica si projectRange está definido
+      if (projectRange && projectRange.start) {
+        const projectStart = dayjs(projectRange.start).toDate();
+        const projectEnd = dayjs(projectRange.end).toDate();
+        return date < projectStart || date > projectEnd;
+      } else {
+        return false; 
+      }
+    };
+
+    const customDayPropGetter = (date) => {
+      const dateObject = dayjs(date).toDate();
+      const style = {
+        backgroundColor: isDateOutsideProjectRange(dateObject) ? 'lightgray' : 'inherit',
+      };
+
+      return {
+        style,
+      };
+    };
+    
+
     return (
 
       <div className={styles.container}>
@@ -87,6 +112,7 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
                 date={dateMini}
                 onNavigate={handleNavigate}
                 eventPropGetter={eventStyleGetter}
+                dayPropGetter={customDayPropGetter}
                 
                 />
 
