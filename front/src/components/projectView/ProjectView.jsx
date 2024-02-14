@@ -13,7 +13,7 @@ const ProjectView = () => {
     const dispatch = useDispatch();
     const [projetsSelect, setProjetsSelect] = useState([]);
 
-
+    console.log(projecstUser)
 
     useEffect(() => {
         let selectOptions = [];
@@ -30,8 +30,9 @@ const ProjectView = () => {
 
     const handleSelectChange = selectedOption => {
         // Aquí puedes acceder al índice seleccionado
-        dispatch(selectProject(selectedOption.value))
-        dispatch(selectProjectUser(selectedOption.value));
+        user.isSuperuser 
+        ? dispatch(selectProject(selectedOption.value))
+        : dispatch(selectProjectUser(selectedOption.value));
     };
 
     return (

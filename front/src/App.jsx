@@ -102,7 +102,7 @@ function App() {
       if (!storedAccess) {
         navigate('/');
       } 
-  
+
     }
 
      refreshLogin()
@@ -194,6 +194,8 @@ function App() {
   const handleErrorMessage = () => {
     dispatch(addErrorMessage());
   }
+
+
   return (
     <div className="app">
         <div className='calendarContainer'>
