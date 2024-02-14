@@ -93,6 +93,7 @@ const ProjectsForm = () => {
         const superU = userSuper._id;
     
         dispatch(AddTeam({ team, superU }));
+        dispatch(setProjects(team));
       }
     } catch (error) {
       console.error('Error deleting project:', error);
@@ -172,6 +173,7 @@ const ProjectsForm = () => {
               const superU = userSuper._id;
           
               dispatch(AddTeam({team, superU}));
+              dispatch(setProjects(team));
 
             } 
 
@@ -186,6 +188,7 @@ const ProjectsForm = () => {
             const superU = userSuper._id;
         
             dispatch(AddTeam({team, superU}));
+            dispatch(setProjects(team));
         }}
 
         //Reset Form and States
