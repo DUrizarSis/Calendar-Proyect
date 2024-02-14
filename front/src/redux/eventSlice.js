@@ -86,9 +86,12 @@ const eventSlice = createSlice({
   name: 'events',
   initialState,
   reducers: {
-    addErrorMessage(state, action) {
+    addErrorMessage: (state, action) => {
       state.errorMessage = action.payload;
     },
+    eventsForProject: (state, action) => {
+      console.log(action.payload);
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getEvents.fulfilled, (state, action) => {

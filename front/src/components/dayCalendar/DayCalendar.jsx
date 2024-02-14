@@ -22,7 +22,7 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
     const eventState = useSelector(state => state.events);
     //Events state
       const events = eventState.events;
-
+      console.log(events)
     // Función para manejar cambios en la fecha del Calendar
     const handleNavigate = (date, view) => {
     // Convierte la fecha a un formato que necesites, por ejemplo, a una cadena de texto
