@@ -30,7 +30,6 @@ const ProjectView = () => {
 
     const handleSelectChange = selectedOption => {
         // Aquí puedes acceder al índice seleccionado
-        user.isSuperuser 
         dispatch(selectProject(selectedOption.value))
         dispatch(selectProjectUser(selectedOption.value));
     };
