@@ -15,7 +15,7 @@ function MiniCalendar() {
     const eventState = useSelector(state => state.events);
     //Events state
       const events = eventState.events.filter((event)=> event.project === indexEnvenProject?.id);
-
+console.log(eventState)
   const handleSelectSlot = ({ start, end, slots, action, bounds, box }) => {
     const formattedDate = start.toISOString();
     dispatch(addEventMini(formattedDate));

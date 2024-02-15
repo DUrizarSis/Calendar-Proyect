@@ -20,7 +20,7 @@ import { AddTeam } from './redux/teamSuperUser';
 import ProjectView from './components/projectView/ProjectView';
 import { addProjectUser } from './redux/projectUserView';
 import { confirmSuper,confirmUser } from './redux/confirmEmpyP';
-import { setProjects } from './redux/projectSlice';
+import { setOnProject, setProjects } from './redux/projectSlice';
 
 function App() {
 
@@ -131,6 +131,7 @@ function App() {
           navigate('/home');
         }
 
+<<<<<<< HEAD
         const response = await axios.get('http://localhost:5000/api/projects/all');
 
         const filteredProjects = response.data.filter(proj => proj.projectCreator === user._id);
@@ -138,11 +139,28 @@ function App() {
         dispatch(setProjects(filteredProjects));
         console.log('Filtered Projects:', filteredProjects);
 
+=======
+>>>>>>> 3ebeceefac791c8abd3527bcae827ba3de940736
         dispatch(AddUserData(user));
         dispatch(addUserView(user));
         dispatch(AddTeam({team, superU}));
         dispatch(addProjectUser({team, user}));
         dispatch(getUsers())
+
+        const response = await axios.get('http://localhost:5000/api/projects/all');
+
+        let filteredProjects;
+        
+        if (user.isSuperuser === true) {
+          // Si es superusuario, busca por projectCreator
+          filteredProjects = response.data.filter(proj => proj.projectCreator === user._id);
+        } else {
+          // Si no es superusuario, busca por el id del usuario en el equipo del proyecto
+          filteredProjects = response.data.filter(proj => proj.team.some(member => member.toString() === user._id));
+        }
+        
+        dispatch(setProjects(filteredProjects));
+        console.log('Filtered Projects:', filteredProjects);
 
 
       }
@@ -158,6 +176,8 @@ function App() {
     localStorage.setItem('access', 'false');
     localStorage.setItem('useData', 'null')
     localStorage.setItem('accessYourCalender', 'false');
+
+    dispatch(setOnProject([]));
     
     navigate('/');
     dispatch(AddShowLogin(false))
