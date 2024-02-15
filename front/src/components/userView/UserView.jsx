@@ -42,10 +42,11 @@ const UserView = ({handleYourEvents}) => {
         newArray = team.map(obj => {
 
             usersMatching = users.filter(user => obj.team.includes(user._id));
-            return { _id: obj._id, name: obj.name, usersMatching };
+            
+            return { _id: obj._id, name: obj.name, usersMatching, start: obj.start, end: obj.end };
 
         });
-
+        console.log(newArray)
         if (!userLogin.isSuperuser) {
             newArray = newArray.map(obj => {
                    let updatedUsersMatching = obj.usersMatching.filter(user => user._id !== userLogin._id);
@@ -81,6 +82,7 @@ const UserView = ({handleYourEvents}) => {
     const handleClickUser = (event, userId, project) => {
         const useDataCalender = { idUser: userId, idProject: project };
 
+        console.log(useDataCalender)
         dispatch(getEventsforProjectAndIdUser(useDataCalender));
         localStorage.setItem('useDatacalender', JSON.stringify({ useDataCalender }));
         localStorage.setItem('accessYourCalender', 'true');
@@ -108,7 +110,7 @@ const UserView = ({handleYourEvents}) => {
     
     let listUser = [];
     let project = projects[indexProject];
-    
+    console.log(projects[indexProject])
     if (project) {
         listUser = project.usersMatching.map((user, index) => (
             <div

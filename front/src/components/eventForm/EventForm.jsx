@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { confirmSuper,confirmUser } from '../../redux/confirmEmpyP';
 import { getEventsforProjectAndIdUser } from '../../redux/eventSlice';
+import validateDateWithinProject from '../../validation/validateDateWithinProject';
 
 const EventForm = ({ mode, event, onCancel }) => {
 
@@ -20,7 +21,11 @@ const EventForm = ({ mode, event, onCancel }) => {
   const projectUserViewIndexProject = useSelector(state => state.projectUserView.indexProject);
 
   const projects = isSuperuser ? teamSuperUserProjects : projectUserViewProjects;
+  
   const onProject = isSuperuser ? teamSuperUserIndexProject : projectUserViewIndexProject;
+  const {start, end} = projects[onProject];
+  const validationProject = {start,end}
+  
   const confirmSuperP = useSelector(state => state.confirmEmpy.projectSuper);
   const confirmUserP = useSelector(state => state.confirmEmpy.projectUser);
   const dispatch = useDispatch();
@@ -31,6 +36,7 @@ const EventForm = ({ mode, event, onCancel }) => {
     name:'',
     id:''
   });
+  const [errors, setError] = useState({});
 
   const iconDelete = process.env.PUBLIC_URL + '/delete.png';
   const iconCancel = process.env.PUBLIC_URL + '/cancel.png';
@@ -87,8 +93,9 @@ const EventForm = ({ mode, event, onCancel }) => {
     user: userData._id ,
     project: event.project ? event.project : showName.id, 
   });
-  
+
   const handleInputChange = (name, value) => {
+    setError(validateDateWithinProject({...useData,[name]: value}, validationProject))
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -158,6 +165,22 @@ const EventForm = ({ mode, event, onCancel }) => {
   const dataJSON = localStorage.getItem('useDatacalender');
   const useData = JSON.parse(dataJSON);
 
+  const handleDateProjectError = (errors)=>{ 
+    const today = new Date();
+    if(errors.start){
+      setFormData(prevState => ({
+        ...prevState, // Copiar todos los valores existentes
+        start: today // Actualizar la propiedad start
+    }));
+    }else{
+      setFormData(prevState => ({
+        ...prevState, // Copiar todos los valores existentes
+        end: today // Actualizar la propiedad start
+    }));
+    }
+
+    setError({})
+  };
   return (
     <>
       <div className={styles.overlay}></div>
@@ -195,8 +218,6 @@ const EventForm = ({ mode, event, onCancel }) => {
                   dateFormat="MMMM d, yyyy h:mm aa"
                   required
                   />
-
-                
 
                   <label>End:</label>
 
@@ -268,6 +289,14 @@ const EventForm = ({ mode, event, onCancel }) => {
                 </div>
                 
               )}
+              {errors.start || errors.end ? (
+                <div className={styles.containerConfirmDelete}>
+                  <span>{errors.start}</span>
+                  <div className={styles.btmYesandNo}>
+                    <button onClick={handleDateProjectError}>ok</button>
+                  </div>
+              </div>
+              ): null}
 
 
         </div>

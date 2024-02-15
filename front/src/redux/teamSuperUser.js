@@ -14,8 +14,8 @@ export const teamSuperUserSlice = createSlice({
         AddTeam:(state, action) => {
             const superU = action.payload.superU;
             const filteredObjects = action.payload.team.filter(objeto => objeto.projectCreator === superU);
-            state.team = filteredObjects.map(objeto => ({ name: objeto.name, _id: objeto._id, team: objeto.team }));
-            
+            state.team = filteredObjects.map(objeto => ({ name: objeto.name, _id: objeto._id, team: objeto.team , start: objeto.start,
+            end: objeto.end}));
         },
         addProject:(state, action) => {
             state.projects = action.payload;
