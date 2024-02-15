@@ -131,7 +131,6 @@ function App() {
           navigate('/home');
         }
 
-
         dispatch(AddUserData(user));
         dispatch(addUserView(user));
         dispatch(AddTeam({team, superU}));

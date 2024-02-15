@@ -214,116 +214,114 @@ const ProjectsForm = () => {
 
   return (
    
-
-      <div>
-      
-      <NavLink to="/home">
-            <button className={styles.btnHome}>Home</button>
-          </NavLink>
-
       <div className={styles.container}>
-          <div className={styles.projectsList}>
+
+          <div className={styles.containerprojectsList}>
 
             <h2>Existing Projects:</h2>
-            <ul>
-              {projectsList.map((project) => (
-                <li key={project._id}>
-                  {project.name} -{' '}
-                  <button className={styles.btnEdit} onClick={() => handleEdit(project._id)}>Edit</button>
-                  <button  className={styles.btnDelete} onClick={() => handleDelete(project._id)}>Delete</button>
-                </li>
-              ))}
-            </ul>
-            
-           </div>
-
-        <form onSubmit={handleSubmit} className={styles.form}>
-
-        <div className={styles.formInputSimple}>
-          <label>Project Name:</label>
-
-            <input
-              type="text"
-              name="name"
-              onChange={handleChange}
-              value={formData.name}
-              />
-
-          {errors.name && <div>{errors.name}</div>}
-        </div>
-
-        <div className={styles.formInputDate}>
-          <label>Start date:</label>
-            <DatePicker
-              selected={formData.start}
-              onChange={(date) => handleDateChange('start', date)}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={15}
-              dateFormat="MMMM d, yyyy h:mm aa"
-              required
-              />
-          {errors.start && <div>{errors.start}</div>}
-        </div>
-
-        <div className={styles.formInputDate}>
-          <label>End date:</label>
-            <DatePicker
-                selected={formData.end}
-                onChange={(date) => handleDateChange('end', date)}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                dateFormat="MMMM d, yyyy h:mm aa"
-                required
-                />
-
-          {errors.end && <div>{errors.end}</div>}
-        </div>
-
-        <div className={styles.formInputSelect}>
-          <label>Team members:</label>
-            <Select
-              isMulti
-              options={options}
-              value={options.filter(option => formData.team.includes(option.value))}
-              onChange={handleTeamChange}
-              />
-          {errors.team && <div>{errors.team}</div>}
-        </div>
-
-
-        <div className={styles.btn}>
-          <button type="submit">{isEditMode ? 'Update' : 'Add'}</button>
-        </div>
-
-        {isEditMode && (
-          <div className={styles.btn}>
-            <button type="button" onClick={handleResetForm}>
-              New Project
-            </button>
-          </div>
-        )}
-
-        {showConfirmation && (
-          <div className={styles.containerConfirmDelete}>
-            <p>Are you sure you want to delete this project?</p>
-            <div className={styles.btmYesandNo}>
-              <button onClick={confirmDelete}>Yes</button>
-              <button onClick={cancelDelete}>No</button>
+            <div className={styles.projectsList}>
+              <ul>
+                {projectsList.map((project) => (
+                  <li key={project._id}>
+                    {project.name} -{' '}
+                    <button className={styles.btnEdit} onClick={() => handleEdit(project._id)}>Edit</button>
+                    <button  className={styles.btnDelete} onClick={() => handleDelete(project._id)}>Delete</button>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>     
-        )}
+            
+          </div>
 
-        </form>
+          <div className={styles.containerform}>
 
-        </div>  
-      </div>
+            <h2>Existing Projects:</h2>
+
+            <div className={styles.Contform}>
+
+              <form onSubmit={handleSubmit} className={styles.form}>
+                  <div className={styles.formInputSimple}>
+                    <label>Project Name:</label>
+
+                      <input
+                        type="text"
+                        name="name"
+                        onChange={handleChange}
+                        value={formData.name}
+                        />
+
+                    {errors.name && <div>{errors.name}</div>}
+                  </div>
+
+                  <div className={styles.formInputDate}>
+                    <label>Start date:</label>
+                      <DatePicker
+                        selected={formData.start}
+                        onChange={(date) => handleDateChange('start', date)}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        dateFormat="MMMM d, yyyy h:mm aa"
+                        required
+                        />
+                    {errors.start && <div>{errors.start}</div>}
+                  </div>
+
+                  <div className={styles.formInputDate}>
+                    <label>End date:</label>
+                      <DatePicker
+                          selected={formData.end}
+                          onChange={(date) => handleDateChange('end', date)}
+                          showTimeSelect
+                          timeFormat="HH:mm"
+                          timeIntervals={15}
+                          dateFormat="MMMM d, yyyy h:mm aa"
+                          required
+                          />
+
+                    {errors.end && <div>{errors.end}</div>}
+                  </div>
+
+                  <div className={styles.formInputSelect}>
+                    <label>Team members:</label>
+                      <Select
+                        isMulti
+                        options={options}
+                        value={options.filter(option => formData.team.includes(option.value))}
+                        onChange={handleTeamChange}
+                        />
+                    {errors.team && <div>{errors.team}</div>}
+                  </div>
 
 
+                  <div className={styles.btn}>
+                    <button type="submit">{isEditMode ? 'Update' : 'Add'}</button>
+                  </div>
 
+                  {isEditMode && (
+                    <div className={styles.btn}>
+                      <button type="button" onClick={handleResetForm}>
+                        New Project
+                      </button>
+                    </div>
+                  )}
 
-    
+                  {showConfirmation && (
+                    <div className={styles.containerConfirmDelete}>
+                      <p>Are you sure you want to delete this project?</p>
+                      <div className={styles.btmYesandNo}>
+                        <button onClick={confirmDelete}>Yes</button>
+                        <button onClick={cancelDelete}>No</button>
+                      </div>
+                    </div>     
+                  )}
+
+              </form>
+          </div>
+          
+          </div>
+      </div>  
+
   );
 };
 

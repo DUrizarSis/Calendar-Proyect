@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { selectProjectUser } from '../../redux/projectUserView';
 import { useEffect, useState } from 'react';
 import { onProject, setOnProject } from '../../redux/projectSlice';
+import { addIndexforEventsProject } from '../../redux/eventSlice';
 
 const ProjectView = () => {
     const projecstUser = useSelector(state => state.projectUserView.projects);
@@ -15,18 +16,22 @@ const ProjectView = () => {
     const dispatch = useDispatch();
     const [projetsSelect, setProjetsSelect] = useState([]);
 
-    console.log(projecstUser)
-
     useEffect(() => {
         let selectOptions = [];
 
         if (user.isSuperuser) {
-            selectOptions = projects.map((obj, index) => ({ value: index, label: obj.name }));
+            selectOptions = projects.map((obj, index) => ({ value: index, label: obj.name, id: obj._id }));
         } else {
-            selectOptions = projecstUser.map((obj, index) => ({ value: index, label: obj.name }));
-            console.log(selectOptions)
+            selectOptions = projecstUser.map((obj, index) => ({ value: index, label: obj.name, id: obj._id }));
         }
+        
         setProjetsSelect(selectOptions);
+
+        if(selectOptions.length > 0){
+            dispatch(addIndexforEventsProject(selectOptions[0]));
+            console.log(selectOptions[0]);
+        }
+
     }, [user, projects, projecstUser, dispatch]);
 
 
@@ -35,9 +40,13 @@ const ProjectView = () => {
 
         const selectedIndex = selectedOption.value;
 
-        user.isSuperuser 
-        ? dispatch(selectProject(selectedOption.value))
-        : dispatch(selectProjectUser(selectedOption.value));
+        if(user.isSuperuser){ 
+            dispatch(addIndexforEventsProject(selectedOption))
+            dispatch(selectProject(selectedOption.value));
+        }else {
+            dispatch(addIndexforEventsProject(selectedOption))
+            dispatch(selectProjectUser(selectedOption.value));
+        }
 
         if(projects2.length > 0) {
             const selectedProject = projects2[selectedIndex];
