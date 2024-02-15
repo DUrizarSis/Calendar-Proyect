@@ -11,8 +11,10 @@ import { getEvent } from "../../redux/eventSlice";
 function MiniCalendar() {
   const dispatch = useDispatch()
   const localizer = dayjsLocalizer(dayjs);
-  const eventState = useSelector(state => state.events);
-  const events = eventState.events;
+  const indexEnvenProject = useSelector(state => state.events.indexforEventsProject);
+    const eventState = useSelector(state => state.events);
+    //Events state
+      const events = eventState.events.filter((event)=> event.project === indexEnvenProject.id);
 
   const handleSelectSlot = ({ start, end, slots, action, bounds, box }) => {
     const formattedDate = start.toISOString();

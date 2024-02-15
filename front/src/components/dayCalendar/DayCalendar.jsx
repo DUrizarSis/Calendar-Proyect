@@ -19,9 +19,10 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
     const { showForm, selectedEvent, mode } = useSelector(state => state.showForm);
     const today = new Date();
       //Event state global
+    const indexEnvenProject = useSelector(state => state.events.indexforEventsProject);
     const eventState = useSelector(state => state.events);
     //Events state
-      const events = eventState.events;
+      const events = eventState.events.filter((event)=> event.project === indexEnvenProject.id);
 
     // Función para manejar cambios en la fecha del Calendar
     const handleNavigate = (date, view) => {
