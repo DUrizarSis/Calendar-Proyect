@@ -136,7 +136,7 @@ function App() {
         const filteredProjects = response.data.filter(proj => proj.projectCreator === user._id);
     
         dispatch(setProjects(filteredProjects));
-        // console.log('Filtered Projects:', filteredProjects);
+        console.log('Filtered Projects:', filteredProjects);
 
         dispatch(AddUserData(user));
         dispatch(addUserView(user));
