@@ -131,16 +131,7 @@ function App() {
           navigate('/home');
         }
 
-<<<<<<< HEAD
-        const response = await axios.get('http://localhost:5000/api/projects/all');
 
-        const filteredProjects = response.data.filter(proj => proj.projectCreator === user._id);
-    
-        dispatch(setProjects(filteredProjects));
-        console.log('Filtered Projects:', filteredProjects);
-
-=======
->>>>>>> 3ebeceefac791c8abd3527bcae827ba3de940736
         dispatch(AddUserData(user));
         dispatch(addUserView(user));
         dispatch(AddTeam({team, superU}));
