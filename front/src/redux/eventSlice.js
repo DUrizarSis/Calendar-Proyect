@@ -78,6 +78,7 @@ export const deleteEvent = createAsyncThunk(
 const initialState = {
     events: [],
     backupEvents: [],
+    indexforEventsProject: null,
     onEvent: [],
     errorMessage: null,
 }
@@ -91,7 +92,14 @@ const eventSlice = createSlice({
     },
     eventsForProject: (state, action) => {
       console.log(action.payload);
-    }
+    },
+    addIndexforEventsProject: (state, action) => {
+      console.log(action.payload)
+      state.indexforEventsProject = action.payload;
+    },
+    // deleteErrorMessage: (state) => {
+    //   state.errorMessage = null;
+    // }
   },
   extraReducers: (builder) => {
     builder.addCase(getEvents.fulfilled, (state, action) => {
@@ -131,5 +139,5 @@ const eventSlice = createSlice({
   },
 })
 
-export const { addErrorMessage } = eventSlice.actions;
+export const { addErrorMessage, addIndexforEventsProject } = eventSlice.actions;
 export default eventSlice.reducer;
