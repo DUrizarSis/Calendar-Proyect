@@ -2,9 +2,16 @@
     width: 100%;
     height: 3.5em;
     display: grid;
-    grid-template-columns: 1fr 1fr 5em;
+    grid-template-columns: 1fr 5em 5em 5em;
     align-items: center;
     background-color:rgb(189, 218, 245);
+}
+.btnHome {
+    color: rgb(189, 218, 245);; /* Texto transparente (negro con alfa 0) */ 
+    background-color: black; /* Fondo negro */
+    border: none; /* Sin borde */
+    padding: 5px 10px; /* Ajusta el relleno según sea necesario */
+    border-radius: 5px; /* Ajusta el radio del borde según sea necesario */
 }
 
 .title{
@@ -20,7 +27,9 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    padding-right: 1em;
+    /* text-align: center; */
+    justify-content: center;
+
 }
 
 .projectIcon{
