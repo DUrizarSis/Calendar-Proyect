@@ -3,6 +3,7 @@ import LoginForm from './components/loginForm/LoginForm';
 import RegisterForm from './components/registerForm/RegisterForm';
 import MiniCalendar from './components/miniCalendar/MiniCalendar';
 import DayCalendar from './components/dayCalendar/DayCalendar';
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState} from 'react';

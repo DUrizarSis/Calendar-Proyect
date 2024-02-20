@@ -4,14 +4,21 @@
     display: grid;
     grid-template-columns: 1fr 5em 5em 5em;
     align-items: center;
-    background-color:rgb(189, 218, 245);
+    background-color:#2c3e50;
 }
 .btnHome {
-    color: rgb(189, 218, 245);; /* Texto transparente (negro con alfa 0) */ 
-    background-color: black; /* Fondo negro */
+    color: #2c3e50; /* Texto transparente (negro con alfa 0) */ 
+    background-color: white; /* Fondo negro */
+    font-weight: bold;
     border: none; /* Sin borde */
     padding: 5px 10px; /* Ajusta el relleno según sea necesario */
     border-radius: 5px; /* Ajusta el radio del borde según sea necesario */
+}
+
+.btnHome:hover {
+    color: white;
+    background-color: #1a252f;
+    border: 1px solid white;
 }
 
 .title{
@@ -19,8 +26,8 @@
     justify-content: end;
     text-align: start;
     justify-content: start;
-
     padding-left: 1em;
+    color: white;
 }
 
 .logout{
@@ -34,8 +41,10 @@
 
 .projectIcon{
     width: 2.3em;
+    filter: invert(100%);
 }
 
 .logoutIcon{
     width: 2em;
+    filter: invert(100%);
 }
