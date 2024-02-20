@@ -134,17 +134,18 @@ const UserView = ({handleYourEvents}) => {
         }
     } 
     return(
-    
-        <div className={styles.container}>
-            <div className={styles.title}>
-                <h3>Team:</h3>
-                <button onClick={() => { handleYourEvents(); handlebackgroundColorOff(); }}>tus eventos</button>
+        <div>
+            <button onClick={() => { handleYourEvents(); handlebackgroundColorOff(); }} className={styles.btnMy}>My Projects</button>
+            <div className={styles.container}>
+                <div className={styles.title}>
+                    <h3>Team:</h3>
+                </div>
+        
+                <div className={styles.containerList}>
+                    {listUser}
+                </div>
+                
             </div>
-    
-            <div className={styles.containerList}>
-                {listUser}
-            </div>
-            
         </div>
     )
 }

@@ -172,6 +172,13 @@ const EventForm = ({ mode, event, onCancel }) => {
 
               <div className={styles.formInput}>
 
+                    {mode === 'add' ? (
+                      <h2 className={styles.headForm}>Create Event</h2>
+                    ) : (
+                      <h2 className={styles.headForm}>Update Event</h2>
+                    )}
+                  
+
                   <label>Title:</label>
                   <input type="text" name="title" value={formData.title} 
                   onChange={(e) => handleInputChange('title', e.target.value)} required />
