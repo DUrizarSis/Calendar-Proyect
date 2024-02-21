@@ -29,7 +29,14 @@
     padding-left: 1em;
     color: white;
 }
-
+.titleImg{
+    margin-left: 0.5em;
+    width: 1.5em;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
 .logout{
     display: flex;
     justify-content: end;
