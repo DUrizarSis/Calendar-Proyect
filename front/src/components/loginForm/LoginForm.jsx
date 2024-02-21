@@ -40,7 +40,7 @@ const LoginForm = ({login, handleRegister}) => {
 
     return (
         <>
-            {showLogin && <div className={styles.overlay}></div> }
+            {/* {showLogin && <div className={styles.overlay}></div> } */}
             {showLogin ? (
                 <div className={styles.container}>
                     <h1 className={styles.title}>Sign in</h1>

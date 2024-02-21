@@ -43,7 +43,7 @@ const RegisterForm = ({checkIn, handleRegister}) => {
 
     return (
         <>    
-            <div className={styles.overlay}></div> 
+            {/* <div className={styles.overlay}></div>  */}
             <div className = {styles.container}>
 
                 <h1 className={styles.title}>Sign up</h1>
