@@ -42,141 +42,144 @@ const RegisterForm = ({checkIn, handleRegister}) => {
     }
 
     return (
-        <div className = {styles.container}>
+        <>    
+            <div className={styles.overlay}></div> 
+            <div className = {styles.container}>
 
-            <h1>Sign up</h1>
+                <h1 className={styles.title}>Sign up</h1>
 
-            <form onSubmit={handleSubmit} className={styles.formContainer}>
+                <form onSubmit={handleSubmit} className={styles.formContainer}>
 
-                    <div className={styles.inputForm}> 
-                        
-                        <div className={styles.formIcons}>
-                            <img src={iconMail} alt="email" />
-                        </div>  
-                        
-                        <input 
-                            type="email"
-                            id='email'
-                            name='email'
-                            value={useData.email}
-                            onChange={handleChange}
-                            placeholder="Email"
-                        />
-                    </div>
-
-                    <div className={styles.spanError}>
-                        <span>{errors.email}</span> 
-                    </div>
-
-                    <div className={styles.inputForm}> 
-                        
-                        <div className={styles.formIcons}>
-                            <img src={usuario} alt="username" />
-                        </div>  
-                        
-                        <input 
-                            type="text"
-                            id='username'
-                            name='username'
-                            value={useData.username}
-                            onChange={handleChange}
-                            placeholder="Username"
-                            /> 
-                    </div>
-
-                    <div className={styles.spanError}>
-                        <span>{errors.username}</span> 
-                    </div>
-                    <div className={styles.inputForm}>
-
-                    <div className={styles.formIcons}>
-                        <img src={imagen} alt="nombre" />
-                    </div> 
-
-                    <input
-                    type="text"
-                    name="image"
-                    value={useData.image}
-                    onChange={handleChange}
-                    placeholder="Image URL"
-                    />
-
-                    </div>
-
-                    <div className={styles.spanError}>
-                        <span>{errors.image}</span> 
-                    </div>
-
-                    <div className={styles.inputFormSelect}>
-
-                        <div className={styles.formIcons}>
-                            <img src={usuario} alt="nombre" />
-                        </div> 
-
-                        <div className={styles.formSuperUser}>
-                            <label htmlFor="isSuperuser">Is superuser?</label>
-                        </div> 
+                        <div className={styles.inputForm}> 
                             
-                        <select
-                            id="isSuperuser"
-                            name="isSuperuser"
-                            value={useData.isSuperuser}
-                            onChange={handleChange}
-                        >
-                            <option value={true}>Sí</option>
-                            <option value={false}>No</option>
-                        </select>
-                    </div>
-                    <div></div>
-                    <div className={styles.inputForm}> 
-                        
-                        <div className={styles.formIcons}>
-                            <img src={showPassword ? visible : invisible} alt="password" onClick={()=>handlePass()}/>
-                        </div>  
-                        
-                        <input 
-                            type={showPassword ? 'text' : 'password'}
-                            id='password'
-                            name='password'
-                            value={useData.password}
-                            onChange={handleChange}
-                            placeholder="Password"
+                            <div className={styles.formIcons}>
+                                <img src={iconMail} alt="email" />
+                            </div>  
+                            
+                            <input 
+                                type="email"
+                                id='email'
+                                name='email'
+                                value={useData.email}
+                                onChange={handleChange}
+                                placeholder="Email"
                             />
-                    </div>
+                        </div>
 
-                    <div className={styles.spanError}>
-                        <span>{errors.password}</span> 
-                    </div>
+                        <div className={styles.spanError}>
+                            <span>{errors.email}</span> 
+                        </div>
 
-                    <div className={styles.inputForm}> 
-                        
+                        <div className={styles.inputForm}> 
+                            
+                            <div className={styles.formIcons}>
+                                <img src={usuario} alt="username" />
+                            </div>  
+                            
+                            <input 
+                                type="text"
+                                id='username'
+                                name='username'
+                                value={useData.username}
+                                onChange={handleChange}
+                                placeholder="Username"
+                                /> 
+                        </div>
+
+                        <div className={styles.spanError}>
+                            <span>{errors.username}</span> 
+                        </div>
+                        <div className={styles.inputForm}>
+
                         <div className={styles.formIcons}>
-                            <img src={showPassword ? visible : invisible} alt="confirmPassword" onClick={()=>handlePass()}/>
-                        </div>  
-                        
-                        <input 
-                            type={showPassword ? 'text' : 'password'}
-                            id='confirmPassword'
-                            name='confirmPassword'
-                            value={useData.confirmPassword}
-                            onChange={handleChange}
-                            placeholder="Confirm password"
-                            />  
+                            <img src={imagen} alt="nombre" />
+                        </div> 
+
+                        <input
+                        type="text"
+                        name="image"
+                        value={useData.image}
+                        onChange={handleChange}
+                        placeholder="Image URL"
+                        />
+
+                        </div>
+
+                        <div className={styles.spanError}>
+                            <span>{errors.image}</span> 
+                        </div>
+
+                        <div className={styles.inputFormSelect}>
+
+                            <div className={styles.formIcons}>
+                                <img src={usuario} alt="nombre" />
+                            </div> 
+
+                            <div className={styles.formSuperUser}>
+                                <label htmlFor="isSuperuser">Is superuser?</label>
+                            </div> 
+                                
+                            <select
+                                id="isSuperuser"
+                                name="isSuperuser"
+                                value={useData.isSuperuser}
+                                onChange={handleChange}
+                            >
+                                <option value={true}>Sí</option>
+                                <option value={false}>No</option>
+                            </select>
+                        </div>
+                        <div></div>
+                        <div className={styles.inputForm}> 
+                            
+                            <div className={styles.formIcons}>
+                                <img src={showPassword ? visible : invisible} alt="password" onClick={()=>handlePass()}/>
+                            </div>  
+                            
+                            <input 
+                                type={showPassword ? 'text' : 'password'}
+                                id='password'
+                                name='password'
+                                value={useData.password}
+                                onChange={handleChange}
+                                placeholder="Password"
+                                />
+                        </div>
+
+                        <div className={styles.spanError}>
+                            <span>{errors.password}</span> 
+                        </div>
+
+                        <div className={styles.inputForm}> 
+                            
+                            <div className={styles.formIcons}>
+                                <img src={showPassword ? visible : invisible} alt="confirmPassword" onClick={()=>handlePass()}/>
+                            </div>  
+                            
+                            <input 
+                                type={showPassword ? 'text' : 'password'}
+                                id='confirmPassword'
+                                name='confirmPassword'
+                                value={useData.confirmPassword}
+                                onChange={handleChange}
+                                placeholder="Confirm password"
+                                />  
+                        </div>
+
+                        <div className={styles.spanError}>
+                            <span>{errors.confirmPassword}</span> 
+                        </div> 
+
+                        <div>
+                            <button className={styles.btn}>go!</button>
+                        </div>
+
+                    </form>
+                    <div className={styles.message}>
+                        <p>Do you have an account? <span className={styles.enterBtn} onClick={()=>{handleRegister()}}>Enter here</span> .</p>
                     </div>
-
-                    <div className={styles.spanError}>
-                        <span>{errors.confirmPassword}</span> 
-                    </div> 
-
-                    <div>
-                        <button className={styles.btn}>go!</button>
-                    </div>
-
-                </form>
-                <div className={styles.message}>
-                    <p>Do you have an account? <span className={styles.enterBtn} onClick={()=>{handleRegister()}}>Enter here</span> .</p>
-                </div>
-        </div>
+            </div>
+        </>
     )
 
 }

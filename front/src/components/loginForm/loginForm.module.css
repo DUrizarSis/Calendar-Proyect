@@ -1,25 +1,38 @@
 
-.container{
-    width: 85vh;
-    height: 85vh;
+.container {
+    width: 30em; /* Puedes ajustar el tamaño según tus necesidades */
+    height: 85vh; /* Puedes ajustar el tamaño según tus necesidades */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: grid;
-    grid-template-rows: 20% 70% 10%;
+    grid-template-rows: 25% 60% 15%;
     align-items: center;
     justify-content: center;
-
     text-align: center;
-}
+    border: 0.5px solid white;
+    border-radius: 10px;
+    background-color: #2c3e50;
+  }
+
+
 .formContainer{
-    width: 30em;
+    width: 27em;
+    height: auto;
     display: grid;
-    grid-template-rows: 1fr 1em 1fr 1em 1fr;
+    grid-template-rows: 1fr 1em 1fr 1em 4em;
     align-items: center;
     text-align: center;
-    
+    justify-content: center;
+    background-color: #2c3e50;
+    border: none;
+    padding: 0;
+
 }
 .inputForm{
-    width: 100%;
-    background-color:#afaedf;
+    width: 27em;
+    background-color:#ffffff;
     margin: 10px 0;
     height: 4rem;
     border-radius: 4rem;
@@ -53,21 +66,23 @@
     font-size: 1.1rem;
 
 }
-.spanError{
+.spanError span{
     font-size: 0.6em;
     color: #f0f0f0;
 }
 .container h1{
-    color: black
-}
-.container p{
-    color:black;
-}
-h1{
     font-size: 3em;
 }
+.container p{
+    color:white;
+}
+
+.title{
+    color:white;
+    margin-top: 1em;
+}
 span{
-color: #0a0a0a;
+    color:white;
 
 }
 
@@ -87,7 +102,7 @@ color: #0a0a0a;
 }
 
 .btn:hover {
-    background-color: #f0f0f0; /* Cambia el color de fondo al pasar el mouse */
+    background-color: #6bfabe; /* Cambia el color de fondo al pasar el mouse */
     color: #000; /* Cambia el color del texto al pasar el mouse */
 }
 .message{
@@ -109,10 +124,23 @@ color: #0a0a0a;
 
   .registerLink {
     cursor: pointer;
-    color: #0b13f7;
+    color: #889ce9;
   }
 
   .registerLink:hover{
-    color: #2530cc;
+
+    color: white;
     font-weight: bold;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fdfdfd; /* Fondo oscuro semitransparente */
+    z-index: 0; /* Asegúrate de que este valor sea menor que el z-index del contenedor */
+    transition: transform 2s ease; /* Efecto de transición de 2 segundos */
+    transform: scale(1); /* Escala inicial */
   }
