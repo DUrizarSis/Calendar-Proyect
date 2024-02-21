@@ -99,7 +99,7 @@ button:hover {
   border-color: #1a252f;
 }
 
-.rbc-toolbar button:hover, .rbc-toolbar button:active:hover, .rbc-toolbar button:active:focus, .rbc-toolbar button.rbc-active:hover, .rbc-toolbar button.rbc-active:focus {
+.rbc-toolbar button:hover, .rbc-toolbar button:focus, .rbc-toolbar button:active:hover, .rbc-toolbar button:active:focus, .rbc-toolbar button.rbc-active:hover, .rbc-toolbar button.rbc-active:focus {
   color: white;
   background-color: #1a252f;
   border-color: #1a252f;
