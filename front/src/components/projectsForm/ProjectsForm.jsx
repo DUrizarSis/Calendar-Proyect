@@ -218,14 +218,20 @@ const ProjectsForm = () => {
 
           <div className={styles.containerprojectsList}>
 
-            <h2>Existing Projects:</h2>
+            <h2 className={styles.headProjectList}>My Projects:</h2>
             <div className={styles.projectsList}>
               <ul>
                 {projectsList.map((project) => (
                   <li key={project._id}>
-                    {project.name} -{' '}
-                    <button className={styles.btnEdit} onClick={() => handleEdit(project._id)}>Edit</button>
-                    <button  className={styles.btnDelete} onClick={() => handleDelete(project._id)}>Delete</button>
+                    <div className={styles.projectItem}>
+                      <div>{project.name} -{' '}</div>
+                      <div className={styles.btnsProjects}>                    
+                        <button className={styles.btnEdit} onClick={() => handleEdit(project._id)}>Edit</button>
+                        <button  className={styles.btnDelete} onClick={() => handleDelete(project._id)}>Delete</button>
+                      </div>
+                    </div>
+                    
+
                   </li>
                 ))}
               </ul>
@@ -233,11 +239,13 @@ const ProjectsForm = () => {
             
           </div>
 
-          <div className={styles.containerform}>
+          <div className={styles.containerForm}>
 
-            <h2>Existing Projects:</h2>
+            <div className={styles.contForm}>
 
-            <div className={styles.Contform}>
+              {
+                isEditMode ? <h2>Update Project</h2> : <h2>Create New Project</h2>
+              }
 
               <form onSubmit={handleSubmit} className={styles.form}>
                   <div className={styles.formInputSimple}>
@@ -250,7 +258,9 @@ const ProjectsForm = () => {
                         value={formData.name}
                         />
 
-                    {errors.name && <div>{errors.name}</div>}
+                        <div className={styles.errors}>
+                          {errors.name && <p>{errors.name}</p>}
+                        </div>
                   </div>
 
                   <div className={styles.formInputDate}>
@@ -264,7 +274,9 @@ const ProjectsForm = () => {
                         dateFormat="MMMM d, yyyy h:mm aa"
                         required
                         />
-                    {errors.start && <div>{errors.start}</div>}
+                      <div className={styles.errors}>
+                        {errors.start && <p>{errors.start}</p>}
+                      </div>
                   </div>
 
                   <div className={styles.formInputDate}>
@@ -279,7 +291,9 @@ const ProjectsForm = () => {
                           required
                           />
 
-                    {errors.end && <div>{errors.end}</div>}
+                        <div className={styles.errors}>
+                          {errors.end && <p>{errors.end}</p>}
+                        </div>
                   </div>
 
                   <div className={styles.formInputSelect}>
@@ -290,21 +304,22 @@ const ProjectsForm = () => {
                         value={options.filter(option => formData.team.includes(option.value))}
                         onChange={handleTeamChange}
                         />
-                    {errors.team && <div>{errors.team}</div>}
+                      <div className={styles.errors}>
+                        {errors.team && <p>{errors.team}</p>}
+                      </div>
                   </div>
 
 
-                  <div className={styles.btn}>
-                    <button type="submit">{isEditMode ? 'Update' : 'Add'}</button>
-                  </div>
-
-                  {isEditMode && (
-                    <div className={styles.btn}>
-                      <button type="button" onClick={handleResetForm}>
+                  <div>
+                    <button className={styles.btnForm} type="submit">{isEditMode ? 'Update' : 'Add'}</button>
+                    {isEditMode && (
+                      <button className={styles.btnNewP} type="button" onClick={handleResetForm}>
                         New Project
                       </button>
-                    </div>
-                  )}
+                    )}
+                  </div>
+
+
 
                   {showConfirmation && (
                     <div className={styles.containerConfirmDelete}>

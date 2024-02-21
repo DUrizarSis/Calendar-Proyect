@@ -1,111 +1,159 @@
-
-.container{
-    width: 100%;
-    height: 90vh;
+.container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding: 1rem;
+    place-items: center;
+    gap: 2rem;
+    padding: 2rem 8rem;
+    margin: 0;
+    background-color: #ffffff;
+    height: calc(100vh - 3.5em);
 
 }
-.containerform{
-    width: 100%;
-    height: 85vh;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    justify-content: center;
-    gap:10px
-}
-.Contform{
+
+/** Form **/
+.containerForm {
+    background-color: white;
+    padding: 2em;
     width: 30em;
     height: 100%;
-    display: flex;
-    justify-content: center;
+    border-radius: .5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
-.form{
-    width:  100%;
-    height: 100%;
-    border: 1px solid lightslategray; 
-    padding: 1rem; 
-    box-sizing: border-box; 
+.form {
+    margin-top: 2em;
+    padding: 0;
+    border: none;
 }
 
-.formInputSimple{
-    display: grid;
-    grid-template-rows: 2rem 1fr 2rem;
+.formInputSimple { /*Input mame project - general*/
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.formInputSimple input { /*Input name project*/
+    height: 3rem;
+    border: none;
+    border: 1px solid #162331;
+    padding: 1em;
+    font-family: 'Poppins', sans-serif;
+}
+
+.formInputDate {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-top: 1rem;
+}
+
+.formInputDate input {
+    height: 3rem; 
+    width: 100%;
+    padding: 1em;
+}
+
+.formInputSelect {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.btnForm {
+    margin-top: 1em;
+    padding: .5em;
+    width: 100%;
+    min-width: auto;
+    background-color: #2c3e50;
+    border-radius: 1rem;
+    color: white;
+    transition: all .2s;
+}
+
+.btnForm:hover {
+    background-color: #1a2837;
+}
+
+.btnNewP {
+    margin-top: 1em;
+    padding: .5em;
+    width: 100%;
+    min-width: auto;
+    background-color: #5995fd;
+    border-radius: 1rem;
+    color: white;
+    transition: all .2s;
+}
+.btnNewP:hover {
+    background-color: #2a60bc;
+}
+
+.errors {
+    height: 1em;
+}
+
+
+/**Existing Projects**/
+.containerprojectsList {
+    background-color: white;
+    padding: 2em;
+    width: 30em;
+    min-height: 100%;
+    max-height: 100%;
+    overflow: auto;
+    border-radius: .5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.headProjectList {
+    background-color: #2c3e50;
+    padding: .5em 1.35em;
+    margin-bottom: 1rem;
+    color: white;
+    margin-right: calc(-1 * 1.35em); /* Compensa el padding aplicado a containerprojectsList */
+    margin-left: calc(-1 * 1.35em);
+    margin-top: calc(-1 * 1.35em);
+}
+
+.projectsList {
+    width: 100%;
+    margin-top: 2rem;
     
 }
-
-.formInputSimple input{
-    height: 2rem;
-    border: 1px solid lightgray;
+.projectItem {
+    display: flex;
+    justify-content: space-between;
+    margin-top: .5rem;
 }
 
-.formInputDate{
-    width: 100%;
-    display: grid;
-    grid-template-rows: 1.5em 1fr 1em;
-}
-.formInputDate input{
-    width: 100%;
-    height: 3em;
-    border: 1px solid lightgray;
-}
-.formInputSelect{
-    width: 100%;
-    display: grid;
-    grid-template-rows: 1.5em 1fr 1em;
+.btnsProjects {
+    display: flex;
+    gap: 1rem;
 }
 
-.btn{
-    text-align: center;
-    justify-content: end;
-
-}
-.btn button{
-    margin: 1.3rem;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 0.5rem;
-} 
-
-.btnDelete, .btnEdit, .btnHome {
- padding: 0.5rem;
- margin: 0.4rem;
- text-transform: uppercase;
+.btnEdit {
+    color: white;
+    background-color: #5995fd;
+    padding: .2em 1em;
+    transition: all .2s;
 }
 
 .btnEdit:hover {
-    background-color: rgb(150, 202, 235);
+    background-color: #2a60bc;
 }
 
-.btnDelete:hover{
-    background-color: lightcoral;
-}
-
-.btn button:hover{
-    
-    background-color: rgb(121, 134, 146);
+.btnDelete {
     color: white;
-}
-.containerprojectsList{
-    width: 100%;
-    height: 85vh;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    justify-content: center;
-    gap:10px
-}
-.projectsList {
-    width:  100%;
-    width: 30em;;
-    border: 1px solid lightslategray; 
-    padding: 1rem; 
-    box-sizing: border-box;
-    overflow: auto;
-    text-align: center;
-    border-radius: 10px;
+    background-color: #c73e3e;
+    padding: .2em 1em;
+    transition: all .2s;
 }
 
+.btnDelete:hover {
+    background-color: #b42323;
+}
+
+
+/**Alert Delete**/
 .containerConfirmDelete{
     padding: 1em;
     width: 35em;
@@ -122,7 +170,6 @@
     justify-items: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  
     
 }
 
@@ -139,10 +186,3 @@
     width: 2.5em;
     height: 2;
 }
-
-li{
-    margin-top: 2rem;
-    padding: 0.2rem; 
-}
-
-
