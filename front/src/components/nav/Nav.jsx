@@ -6,6 +6,7 @@ const Nav = ({logout}) => {
     const user = useSelector(state => state.userView.userData)
     const logoutIcon = process.env.PUBLIC_URL + '/logout.png';
     const projectIcon = process.env.PUBLIC_URL + '/project.png';
+    const hiIcon = process.env.PUBLIC_URL + '/hi.png';
 
     const handleLogout = () => {
         logout();
@@ -15,7 +16,11 @@ const Nav = ({logout}) => {
         <div className={styles.container}>
             
             <div className={styles.title}>
-                <h3>welcome {user.username}!!</h3>
+                <h3>Hi</h3>
+                <div className={styles.titleImg}>
+                    <img src={hiIcon} alt="hi" />
+                </div>
+                <h3> , {user.username}!</h3>
             </div>
 
             <div className={styles.logout}>

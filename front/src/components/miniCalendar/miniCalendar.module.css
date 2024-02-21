@@ -1,7 +1,11 @@
 .container{
     width: 17rem;
     height: 21rem;
-    margin: 2rem 3rem 1em 3rem;
+    margin: 2rem 2rem 1em 0;
 
+}
+span{
+    color:black;
+    font-weight: bold;
 }
 

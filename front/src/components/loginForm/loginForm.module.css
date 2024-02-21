@@ -115,13 +115,22 @@ span{
     justify-content: center;
     align-items: center;
     height: 100vh; /* Esto hace que el div ocupe toda la altura de la pantalla */
-   
   }
   
   .msg {
+    width: 50em;
     text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
-
+.msg h1{
+    font-size: 4em;
+}
+.msg p{
+    font-size: 1.2em;
+}
   .registerLink {
     cursor: pointer;
     color: #889ce9;
