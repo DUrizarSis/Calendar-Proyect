@@ -154,59 +154,76 @@ const ProjectsForm = () => {
     setErrors((prevErrors) => ({ ...prevErrors, team: validationErrors.team || null }));
   };
 
+  const isNameChanged = isEditMode && formData.name !== projectsList.find(project => project._id === projectId).name;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const validationErrors = validationProjects(formData, existingProjects);
-
-    if (Object.keys(validationErrors).length === 0) {
+  
+    if (!isNameChanged) {
       try {
-        if (isEditMode) { //If is Update
-        const response = await axios.put(`http://localhost:5000/api/projects/${projectId}`, formData);
-
-            if (response.status === 200) {
-
-              const responseAll = await axios.get('http://localhost:5000/api/projects/all');
-              const team = responseAll.data;
-          
-              const superU = userSuper._id;
-          
-              dispatch(AddTeam({team, superU}));
-              dispatch(setProjects(team));
-
-            } 
-
-        } else { //If is'n update
-          const response = await axios.post('http://localhost:5000/api/projects', formData);
-            
-          if (response.status === 201) {
-
-            const responseAll = await axios.get('http://localhost:5000/api/projects/all');
-            const team = responseAll.data;
-        
-            const superU = userSuper._id;
-        
-            dispatch(AddTeam({team, superU}));
-            dispatch(setProjects(team));
-        }}
-
-        //Reset Form and States
-        setFormData({
-          name: '',
-          start: new Date(),
-          end: new Date(),
-          team: [],
-          projectCreator: userSuper.isSuperuser && userSuper._id,
-        });
-        setIsEditMode(false);
-        setProjectId(null);
-
+        // Lógica para la actualización o creación del proyecto sin realizar la validación del nombre
+        const response = isEditMode
+          ? await axios.put(`http://localhost:5000/api/projects/${projectId}`, formData)
+          : await axios.post('http://localhost:5000/api/projects', formData);
+  
+        if (response.status === 200 || response.status === 201) {
+          const responseAll = await axios.get('http://localhost:5000/api/projects/all');
+          const team = responseAll.data;
+          const superU = userSuper._id;
+  
+          dispatch(AddTeam({ team, superU }));
+          dispatch(setProjects(team));
+  
+          // Resetear formulario y otros estados
+          setFormData({
+            name: '',
+            start: new Date(),
+            end: new Date(),
+            team: [],
+            projectCreator: userSuper.isSuperuser && userSuper._id,
+          });
+          setIsEditMode(false);
+          setProjectId(null);
+        }
       } catch (error) {
         console.error('Error:', error);
       }
     } else {
-      setErrors(validationErrors);
+      // Realizar la validación del nombre solo si ha cambiado
+      const validationErrors = validationProjects(formData, existingProjects);
+  
+      if (Object.keys(validationErrors).length === 0) {
+        try {
+          // Lógica para la actualización o creación del proyecto con la validación del nombre
+          const response = isEditMode
+            ? await axios.put(`http://localhost:5000/api/projects/${projectId}`, formData)
+            : await axios.post('http://localhost:5000/api/projects', formData);
+  
+          if (response.status === 200 || response.status === 201) {
+            const responseAll = await axios.get('http://localhost:5000/api/projects/all');
+            const team = responseAll.data;
+            const superU = userSuper._id;
+  
+            dispatch(AddTeam({ team, superU }));
+            dispatch(setProjects(team));
+  
+            // Resetear formulario y otros estados
+            setFormData({
+              name: '',
+              start: new Date(),
+              end: new Date(),
+              team: [],
+              projectCreator: userSuper.isSuperuser && userSuper._id,
+            });
+            setIsEditMode(false);
+            setProjectId(null);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      } else {
+        setErrors(validationErrors);
+      }
     }
   };
 
@@ -258,9 +275,9 @@ const ProjectsForm = () => {
                         value={formData.name}
                         />
 
-                        <div className={styles.errors}>
-                          {errors.name && <p>{errors.name}</p>}
-                        </div>
+                  <div className={styles.errors}>
+                    {isEditMode && !isNameChanged ? "" : (errors.name && <p>{errors.name}</p>)}
+                  </div>
                   </div>
 
                   <div className={styles.formInputDate}>
