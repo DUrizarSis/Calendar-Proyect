@@ -88,7 +88,7 @@ const DayCalendar = ({eventStyleGetter,handleSelectEvent, handleShowForm, handle
     const customDayPropGetter = (date) => {
       const dateObject = dayjs(date).toDate();
       const style = {
-        backgroundColor: isDateOutsideProjectRange(dateObject) ? 'lightgray' : 'inherit',
+        backgroundColor: isDateOutsideProjectRange(dateObject) ? 'lightgray' : 'white',
       };
 
       return {

@@ -53,6 +53,16 @@ console.log(eventState)
     }
   }
 
+  const customDayPropGetter = () => {
+    const style = {
+      backgroundColor: 'white',
+    };
+
+    return {
+      style,
+    };
+  };
+
   return (
 
     
@@ -66,6 +76,7 @@ console.log(eventState)
       onSelectSlot={handleSelectSlot}
       onSelectEvent={handleSelectEvent}
       eventPropGetter={eventStyleGetter}
+      dayPropGetter={customDayPropGetter}
      
       />
 
