@@ -29,6 +29,8 @@ const ProjectView = () => {
 
         if(selectOptions.length > 0){
             dispatch(addIndexforEventsProject(selectOptions[0]));
+            const defaultProject = projects2[0];
+            dispatch(setOnProject(defaultProject));
             console.log(selectOptions[0]);
         }
 

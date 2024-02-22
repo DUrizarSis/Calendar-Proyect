@@ -2,8 +2,9 @@
     width: 30em;
     max-height: 70vh; /* Establece una altura máxima para limitar el estiramiento */
     position: fixed;
-    top: 2em;
-    left: 30%;
+    top: 10%;
+    left: 50%; 
+    transform: translateX(-50%); /* Ajusta el centro exacto */ 
     z-index: 999; /* Ajusta el valor de z-index según sea necesario para que esté por encima de otros elementos */
     /* Otros estilos */
     }
