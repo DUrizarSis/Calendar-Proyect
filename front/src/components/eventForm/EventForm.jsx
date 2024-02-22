@@ -107,15 +107,15 @@ const EventForm = ({ mode, event, onCancel }) => {
 
     const { start, end } = formData;
 
-    if (!isDateTimeValid(start, end)) {
-      alert('There is already an event scheduled at this time.');
-      return;
-    }
+    // if (!isDateTimeValid(start, end)) {
+    //   alert('There is already an event scheduled at this time.');
+    //   return;
+    // }
 
-    if (!isStartDateValid(start)) {
-      alert('Start date cannot be before the current date.');
-      return;
-    }
+    // if (!isStartDateValid(start)) {
+    //   alert('Start date cannot be before the current date.');
+    //   return;
+    // }
 
     if (mode === 'add') {
       dispatch(addEvent(formData));

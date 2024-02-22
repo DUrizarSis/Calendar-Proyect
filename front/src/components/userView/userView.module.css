@@ -48,6 +48,8 @@
     border-radius: 1px; /* Ajusta el radio del borde según sea necesario */
     font-weight: bold;
     font-family: 'Poppins', sans-serif;
+    justify-content: start;
+    text-align: start;
 }
 
 .btnMy:hover {
