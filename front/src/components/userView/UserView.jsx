@@ -137,7 +137,7 @@ const UserView = ({handleYourEvents}) => {
     } 
     return(
         <div>
-            <button onClick={() => { handleYourEvents(); handlebackgroundColorOff(); }} className={styles.btnMy}>My Projects</button>
+            <button onClick={() => { handleYourEvents(); handlebackgroundColorOff(); }} className={styles.btnMy}>My Calendar</button>
             <div className={styles.container}>
                 <div className={styles.title}>
                     <h3>Team:</h3>
