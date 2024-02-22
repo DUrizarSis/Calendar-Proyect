@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -227,8 +227,7 @@ const ProjectsForm = () => {
     }
   };
 
-  const options = users.map(user => ({ value: user._id, label: user.username }));
-
+  const options = useMemo(() => users.map(user => ({ value: user._id, label: user.username })), [users]);
   return (
    
       <div className={styles.container}>
